@@ -6,33 +6,25 @@ const FROM = 'hireme@shubham.cv';
 // TODO: replace with real hosted resume URL
 const RESUME_URL = 'https://shubham.cv/resume';
 
-export default async function handler(req: Request) {
+export default async function handler(req: any, res: any) {
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type' },
-    });
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(200).end();
   }
-  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
+  if (req.method !== 'POST') return res.status(405).end();
 
-  const { transcript, visitorType, messageCount, durationMs, visitorEmail, visitorName } =
-    await req.json() as {
-      transcript: string;
-      visitorType: string | null;
-      messageCount: number;
-      durationMs: number;
-      visitorEmail: string | null;
-      visitorName: string | null;
-    };
+  const { transcript, visitorType, messageCount, durationMs, visitorEmail, visitorName } = req.body;
 
-  if (!transcript || messageCount < 2) return Response.json({ ok: true, skipped: true });
+  if (!transcript || messageCount < 2) return res.json({ ok: true, skipped: true });
 
   const durationMin = Math.round(durationMs / 60000);
   const durationStr = durationMin < 1 ? '<1 min' : `${durationMin} min`;
   const visitorLabel = visitorType ?? 'unknown';
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-  // Summarize with Claude
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
   const summaryRes = await client.messages.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 400,
@@ -59,7 +51,7 @@ Format exactly:
   const summary = summaryRes.content[0].type === 'text' ? summaryRes.content[0].text : '';
   const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
-  // ── Email 1: Shubham's notification ──
+  // ── Email to Shubham ──
   const shubhamBody =
 `${visitorLabel} visitor — ${messageCount} messages — ${durationStr} — ${dateStr}
 ${visitorEmail ? `visitor: ${visitorName ? visitorName + ' <' + visitorEmail + '>' : visitorEmail}` : 'visitor: anonymous'}
@@ -79,7 +71,7 @@ ${transcript}`;
     text: shubhamBody,
   });
 
-  // ── Email 2: Visitor copy (if they gave their email) ──
+  // ── Email to visitor (if they shared their email) ──
   if (visitorEmail) {
     const greeting = visitorName ? `hey ${visitorName.split(' ')[0]},` : 'hey,';
 
@@ -105,5 +97,6 @@ if the timing's right, Shubham will reach out within 24 hours. you can also just
     });
   }
 
-  return Response.json({ ok: true }, { headers: { 'Access-Control-Allow-Origin': '*' } });
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  return res.json({ ok: true });
 }

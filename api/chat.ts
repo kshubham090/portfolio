@@ -25,21 +25,20 @@ Conversation rules:
 5. If they share their email, confirm: "got it — you'll get a copy once you're done here."
 6. If they share a JD or role brief, reference specific parts of it when answering.`;
 
-export default async function handler(req: Request) {
-  if (req.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
+export default async function handler(req: any, res: any) {
+  if (req.method !== 'POST') return res.status(405).end();
 
-  const { messages, visitorType } = await req.json() as {
-    messages: { role: 'user' | 'assistant'; content: string }[];
-    visitorType?: string;
-  };
+  const { messages, visitorType } = req.body;
 
   const systemWithContext = visitorType
     ? `${SYSTEM}\n\nVisitor type detected: ${visitorType}. Tailor your responses accordingly.`
     : SYSTEM;
 
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Transfer-Encoding', 'chunked');
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   const stream = await client.messages.stream({
     model: 'claude-haiku-4-5-20251001',
@@ -48,26 +47,14 @@ export default async function handler(req: Request) {
     messages,
   });
 
-  const encoder = new TextEncoder();
-  const readable = new ReadableStream({
-    async start(controller) {
-      for await (const chunk of stream) {
-        if (
-          chunk.type === 'content_block_delta' &&
-          chunk.delta.type === 'text_delta'
-        ) {
-          controller.enqueue(encoder.encode(chunk.delta.text));
-        }
-      }
-      controller.close();
-    },
-  });
+  for await (const chunk of stream) {
+    if (
+      chunk.type === 'content_block_delta' &&
+      chunk.delta.type === 'text_delta'
+    ) {
+      res.write(chunk.delta.text);
+    }
+  }
 
-  return new Response(readable, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Transfer-Encoding': 'chunked',
-      'Access-Control-Allow-Origin': '*',
-    },
-  });
+  res.end();
 }
