@@ -20,24 +20,29 @@ export default function Tour() {
       return;
     }
 
-    const rect = el.getBoundingClientRect();
-    const spot: Rect = {
-      top: rect.top - PAD,
-      left: rect.left - PAD,
-      width: rect.width + PAD * 2,
-      height: rect.height + PAD * 2,
-    };
-    setSpotlight(spot);
-
-    const cardHeight = cardRef.current?.offsetHeight ?? 160;
-    const cardWidth = cardRef.current?.offsetWidth ?? 320;
-    const below = rect.bottom + PAD + 12 + cardHeight < window.innerHeight;
-    const tipTop = below ? rect.bottom + PAD + 12 : rect.top - PAD - 12 - cardHeight;
-    let tipLeft = rect.left + rect.width / 2 - cardWidth / 2;
-    tipLeft = Math.max(16, Math.min(tipLeft, window.innerWidth - cardWidth - 16));
-    setTooltipPos({ top: tipTop, left: tipLeft });
-
+    // Scroll first, then calculate positions after scroll settles
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    const id = setTimeout(() => {
+      const rect = el.getBoundingClientRect();
+      const spot: Rect = {
+        top: rect.top - PAD,
+        left: rect.left - PAD,
+        width: rect.width + PAD * 2,
+        height: rect.height + PAD * 2,
+      };
+      setSpotlight(spot);
+
+      const cardHeight = cardRef.current?.offsetHeight ?? 160;
+      const cardWidth = cardRef.current?.offsetWidth ?? 320;
+      const below = rect.bottom + PAD + 12 + cardHeight < window.innerHeight;
+      const tipTop = below ? rect.bottom + PAD + 12 : rect.top - PAD - 12 - cardHeight;
+      let tipLeft = rect.left + rect.width / 2 - cardWidth / 2;
+      tipLeft = Math.max(16, Math.min(tipLeft, window.innerWidth - cardWidth - 16));
+      setTooltipPos({ top: tipTop, left: tipLeft });
+    }, 350);
+
+    return () => clearTimeout(id);
   }, [active, step, current.targetId]);
 
   if (!active || !spotlight || !tooltipPos) return null;
