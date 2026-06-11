@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { classifyVisitor, getPitch, type VisitorType } from '../lib/pitchTemplates';
 import { streamChat, type ChatMessage } from '../lib/claude';
+import { sessionStart, sessionAddMessage, sessionEnd } from '../lib/sessionTracker';
 
 interface Message { role: 'bot' | 'user'; text: string; }
 
@@ -45,7 +46,7 @@ export default function AgentDrawer() {
     const userMsg: Message = { role: 'user', text };
     setMsgs((prev) => [...prev, userMsg]);
 
-    /* first message → classify and pitch (static, no API call) */
+    /* first message → classify, pitch, start session */
     if (visitorType === null) {
       const type = classifyVisitor(text);
       setVisitorType(type);
@@ -55,10 +56,14 @@ export default function AgentDrawer() {
         { role: 'user', content: text },
         { role: 'assistant', content: pitch },
       ]);
+      sessionStart(type);
+      sessionAddMessage('user', text);
+      sessionAddMessage('agent', pitch);
       return;
     }
 
     /* subsequent messages → stream from Claude */
+    sessionAddMessage('user', text);
     const nextHistory: ChatMessage[] = [
       ...history,
       { role: 'user', content: text },
@@ -87,6 +92,7 @@ export default function AgentDrawer() {
         setMsgs((prev) => {
           const last = prev[prev.length - 1];
           setHistory((h) => [...h, { role: 'assistant', content: last.text }]);
+          sessionAddMessage('agent', last.text);
           return prev;
         });
       },
@@ -142,7 +148,7 @@ export default function AgentDrawer() {
         <div className="agent-head">
           <div className="agent-head-bar">
             <span className="agent-head-path">shubham@agent:~$</span>
-            <button className="agent-head-close" onClick={() => setOpen(false)}>✕ close</button>
+            <button className="agent-head-close" onClick={() => { setOpen(false); sessionEnd(); }}>✕ close</button>
           </div>
           <div className="agent-head-meta">
             <span className="agent-online-dot" />

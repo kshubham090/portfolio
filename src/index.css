@@ -177,13 +177,13 @@ nav {
 .ongoing-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: #4ade80;
+  background: #60a5fa;
   flex-shrink: 0;
   animation: pulse-dot 2s infinite;
 }
 .ongoing-name { font-family: var(--disp); font-size: 14px; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; }
 .ongoing-desc { font-size: 12px; color: var(--muted); letter-spacing: 0.01em; }
-.ongoing-status { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #4ade80; white-space: nowrap; }
+.ongoing-status { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #60a5fa; white-space: nowrap; }
 .ongoing-item--oss {
   border-color: #282828;
   background: var(--bg3);
@@ -465,11 +465,11 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   box-shadow: 0 8px 32px rgba(0,0,0,0.6);
   transition: background 0.2s, border-color 0.2s, opacity 0.2s, transform 0.2s;
 }
-.agent-tab:hover { background: #141414; border-color: #4ade80; transform: translateY(-2px); }
+.agent-tab:hover { background: #141414; border-color: #60a5fa; transform: translateY(-2px); }
 .agent-tab.hidden { opacity: 0; pointer-events: none; transform: translateY(8px); }
-.agent-tab-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; flex-shrink: 0; animation: pulse-dot 2s infinite; }
+.agent-tab-dot { width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; flex-shrink: 0; animation: pulse-dot 2s infinite; }
 .agent-tab-label { font-family: var(--body); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #888; user-select: none; }
-.agent-tab-prompt { font-family: var(--body); font-size: 12px; color: #4ade80; user-select: none; }
+.agent-tab-prompt { font-family: var(--body); font-size: 12px; color: #60a5fa; user-select: none; }
 .agent-drawer {
   position: fixed;
   top: 0; right: 0;
@@ -509,10 +509,10 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   transition: background 0.2s;
 }
 .drawer-handle:hover::after,
-.drawer-handle.dragging::after { background: #4ade80; }
+.drawer-handle.dragging::after { background: #60a5fa; }
 .agent-head { padding: 20px 20px 16px; border-bottom: 1px solid #141414; flex-shrink: 0; }
 .agent-head-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.agent-head-path { font-family: var(--body); font-size: 11px; color: #4ade80; letter-spacing: 0.04em; }
+.agent-head-path { font-family: var(--body); font-size: 11px; color: #60a5fa; letter-spacing: 0.04em; }
 .agent-head-close {
   background: none;
   border: 1px solid #222;
@@ -526,7 +526,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
 }
 .agent-head-close:hover { color: #e05050; border-color: #e05050; }
 .agent-head-meta { display: flex; align-items: center; gap: 10px; }
-.agent-online-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse-dot 2s infinite; }
+.agent-online-dot { width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; animation: pulse-dot 2s infinite; }
 .agent-head-sub { font-family: var(--body); font-size: 10px; color: #333; letter-spacing: 0.08em; text-transform: uppercase; }
 .term-msgs {
   flex: 1;
@@ -542,7 +542,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
 .term-msgs::-webkit-scrollbar-thumb { background: #1e1e1e; }
 .term-line { display: flex; gap: 10px; align-items: flex-start; line-height: 1.65; font-family: var(--body); font-size: 12.5px; }
 .term-prefix { flex-shrink: 0; font-weight: 400; margin-top: 1px; }
-.term-line.bot .term-prefix { color: #4ade80; }
+.term-line.bot .term-prefix { color: #60a5fa; }
 .term-line.user .term-prefix { color: #555; }
 .term-text { color: #999; white-space: pre-wrap; word-break: break-word; }
 .term-line.user .term-text { color: #666; }
@@ -560,7 +560,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.chip:hover { border-color: #4ade80; color: #4ade80; }
+.chip:hover { border-color: #60a5fa; color: #60a5fa; }
 .term-input-area { padding: 14px 20px 20px; border-top: 1px solid #141414; flex-shrink: 0; }
 .term-input-row {
   display: flex;
@@ -572,7 +572,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   transition: border-color 0.2s;
 }
 .term-input-row:focus-within { border-color: #2a2a2a; }
-.term-input-prefix { color: #4ade80; font-family: var(--body); font-size: 13px; flex-shrink: 0; }
+.term-input-prefix { color: #60a5fa; font-family: var(--body); font-size: 13px; flex-shrink: 0; }
 .chat-input {
   flex: 1;
   background: transparent;
@@ -581,7 +581,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   font-size: 12.5px;
   outline: none;
   font-family: var(--body);
-  caret-color: #4ade80;
+  caret-color: #60a5fa;
 }
 .chat-input::placeholder { color: #2a2a2a; }
 .chat-send {
@@ -595,16 +595,16 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   transition: color 0.2s, border-color 0.2s;
   letter-spacing: 0.06em;
 }
-.chat-send:hover { color: #4ade80; border-color: #4ade80; }
+.chat-send:hover { color: #60a5fa; border-color: #60a5fa; }
 .term-powered { font-size: 10px; color: #1e1e1e; letter-spacing: 0.08em; text-align: center; margin-top: 10px; text-transform: uppercase; }
 .typing-bubble { display: flex; align-items: center; gap: 5px; padding: 2px 0; font-family: var(--body); font-size: 12.5px; }
-.typing-bubble::before { content: '>'; color: #4ade80; margin-right: 4px; }
+.typing-bubble::before { content: '>'; color: #60a5fa; margin-right: 4px; }
 .typing-bubble span { width: 4px; height: 4px; background: #333; border-radius: 50%; animation: tdot 1.3s infinite; }
 .typing-bubble span:nth-child(2) { animation-delay: 0.18s; }
 .typing-bubble span:nth-child(3) { animation-delay: 0.36s; }
 @keyframes tdot {
   0%, 70%, 100% { transform: translateY(0); background: #333; }
-  35%            { transform: translateY(-4px); background: #4ade80; }
+  35%            { transform: translateY(-4px); background: #60a5fa; }
 }
 
 /* ── FADE-IN ── */
