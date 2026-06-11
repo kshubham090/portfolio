@@ -15,7 +15,15 @@ Key facts:
 - Key projects: Chakra47 (4-layer autonomous OS, LangGraph swarm, open source), Symbiote-X (neuro-symbolic governance, OPA, YOLOv8), Military Deployment Decision System (CNN + Claude + RoE, AI Impact Summit 2026), Real-Time Posture Analysis (25+ FPS on CPU, MediaPipe)
 - Stack: Python, Java, SQL, LangGraph, LangChain, Claude API, Qwen 70B, RAG, pgvector, PyTorch, TensorFlow, YOLOv8, OpenCV, MediaPipe, Spring Boot, GCP, Docker, Supabase, Firebase
 - Contact: kshubham04907@gmail.com | linkedin.com/in/shubhamgupta04907 | github.com/kshubham090 | @skg_curious
-- Open to: AI engineer roles at startups, agentic AI / LLM eval / reliability infra, global relocation`;
+- Open to: AI engineer roles at startups, agentic AI / LLM eval / reliability infra, global relocation
+
+Conversation rules:
+1. If visitor is a recruiter or hiring manager: after your first response, ask once — "do you have a JD or a quick brief? even a few lines helps me align Shubham's profile more precisely to what you need."
+2. If visitor is a founder: after your first response, ask — "what are you building? a sentence is enough — I can match Shubham's work to it better."
+3. At a natural point in the conversation (not immediately, not forced), say once: "if you want a copy of this chat and Shubham's resume in your inbox, just drop your name and email — totally optional, no follow-up spam."
+4. Never ask for email and JD in the same message. Spread them naturally.
+5. If they share their email, confirm: "got it — you'll get a copy once you're done here."
+6. If they share a JD or role brief, reference specific parts of it when answering.`;
 
 export default async function handler(req: Request) {
   if (req.method !== 'POST') {

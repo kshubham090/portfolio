@@ -1,7 +1,10 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { Resend } from 'resend';
 
-const NOTIFY_EMAIL = 'kshubham04907@gmail.com';
+const SHUBHAM_EMAIL = 'kshubham04907@gmail.com';
+const FROM = 'hireme@shubham.cv';
+// TODO: replace with real hosted resume URL
+const RESUME_URL = 'https://shubham.cv/resume';
 
 export default async function handler(req: Request) {
   if (req.method === 'OPTIONS') {
@@ -11,58 +14,96 @@ export default async function handler(req: Request) {
   }
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
-  const { transcript, visitorType, messageCount, durationMs } = await req.json() as {
-    transcript: string;
-    visitorType: string | null;
-    messageCount: number;
-    durationMs: number;
-  };
+  const { transcript, visitorType, messageCount, durationMs, visitorEmail, visitorName } =
+    await req.json() as {
+      transcript: string;
+      visitorType: string | null;
+      messageCount: number;
+      durationMs: number;
+      visitorEmail: string | null;
+      visitorName: string | null;
+    };
 
-  if (!transcript || messageCount < 2) {
-    return Response.json({ ok: true, skipped: true });
-  }
+  if (!transcript || messageCount < 2) return Response.json({ ok: true, skipped: true });
 
   const durationMin = Math.round(durationMs / 60000);
   const durationStr = durationMin < 1 ? '<1 min' : `${durationMin} min`;
   const visitorLabel = visitorType ?? 'unknown';
-
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-  const summary = await client.messages.create({
+
+  // Summarize with Claude
+  const summaryRes = await client.messages.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 400,
     messages: [{
       role: 'user',
-      content: `Summarize this portfolio visitor chat in 3 bullet points (what they asked, their interest level, any signals like hiring intent or contact request).
-Then give 2 short, specific suggestions for Shubham to improve his portfolio or follow up with this visitor.
-Be concise — each bullet max 1 sentence.
+      content: `Summarize this portfolio visitor chat in 3 bullets (what they asked, intent level, any hot signals like hiring urgency, JD shared, contact given).
+Then 2 specific suggestions for Shubham — follow-up actions or portfolio improvements.
+One sentence per bullet. No headers, no markdown, just plain lines.
 
-Visitor type: ${visitorLabel}
+Visitor: ${visitorLabel}${visitorEmail ? ` | ${visitorEmail}` : ''}
 Transcript:
 ${transcript}
 
-Format:
-**Summary**
-• ...
-• ...
-• ...
+Format exactly:
+• [bullet 1]
+• [bullet 2]
+• [bullet 3]
 
-**Suggestions for Shubham**
-1. ...
-2. ...`,
+1. [suggestion]
+2. [suggestion]`,
     }],
   });
 
-  const summaryText = summary.content[0].type === 'text' ? summary.content[0].text : '';
+  const summary = summaryRes.content[0].type === 'text' ? summaryRes.content[0].text : '';
+  const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  // ── Email 1: Shubham's notification ──
+  const shubhamBody =
+`${visitorLabel} visitor — ${messageCount} messages — ${durationStr} — ${dateStr}
+${visitorEmail ? `visitor: ${visitorName ? visitorName + ' <' + visitorEmail + '>' : visitorEmail}` : 'visitor: anonymous'}
+
+${summary}
+
+---
+
+full transcript:
+
+${transcript}`;
+
   await resend.emails.send({
-    from: 'skg-agent <onboarding@resend.dev>',
-    to: NOTIFY_EMAIL,
-    subject: `[skg-agent] ${visitorLabel} visitor · ${messageCount} msgs · ${durationStr} · ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
-    text: `New portfolio visitor session\n\nVisitor type: ${visitorLabel}\nMessages: ${messageCount}\nDuration: ${durationStr}\n\n${summaryText}\n\n---\nFull transcript:\n\n${transcript}`,
+    from: FROM,
+    to: SHUBHAM_EMAIL,
+    subject: `[skg-agent] ${visitorLabel}${visitorEmail ? ' · ' + (visitorName ?? visitorEmail) : ''} · ${messageCount} msgs · ${durationStr}`,
+    text: shubhamBody,
   });
 
-  return Response.json({ ok: true }, {
-    headers: { 'Access-Control-Allow-Origin': '*' },
-  });
+  // ── Email 2: Visitor copy (if they gave their email) ──
+  if (visitorEmail) {
+    const greeting = visitorName ? `hey ${visitorName.split(' ')[0]},` : 'hey,';
+
+    const visitorBody =
+`${greeting}
+
+you chatted with Shubham's agent. here's what was mentioned, in case it's useful.
+
+resume: ${RESUME_URL}
+linkedin: linkedin.com/in/shubhamgupta04907
+github: github.com/kshubham090
+
+if the timing's right, Shubham will reach out within 24 hours. you can also just reply to this email directly — it goes to him.
+
+— skg-agent, on behalf of Shubham Kumar Gupta`;
+
+    await resend.emails.send({
+      from: FROM,
+      to: visitorEmail,
+      cc: SHUBHAM_EMAIL,
+      subject: `Shubham Kumar Gupta — resume + links`,
+      text: visitorBody,
+    });
+  }
+
+  return Response.json({ ok: true }, { headers: { 'Access-Control-Allow-Origin': '*' } });
 }
