@@ -12,11 +12,11 @@ export default function Skills() {
   const ref = useFadeIn<HTMLElement>();
   return (
     <section className="section fade-in" id="skills" ref={ref}>
-      <div className="sec-row" id="tour-skills">
+      <div className="sec-row">
         <span className="sec-label">Expertise</span>
         <a href="#journey" className="sec-link">Full Stack →</a>
       </div>
-      <div className="skills-wrap">
+      <div className="skills-wrap" id="tour-skills">
         <div className="skills-left">
           <svg className="skills-blob" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
             <path d="M320,160 C360,200 380,260 340,310 C300,360 220,380 160,350 C100,320 60,250 80,180 C100,110 180,60 250,70 C320,80 280,120 320,160 Z" fill="white" />

@@ -17,13 +17,13 @@ export default function Projects() {
   const ref = useFadeIn<HTMLElement>();
   return (
     <section className="section fade-in" id="projects" ref={ref}>
-      <div className="sec-row" id="tour-projects">
+      <div className="sec-row">
         <span className="sec-label">Projects</span>
         <a href="https://github.com/kshubham090" target="_blank" rel="noreferrer" className="sec-link">View All →</a>
       </div>
 
       <div className="ongoing-label">In Progress</div>
-      <ul className="ongoing-list">
+      <ul className="ongoing-list" id="tour-projects">
         {ongoing.map((p) => (
           <li key={p.name} className="ongoing-item">
             <div className="ongoing-left">
