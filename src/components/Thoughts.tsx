@@ -1,52 +1,67 @@
+import { useEffect } from 'react';
 import { useFadeIn } from '../hooks/useFadeIn';
 
-const posts = [
-  {
-    label: 'AI Impact Summit 2026',
-    cat: 'Deep Tech',
-    date: '3 months ago',
-    title: "Presenting to the Ministry of Home Affairs: why hard-coded RoE validation isn't optional when Claude is reasoning over deployment decisions.",
-    read: '3 min read',
-  },
-  {
-    label: 'Chakra47 — Dev Log',
-    cat: 'Agentic AI',
-    date: '1 month ago',
-    title: "Why I'm building an agent eval harness before shipping anything else. Behavioral regression testing is the reliability layer nobody talks about.",
-    read: '5 min read',
-  },
-  {
-    label: 'Year in Review',
-    cat: 'Reflection',
-    date: '5 months ago',
-    title: '2025: stopped theorizing, started shipping. Stakrid taught me that 80% cuts in manual work come from boring, reliable backend infrastructure.',
-    read: '2 min read',
-  },
+const LI_POSTS = [
+  'https://www.linkedin.com/embed/feed/update/urn:li:share:7470061885741232128?collapsed=1',
+  'https://www.linkedin.com/embed/feed/update/urn:li:share:7468557476829769728?collapsed=1',
+  'https://www.linkedin.com/embed/feed/update/urn:li:activity:7435354971174486016?collapsed=1',
+];
+
+const X_IDS = [
+  '2049178684712452483',
+  '2051575512859083108',
+  '2064070781110464992',
 ];
 
 export default function Thoughts() {
   const ref = useFadeIn<HTMLElement>();
+
+  useEffect(() => {
+    const w = window as any;
+    if (w.twttr?.widgets) {
+      w.twttr.widgets.load();
+    } else {
+      const s = document.createElement('script');
+      s.src = 'https://platform.x.com/widgets.js';
+      s.async = true;
+      s.charset = 'utf-8';
+      document.body.appendChild(s);
+    }
+  }, []);
+
   return (
     <section className="section fade-in" ref={ref}>
       <div className="sec-row">
         <span className="sec-label">Thoughts</span>
-        <a href="https://linkedin.com/in/shubhamgupta04907" target="_blank" rel="noreferrer" className="sec-link">View All →</a>
+        <div className="sec-links-group">
+          <a href="https://linkedin.com/in/shubhamgupta04907" target="_blank" rel="noreferrer" className="sec-link">LinkedIn →</a>
+          <a href="https://x.com/skg_curious" target="_blank" rel="noreferrer" className="sec-link">X →</a>
+        </div>
       </div>
-      <div className="blog-grid">
-        {posts.map((p) => (
-          <div key={p.label} className="blog-card">
-            <div className="blog-img-wrap">
-              <span className="blog-img-label">{p.label}</span>
-            </div>
-            <div className="blog-meta">
-              <span className="blog-cat">{p.cat}</span>
-              <span className="blog-dot">·</span>
-              <span className="blog-date">{p.date}</span>
-            </div>
-            <p className="blog-title-text">{p.title}</p>
-            <span className="blog-read">{p.read}</span>
-          </div>
-        ))}
+
+      <div className="social-grid">
+        <div className="social-col">
+          <span className="social-col-label">LinkedIn</span>
+          {LI_POSTS.map((src) => (
+            <iframe
+              key={src}
+              src={src}
+              className="li-embed"
+              frameBorder="0"
+              allowFullScreen
+              title="LinkedIn post"
+            />
+          ))}
+        </div>
+
+        <div className="social-col">
+          <span className="social-col-label">X / Twitter</span>
+          {X_IDS.map((id) => (
+            <blockquote key={id} className="twitter-tweet" data-theme="dark" data-dnt="true">
+              <a href={`https://x.com/skg_curious/status/${id}`} />
+            </blockquote>
+          ))}
+        </div>
       </div>
     </section>
   );

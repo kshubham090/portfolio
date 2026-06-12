@@ -329,27 +329,25 @@ nav {
 .j-date { font-size: 11px; color: var(--muted); white-space: nowrap; }
 
 /* ── THOUGHTS ── */
-.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
-.blog-card { cursor: pointer; transition: opacity 0.2s; }
-.blog-card:hover { opacity: 0.8; }
-.blog-img-wrap {
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  overflow: hidden;
+.sec-links-group { display: flex; gap: 24px; }
+.social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.social-col { display: flex; flex-direction: column; gap: 20px; }
+.social-col-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 4px;
 }
-.blog-img-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #2a2a2a; }
-.blog-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.blog-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
-.blog-dot { color: var(--border); font-size: 10px; }
-.blog-date { font-size: 10px; color: var(--muted); }
-.blog-title-text { font-family: var(--disp); font-size: 14px; font-weight: 400; line-height: 1.55; margin-bottom: 10px; }
-.blog-read { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.li-embed {
+  width: 100%;
+  height: 380px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--bg2);
+}
+/* Twitter widget override — force dark, constrain width */
+.twitter-tweet { margin: 0 !important; width: 100% !important; }
 
 /* ── QUOTE ── */
 .quote-section {
@@ -715,7 +713,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   .proj-row--reverse .proj-row-cta { grid-column: 3; }
   .proj-row-tags { display: none; }
   .skills-wrap { grid-template-columns: 1fr; gap: 40px; }
-  .blog-grid { grid-template-columns: 1fr; gap: 32px; }
+  .social-grid { grid-template-columns: 1fr; gap: 40px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-inner { padding: 56px var(--gutter) 32px; }
 }
