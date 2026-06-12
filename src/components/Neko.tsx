@@ -38,7 +38,7 @@ export default function Neko() {
     let mousePosX = 0, mousePosY = 0;
     let frameCount = 0, idleTime = 0;
     let idleAnimation: string | null = null, idleAnimationFrame = 0;
-    const nekoSpeed = 20;
+    const nekoSpeed = 10;
 
     let isScared = false, scaredFrames = 0;
     let isDragging = false, dragMayStart = false, wasDragged = false;
@@ -73,7 +73,7 @@ export default function Neko() {
       const b = document.createElement('div');
       Object.assign(b.style, {
         position: 'fixed',
-        left: `${nekoPosX + 88}px`,
+        left: `${nekoPosX + 52}px`,
         top: `${nekoPosY - 20}px`,
         background: '#0f0f0f',
         border: '1px solid #2a2a2a',
@@ -163,7 +163,7 @@ export default function Neko() {
       moveNeko();
     }
 
-    const interval = setInterval(frame, 100);
+    const interval = setInterval(frame, 150);
 
     const onMouseMove = (e: MouseEvent) => {
       const vx = e.clientX - lastMouseX, vy = e.clientY - lastMouseY;
@@ -258,7 +258,7 @@ export default function Neko() {
     <div
       ref={containerRef}
       style={{
-        width: 96, height: 96,
+        width: 64, height: 64,
         position: 'fixed',
         left: 16, top: 16,
         zIndex: 99999,
@@ -276,7 +276,7 @@ export default function Neko() {
           position: 'absolute',
           pointerEvents: 'none',
           imageRendering: 'pixelated',
-          transform: 'scale(3)',
+          transform: 'scale(2)',
           transformOrigin: 'top left',
         }}
       />
