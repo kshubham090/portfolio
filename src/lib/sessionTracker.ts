@@ -78,9 +78,5 @@ function resetInactivityTimer() {
   inactivityTimer = setTimeout(sessionEnd, INACTIVITY_MS);
 }
 
-if (typeof window !== 'undefined') {
-  window.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') sessionEnd();
-  });
-  window.addEventListener('beforeunload', sessionEnd);
-}
+// Only fires via: inactivity timer (5 min) or explicit drawer close.
+// visibilitychange and beforeunload removed — they fire mid-conversation on tab switch.
