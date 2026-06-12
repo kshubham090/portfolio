@@ -3,8 +3,7 @@ import { Resend } from 'resend';
 
 const SHUBHAM_EMAIL = 'kshubham04907@gmail.com';
 const FROM = 'hireme@shubham.cv';
-// TODO: replace with real hosted resume URL
-const RESUME_URL = 'https://shubham.cv/resume';
+const RESUME_URL = 'https://www.shubham.cv/resume';
 
 export default async function handler(req: any, res: any) {
   if (req.method === 'OPTIONS') {
