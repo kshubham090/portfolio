@@ -30,7 +30,7 @@ export default function Hero() {
         <a href="#contact" className="pill-btn">· Let's Connect</a>
       </div>
       <div className="hero-image-row">
-        <img src="/uploads/Gemini_Generated_Image_dm72cqdm72cqdm72.png" alt="Shubham Kumar Gupta" />
+        <img src="/uploads/grok-image-58f159b9-11fd-4a79-95b0-b414d5fe3471.jpg" alt="Shubham Kumar Gupta" />
       </div>
     </section>
   );
