@@ -6,11 +6,8 @@ export interface TourStep {
 }
 
 const STEPS: TourStep[] = [
-  { targetId: 'tour-stats',    text: 'These four numbers are the TL;DR — role, company, focus, and availability at a glance.' },
-  { targetId: 'tour-projects', text: 'In Progress = what I\'m actively building right now. Done = what shipped.' },
-  { targetId: 'tour-skills',   text: 'Hover each skill. The full breakdown is in the left panel.' },
-  { targetId: 'tour-agent',    text: 'Ask the agent anything — it knows my full background and answers live.' },
-  { targetId: 'tour-call',     text: 'Or just call. The voice agent picks up and talks on my behalf.' },
+  { targetId: 'tour-stats', text: 'These four numbers are the TL;DR — role, company, focus, and availability at a glance.' },
+  { targetId: 'tour-call',  text: 'Or just call. The voice agent picks up and talks on my behalf.' },
 ];
 
 const STORAGE_KEY = 'skg_tour_done';
