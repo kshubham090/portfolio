@@ -8,7 +8,7 @@ interface Profile {
 const PROFILES: Record<VisitorType, Profile> = {
   recruiter: {
     keywords: ['hire', 'hiring', 'team', 'position', 'opening', 'role', 'job', 'candidate', 'headcount', 'onboard'],
-    pitch: `got it. AI engineer, 20. Ships in prod — leads the voice pipeline at LifeAtlas (Retell AI + Twilio + Claude + pgvector). Before that: founded Stakrid Logistics solo (40+ APIs, cut latency 4x in under a year). Side builds: agent eval harness, LLM gateway, guardrails middleware — all reliability infra.\n\nTargeting early-stage startups. SF is the goal, relocation-ready.\n\nWhat kind of role? Even a sentence helps me get specific.`,
+    pitch: `got it. AI engineer, 21. Ships in prod — leads the voice pipeline at LifeAtlas (Retell AI + Twilio + Claude + pgvector). Before that: founded Stakrid Logistics solo (40+ APIs, cut latency 4x in under a year). Side builds: agent eval harness, LLM gateway, guardrails middleware — all reliability infra.\n\nTargeting early-stage startups. SF is the goal, relocation-ready.\n\nWhat kind of role? Even a sentence helps me get specific.`,
   },
   founder: {
     keywords: ['startup', 'co-founder', 'cofounder', 'building', 'product', 'mvp', 'early stage', 'early-stage', 'raise', 'ship'],
@@ -24,7 +24,7 @@ const PROFILES: Record<VisitorType, Profile> = {
   },
   curious: {
     keywords: ['curious', 'just looking', 'browsing', 'explore', 'portfolio', 'learn', 'see', 'check out'],
-    pitch: `quick pitch: Shubham, 20. AI engineer. Agentic systems + the reliability infra around them. Voice pipeline at LifeAtlas in prod. Founded Stakrid. SF-bound.\n\nAnything specific you want to dig into?`,
+    pitch: `quick pitch: Shubham, 21. AI engineer. Agentic systems + the reliability infra around them. Voice pipeline at LifeAtlas in prod. Founded Stakrid. SF-bound.\n\nAnything specific you want to dig into?`,
   },
 };
 
