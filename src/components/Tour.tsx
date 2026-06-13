@@ -9,6 +9,7 @@ export default function Tour() {
   const { active, step, steps, current, next, prev, finish } = useTour();
   const [spotlight, setSpotlight] = useState<Rect | null>(null);
   const [tooltipPos, setTooltipPos] = useState<{ top: number; left: number } | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -20,11 +21,13 @@ export default function Tour() {
       return;
     }
 
-    // Scroll first, then calculate positions after scroll settles
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     const id = setTimeout(() => {
+      const mobile = window.innerWidth < 600;
+      setIsMobile(mobile);
       const rect = el.getBoundingClientRect();
+
       const spot: Rect = {
         top: rect.top - PAD,
         left: rect.left - PAD,
@@ -33,13 +36,23 @@ export default function Tour() {
       };
       setSpotlight(spot);
 
-      const cardHeight = cardRef.current?.offsetHeight ?? 160;
-      const cardWidth = cardRef.current?.offsetWidth ?? 320;
-      const below = rect.bottom + PAD + 12 + cardHeight < window.innerHeight;
-      const tipTop = below ? rect.bottom + PAD + 12 : rect.top - PAD - 12 - cardHeight;
-      let tipLeft = rect.left + rect.width / 2 - cardWidth / 2;
-      tipLeft = Math.max(16, Math.min(tipLeft, window.innerWidth - cardWidth - 16));
-      setTooltipPos({ top: tipTop, left: tipLeft });
+      if (mobile) {
+        // bottom sheet — pin to bottom of screen, ignore element position
+        const cardHeight = cardRef.current?.offsetHeight ?? 180;
+        setTooltipPos({
+          top: window.innerHeight - cardHeight - 24,
+          left: 16,
+        });
+      } else {
+        const cardHeight = cardRef.current?.offsetHeight ?? 160;
+        const cardWidth = cardRef.current?.offsetWidth ?? 320;
+        const below = rect.bottom + PAD + 12 + cardHeight < window.innerHeight;
+        let tipTop = below ? rect.bottom + PAD + 12 : rect.top - PAD - 12 - cardHeight;
+        tipTop = Math.max(16, Math.min(tipTop, window.innerHeight - cardHeight - 16));
+        let tipLeft = rect.left + rect.width / 2 - cardWidth / 2;
+        tipLeft = Math.max(16, Math.min(tipLeft, window.innerWidth - cardWidth - 16));
+        setTooltipPos({ top: tipTop, left: tipLeft });
+      }
     }, 350);
 
     return () => clearTimeout(id);
@@ -61,7 +74,11 @@ export default function Tour() {
       <div
         ref={cardRef}
         className="tour-card"
-        style={{ top: tooltipPos.top, left: tooltipPos.left }}
+        style={
+          isMobile
+            ? { top: tooltipPos.top, left: 16, right: 16, width: 'auto' }
+            : { top: tooltipPos.top, left: tooltipPos.left }
+        }
       >
         <div className="tour-card-header">
           <span className="tour-step-label">Step {step + 1} of {steps.length}</span>
