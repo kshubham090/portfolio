@@ -6,14 +6,14 @@ import { sessionStart, sessionAddMessage, sessionEnd } from '../lib/sessionTrack
 interface Message { role: 'bot' | 'user'; text: string; }
 
 const CHIPS = [
-  { label: 'hiring', q: "i'm hiring" },
-  { label: 'building', q: "i'm building a startup" },
-  { label: 'collaborate', q: "want to collaborate on open source" },
+  { label: 'hiring', q: "i'm hiring / looking for an AI engineer" },
+  { label: 'building something', q: "i'm building a startup, maybe looking to collab" },
+  { label: 'open source', q: "want to collaborate on open source" },
   { label: 'investor', q: "i'm an investor" },
-  { label: 'just curious', q: "just exploring" },
+  { label: 'just exploring', q: "just exploring, curious about Shubham" },
 ];
 
-const OPENING = "what brings you here — hiring, building, or just curious?";
+const OPENING = "hey — hiring, building, or just exploring?";
 
 export default function AgentDrawer() {
   const [open, setOpen] = useState(false);
