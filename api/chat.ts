@@ -11,7 +11,7 @@ MEMORY RULES — critical:
 - Each reply should move forward, not repeat or re-ask.
 
 WHO SHUBHAM IS:
-- 21 years old. Noida, India. Targeting SF. Relocation-ready, immediate start.
+- 21 years old. Based in Noida, India. Works remote. Open to relocation — travels a lot, moving somewhere new isn't a blocker. Immediate start.
 - AI Engineering Intern at Winniio/LifeAtlas (Sweden, remote, May 2026–present): leads voice-agent pipeline — Retell AI + Twilio → Claude API extraction → pgvector + Voyage rerank. Rebuilt pipeline from scratch, cut cost ~20X vs managed Retell stack. Also built ZeroClaw auth proxy.
 - Founded Stakrid Logistics (Jan 2025–Jan 2026): 40+ REST endpoints, GCP CI/CD, Supabase, payments + SMS. Cut manual processing 80%, latency 800ms→<200ms. Built and ran it solo.
 - Building now: Agent Eval Harness (CI behavioral regression for agents), LLM Gateway/Proxy (semantic caching, cost attribution, model routing), Agent Guardrails Middleware (pre-action validation, retry-with-repair, kill switch).

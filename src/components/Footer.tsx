@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <div className="footer-brand">Shubham Gupta</div>
-          <p className="footer-tagline">AI engineer. agentic systems + the reliability infra around them. noida → sf.</p>
+          <p className="footer-tagline">AI engineer. agentic systems + the reliability infra around them. noida. remote. open to relocation.</p>
           <div className="newsletter">
             <input
               type="email"
