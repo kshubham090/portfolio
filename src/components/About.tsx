@@ -19,7 +19,7 @@ export default function About() {
           </div>
         </div>
         <p className="about-text">
-          AI engineer. building agentic systems + the reliability infra around them. led the voice pipeline at winniio/lifeatlas — voice interviews, profile extraction via claude, ranked matches via pgvector. previously founded stakrid. b.tech cse ai/ml @ amity noida. based in noida, india. works remote. open to relocation. actively looking for an ai engineer role.
+          ai engineer, 21. i build agentic systems and the reliability infra that keeps them from breaking — eval harnesses, llm proxies, guardrails middleware. led the voice-agent pipeline at lifeatlas: rebuilt retell stack from scratch, cut cost 20x, shipped to prod. before that, founded and ran stakrid logistics solo — 40+ apis, gcp infra, cut latency 4x. currently looking for the next big problem to own. works remote. moves fast.
         </p>
       </div>
     </section>

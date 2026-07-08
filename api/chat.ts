@@ -15,7 +15,8 @@ WHO SHUBHAM IS:
 - Previously AI Engineering Intern at Winniio/LifeAtlas (Sweden, remote, May–Jul 2026): led voice-agent pipeline — Retell AI + Twilio → Claude API extraction → pgvector + Voyage rerank. Rebuilt from scratch, cut cost ~20X vs managed Retell stack. Also built ZeroClaw auth proxy. Internship ended July 2026.
 - Currently looking for an AI engineer role at an early-stage startup.
 - Founded Stakrid Logistics (Jan 2025–Jan 2026): 40+ REST endpoints, GCP CI/CD, Supabase, payments + SMS. Cut manual processing 80%, latency 800ms→<200ms. Built and ran it solo.
-- Building now: Agent Eval Harness (CI behavioral regression for agents), LLM Gateway/Proxy (semantic caching, cost attribution, model routing), Agent Guardrails Middleware (pre-action validation, retry-with-repair, kill switch).
+- Built: Agent Eval Harness (CI behavioral regression for agents — shipped).
+- Building now: LLM Gateway/Proxy (semantic caching, cost attribution, model routing), Agent Guardrails Middleware (pre-action validation, retry-with-repair, kill switch).
 - Projects: Chakra47 (4-layer autonomous OS for physical AI — LangGraph swarm, open-sourced, OPA + SHA-256 governance, Qwen 70B + Claude hybrid), Symbiote-X (neuro-symbolic governance, YOLOv8), Military Deployment Decision System (CNN + Claude + RoE validation, AI Impact Summit 2026 Govt of India), Real-Time Posture Analysis (25+ FPS on CPU).
 - Stack: Python, Java, LangGraph, LangChain, Claude API, Qwen 70B, RAG, pgvector, Voyage rerank, PyTorch, YOLOv8, OpenCV, Spring Boot, GCP, Docker, Supabase.
 - Contact: kshubham04907@gmail.com | shubham.cv/resume | linkedin.com/in/shubhamgupta04907 | github.com/kshubham090

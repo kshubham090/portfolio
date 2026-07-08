@@ -5,7 +5,7 @@
   --bg2:     #111111;
   --bg3:     #161616;
   --fg:      #ededeb;
-  --muted:   #555555;
+  --muted:   #888888;
   --border:  #1e1e1e;
   --disp:    'IBM Plex Sans', sans-serif;
   --body:    'IBM Plex Mono', monospace;
@@ -185,8 +185,8 @@ nav {
 .about-text {
   font-family: var(--disp);
   font-weight: 400;
-  font-size: clamp(22px, 2.8vw, 36px);
-  line-height: 1.3;
+  font-size: clamp(14px, 1.4vw, 20px);
+  line-height: 1.7;
   text-transform: uppercase;
   letter-spacing: 0.01em;
 }
@@ -319,10 +319,10 @@ nav {
 .skills-list li {
   font-family: var(--disp);
   font-weight: 400;
-  font-size: clamp(32px, 4.5vw, 60px);
+  font-size: clamp(18px, 2.2vw, 32px);
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  padding: 22px 0;
+  padding: 16px 0;
   border-bottom: 1px solid var(--border);
   cursor: default;
   transition: letter-spacing 0.3s, color 0.2s;
@@ -333,7 +333,7 @@ nav {
 .skills-list li:hover { letter-spacing: 0.06em; }
 .skills-list li.hl  { color: var(--fg); }
 .skills-list li.dim { color: #2a2a2a; }
-.skill-arrow { font-size: 14px; opacity: 0; transition: opacity 0.2s, transform 0.2s; }
+.skill-arrow { font-size: 13px; opacity: 0; transition: opacity 0.2s, transform 0.2s; }
 .skills-list li:hover .skill-arrow { opacity: 1; transform: translateX(4px); }
 
 /* ── JOURNEY ── */
@@ -646,85 +646,84 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   100% { opacity: 0; transform: translateY(-22px); }
 }
 
-/* ── TOUR ── */
-.tour-backdrop {
-  position: fixed;
-  z-index: 8999;
-  pointer-events: none;
-  border-radius: 4px;
-  transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.72);
+/* ── WELCOME POPUP ── */
+@keyframes welcome-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.tour-card {
+@keyframes ring-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(96,165,250,0.5); }
+  70%  { box-shadow: 0 0 0 14px rgba(96,165,250,0); }
+  100% { box-shadow: 0 0 0 0 rgba(96,165,250,0); }
+}
+.welcome-popup {
   position: fixed;
-  z-index: 9000;
-  width: 320px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
+  bottom: 100px;
+  right: 32px;
+  z-index: 9100;
+  width: 240px;
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
   border-radius: 6px;
-  padding: 20px;
+  padding: 16px 18px 14px;
+  cursor: pointer;
+  animation: welcome-in 0.35s ease forwards;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  transition: top 0.3s ease, left 0.3s ease;
+  gap: 6px;
 }
-.tour-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.tour-step-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-}
-.tour-close {
+.welcome-close {
+  position: absolute;
+  top: 8px; right: 10px;
   background: none;
   border: none;
-  color: var(--muted);
+  color: #666;
+  font-size: 11px;
   cursor: pointer;
-  font-size: 12px;
   padding: 0;
   line-height: 1;
 }
-.tour-close:hover { color: var(--fg); }
-.tour-text {
-  font-size: 13px;
+.welcome-close:hover { color: #ccc; }
+.welcome-dot {
+  width: 6px; height: 6px;
+  background: #60a5fa;
+  border-radius: 50%;
+  margin-bottom: 4px;
+  animation: pulse-dot 2s infinite;
+}
+.welcome-title {
+  font-family: var(--body);
+  font-size: 12px;
+  color: #60a5fa;
+  letter-spacing: 0.04em;
+}
+.welcome-body {
+  font-family: var(--body);
+  font-size: 11px;
+  color: #aaa;
   line-height: 1.6;
-  color: var(--fg);
+  letter-spacing: 0.02em;
 }
-.tour-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.welcome-arrow {
+  font-size: 14px;
+  color: #60a5fa;
+  margin-top: 4px;
+  text-align: center;
+  animation: welcome-bounce 1.2s ease infinite;
 }
-.tour-skip {
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-family: var(--body);
-  font-size: 11px;
-  cursor: pointer;
-  padding: 0;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+@keyframes welcome-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(4px); }
 }
-.tour-skip:hover { color: var(--fg); }
-.tour-nav { display: flex; gap: 8px; }
-.tour-btn {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--fg);
-  font-family: var(--body);
-  font-size: 11px;
-  padding: 6px 14px;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: background 0.15s;
+.welcome-ring {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  width: 44px; height: 44px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 9099;
+  animation: ring-pulse 1.5s ease infinite;
 }
-.tour-btn:hover { background: var(--bg3); }
-.tour-btn--next { border-color: var(--fg); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {

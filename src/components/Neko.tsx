@@ -136,7 +136,9 @@ export default function Neko() {
         setSprite('alert', 0);
         const dx = nekoPosX - mousePosX, dy = nekoPosY - mousePosY;
         const d = Math.sqrt(dx ** 2 + dy ** 2) || 1;
-        nekoPosX = Math.min(Math.max(16, nekoPosX + (dx / d) * nekoSpeed * 1.4), window.innerWidth - 16);
+        const drawerElS = document.querySelector('.agent-drawer.open') as HTMLElement | null;
+        const rightBoundS = drawerElS ? window.innerWidth - drawerElS.offsetWidth - 16 : window.innerWidth - 16;
+        nekoPosX = Math.min(Math.max(16, nekoPosX + (dx / d) * nekoSpeed * 1.4), rightBoundS);
         nekoPosY = Math.min(Math.max(16, nekoPosY + (dy / d) * nekoSpeed * 1.4), window.innerHeight - 16);
         moveNeko(); return;
       }
@@ -158,7 +160,9 @@ export default function Neko() {
 
       nekoPosX -= (diffX / dist) * nekoSpeed;
       nekoPosY -= (diffY / dist) * nekoSpeed;
-      nekoPosX = Math.min(Math.max(16, nekoPosX), window.innerWidth - 16);
+      const drawerEl = document.querySelector('.agent-drawer.open') as HTMLElement | null;
+      const rightBound = drawerEl ? window.innerWidth - drawerEl.offsetWidth - 16 : window.innerWidth - 16;
+      nekoPosX = Math.min(Math.max(16, nekoPosX), rightBound);
       nekoPosY = Math.min(Math.max(16, nekoPosY), window.innerHeight - 16);
       moveNeko();
     }

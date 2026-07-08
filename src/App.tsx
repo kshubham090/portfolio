@@ -11,7 +11,7 @@ import FooterCTA from './components/FooterCTA';
 import Footer from './components/Footer';
 import AgentDrawer from './components/AgentDrawer';
 import Neko from './components/Neko';
-import Tour from './components/Tour';
+import WelcomePopup from './components/WelcomePopup';
 
 export default function App() {
   return (
@@ -30,7 +30,7 @@ export default function App() {
       <Footer />
       <AgentDrawer />
       <Neko />
-      <Tour />
+      <WelcomePopup />
       <Analytics />
     </>
   );

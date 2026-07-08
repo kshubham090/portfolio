@@ -1,7 +1,7 @@
 import { useFadeIn } from '../hooks/useFadeIn';
 
 const ongoing = [
-  { name: 'Agent Eval Harness', desc: 'CI-based behavioral regression testing for agents', status: 'Building' },
+  { name: 'Agent Eval Harness', desc: 'CI-based behavioral regression testing for agents', status: 'Shipped' },
   { name: 'LLM Gateway / Proxy', desc: 'Cost attribution, semantic caching, model routing', status: 'Building' },
   { name: 'Agent Guardrails Middleware', desc: 'Pre-action validation, retry-with-repair, kill switch', status: 'Building' },
 ];
@@ -31,7 +31,7 @@ export default function Projects() {
               <span className="ongoing-name">{p.name}</span>
             </div>
             <span className="ongoing-desc">{p.desc}</span>
-            <span className="ongoing-status">{p.status}</span>
+            <span className="ongoing-status" style={p.status === 'Shipped' ? { color: '#4ade80' } : undefined}>{p.status}</span>
           </li>
         ))}
         <li className="ongoing-item ongoing-item--oss">
