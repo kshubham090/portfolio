@@ -7,11 +7,11 @@ export default function Hero() {
     <section className="hero">
       <div className="hero-stats" id="tour-stats">
         <div className="hero-stat">
-          <span className="stat-label">Current Role</span>
-          <span className="stat-val">AI Engineering Intern</span>
+          <span className="stat-label">Looking For</span>
+          <span className="stat-val">AI Engineer Role</span>
         </div>
         <div className="hero-stat">
-          <span className="stat-label">Currently At</span>
+          <span className="stat-label">Last Role</span>
           <span className="stat-val">Winniio · LifeAtlas · Sweden</span>
         </div>
         <div className="hero-stat">

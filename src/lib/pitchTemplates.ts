@@ -8,11 +8,11 @@ interface Profile {
 const PROFILES: Record<VisitorType, Profile> = {
   recruiter: {
     keywords: ['hire', 'hiring', 'team', 'position', 'opening', 'role', 'job', 'candidate', 'headcount', 'onboard'],
-    pitch: `got it. AI engineer, 21. Ships in prod — leads the voice pipeline at LifeAtlas (Retell AI + Twilio + Claude + pgvector). Before that: founded Stakrid Logistics solo (40+ APIs, cut latency 4x in under a year). Side builds: agent eval harness, LLM gateway, guardrails middleware — all reliability infra.\n\nWorks remote. Open to relocation — travels a lot, moving isn't a blocker.\n\nWhat kind of role? Even a sentence helps me get specific.`,
+    pitch: `got it. AI engineer, 21. Ships in prod — led the voice pipeline at LifeAtlas (Retell AI + Twilio + Claude + pgvector, cut cost ~20X). Before that: founded Stakrid Logistics solo (40+ APIs, cut latency 4x in under a year). Side builds: agent eval harness, LLM gateway, guardrails middleware — all reliability infra.\n\nCurrently looking. Works remote, open to relocation.\n\nWhat kind of role? Even a sentence helps me get specific.`,
   },
   founder: {
     keywords: ['startup', 'co-founder', 'cofounder', 'building', 'product', 'mvp', 'early stage', 'early-stage', 'raise', 'ship'],
-    pitch: `founder to founder.\n\nShubham built Stakrid solo — 40+ endpoints, GCP infra, shipped in under a year. Now leading AI infra at LifeAtlas. High ownership, low overhead, bias for shipping over planning.\n\nWhat are you building?`,
+    pitch: `founder to founder.\n\nShubham built Stakrid solo — 40+ endpoints, GCP infra, shipped in under a year. Led AI infra at LifeAtlas. Now looking for the next thing. High ownership, low overhead, bias for shipping over planning.\n\nWhat are you building?`,
   },
   engineer: {
     keywords: ['collaborate', 'open source', 'review', 'pr', 'contribute', 'fork', 'repo', 'library', 'sdk', 'architecture'],
@@ -20,11 +20,11 @@ const PROFILES: Record<VisitorType, Profile> = {
   },
   investor: {
     keywords: ['portfolio', 'funding', 'invest', 'vc', 'venture', 'ai company', 'fund', 'round', 'thesis', 'traction'],
-    pitch: `noted. Two products shipped: Stakrid (logistics, >80% efficiency gain, under a year, solo) and LifeAtlas voice pipeline (AI connector, in prod). Next move: own AI infra company — eval harnesses and LLM observability as the wedge.\n\nFits your thesis? kshubham04907@gmail.com — responds same day.`,
+    pitch: `noted. Two products shipped: Stakrid (logistics, >80% efficiency gain, under a year, solo) and LifeAtlas voice pipeline (cut cost ~20X, in prod). Building toward an AI infra company — eval harnesses and LLM observability as the wedge. Currently available.\n\nFits your thesis? kshubham04907@gmail.com — responds same day.`,
   },
   curious: {
     keywords: ['curious', 'just looking', 'browsing', 'explore', 'portfolio', 'learn', 'see', 'check out'],
-    pitch: `quick pitch: Shubham, 21. AI engineer. Agentic systems + the reliability infra around them. Voice pipeline at LifeAtlas in prod. Founded Stakrid. Works remote, travels a lot.\n\nAnything specific you want to dig into?`,
+    pitch: `quick pitch: Shubham, 21. AI engineer. Agentic systems + the reliability infra around them. Led voice pipeline at LifeAtlas. Founded Stakrid. Currently looking for an AI engineer role. Works remote, travels a lot.\n\nAnything specific you want to dig into?`,
   },
 };
 

@@ -1,7 +1,7 @@
 import { useFadeIn } from '../hooks/useFadeIn';
 
 const entries = [
-  { num: '01', name: 'AI Engineering Intern — Winniio / LifeAtlas, Sweden (Remote)', date: 'May 2026 – Present', featured: true },
+  { num: '01', name: 'AI Engineering Intern — Winniio / LifeAtlas, Sweden (Remote)', date: 'May 2026 – Jul 2026', featured: true },
   { num: '02', name: 'Founder & Lead Engineer — Stakrid Logistics', date: 'Jan 2025 – Jan 2026', featured: false },
   { num: '03', name: 'Presented at AI Impact Summit 2026 — Ministry of Home Affairs', date: '2026', featured: false },
   { num: '04', name: 'ML Specialization — Stanford / Coursera', date: 'Jan 2026', featured: false },

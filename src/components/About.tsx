@@ -19,7 +19,7 @@ export default function About() {
           </div>
         </div>
         <p className="about-text">
-          AI engineer. building agentic systems + the reliability infra around them. currently leading the voice pipeline track at winniio/lifeatlas — voice interviews, profile extraction via claude, ranked matches via pgvector. previously founded stakrid. b.tech cse ai/ml @ amity noida. based in noida, india. works remote. open to relocation.
+          AI engineer. building agentic systems + the reliability infra around them. led the voice pipeline at winniio/lifeatlas — voice interviews, profile extraction via claude, ranked matches via pgvector. previously founded stakrid. b.tech cse ai/ml @ amity noida. based in noida, india. works remote. open to relocation. actively looking for an ai engineer role.
         </p>
       </div>
     </section>
