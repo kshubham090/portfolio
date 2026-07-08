@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { classifyVisitor, getPitch, type VisitorType } from '../lib/pitchTemplates';
+import { classifyVisitor, type VisitorType } from '../lib/pitchTemplates';
 import { streamChat, type ChatMessage } from '../lib/claude';
 import { sessionStart, sessionAddMessage, sessionEnd } from '../lib/sessionTracker';
 
@@ -43,40 +43,25 @@ export default function AgentDrawer() {
     if (!text.trim() || typing) return;
     setChipsVisible(false);
 
-    const userMsg: Message = { role: 'user', text };
-    setMsgs((prev) => [...prev, userMsg]);
+    setMsgs((prev) => [...prev, { role: 'user', text }]);
+    sessionAddMessage('user', text);
 
-    /* first message → classify, pitch, start session */
-    if (visitorType === null) {
-      const type = classifyVisitor(text);
-      setVisitorType(type);
-      const pitch = getPitch(type);
-      setMsgs((prev) => [...prev, { role: 'bot', text: pitch }]);
-      setHistory([
-        { role: 'user', content: text },
-        { role: 'assistant', content: pitch },
-      ]);
-      sessionStart(type);
-      sessionAddMessage('user', text);
-      sessionAddMessage('agent', pitch);
-      return;
+    /* classify once on first message, start session */
+    let currentType = visitorType;
+    if (currentType === null) {
+      currentType = classifyVisitor(text);
+      setVisitorType(currentType);
+      sessionStart(currentType);
     }
 
-    /* subsequent messages → stream from Claude */
-    sessionAddMessage('user', text);
-    const nextHistory: ChatMessage[] = [
-      ...history,
-      { role: 'user', content: text },
-    ];
+    const nextHistory: ChatMessage[] = [...history, { role: 'user', content: text }];
     setHistory(nextHistory);
     setTyping(true);
-
-    /* add placeholder for streaming */
     setMsgs((prev) => [...prev, { role: 'bot', text: '' }]);
 
     streamChat(
       nextHistory,
-      visitorType,
+      currentType,
       (chunk) => {
         setMsgs((prev) => {
           const updated = [...prev];
