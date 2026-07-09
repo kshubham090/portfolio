@@ -261,6 +261,7 @@ export default function Neko() {
   return (
     <div
       ref={containerRef}
+      className="neko-wrap"
       style={{
         width: 64, height: 64,
         position: 'fixed',

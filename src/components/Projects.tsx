@@ -1,16 +1,13 @@
+import { Link } from 'react-router-dom';
 import { useFadeIn } from '../hooks/useFadeIn';
 
-const ongoing = [
-  { name: 'Agent Eval Harness', desc: 'CI-based behavioral regression testing for agents', status: 'Shipped' },
-  { name: 'LLM Gateway / Proxy', desc: 'Cost attribution, semantic caching, model routing', status: 'Building' },
-  { name: 'Agent Guardrails Middleware', desc: 'Pre-action validation, retry-with-repair, kill switch', status: 'Building' },
-];
-
-const done = [
-  { num: '01', name: 'Chakra47', colorClass: 'proj-color-chakra', img: '/uploads/47 (3).png', tags: ['4-Layer Autonomous OS', 'LangGraph Swarm', 'Physical AI'] },
-  { num: '02', name: 'Symbiote-X', colorClass: 'proj-color-symbiote', img: '/uploads/Black and Orange Square Art & Design Logo.png', tags: ['Neuro-Symbolic', 'OPA Validation', 'AI Safety'] },
-  { num: '03', name: 'Military Deployment System', colorClass: 'proj-color-military', img: '/uploads/f7a57771-15ab-46ac-8882-97eafd241b96.jpg', tags: ['CNN Threat Detection', 'Claude Reasoning', 'RoE Validation'] },
-  { num: '04', name: 'Real-Time Posture Analysis', colorClass: 'proj-color-posture', img: '/uploads/image.png', tags: ['25+ FPS on CPU', 'MediaPipe', 'Quantization'] },
+const timeline = [
+  { name: 'Chakra47', desc: '4-layer autonomous OS for physical AI. Open source — LangGraph swarm, SHA-256 audit chain.', status: 'Shipped', slug: 'chakra47' },
+  { name: 'Lowq X1 — Agent Eval Harness', desc: 'CI-based behavioral regression testing for agents, built from scratch. 96 tests passing.', status: 'Shipped', slug: 'lowq-x1-agent-eval-harness' },
+  { name: 'Lowq X2 — Contextual LLM Gateway', desc: 'Neo4j memory graph — cost attribution, semantic caching, model routing with fallback.', status: 'Shipped', slug: 'lowq-x2-contextual-llm-gateway' },
+  { name: 'Military Deployment System', desc: 'CNN threat detection + Claude reasoning + RoE validation. AI Impact Summit 2026.', status: 'Shipped', slug: 'military-deployment-decision-system' },
+  { name: 'Real-Time Posture Analysis', desc: '25+ FPS on CPU. MediaPipe pipeline with model quantization.', status: 'Shipped', slug: 'real-time-posture-analysis' },
+  { name: 'Agent Guardrails Middleware', desc: 'Pre-action validation, retry-with-repair, kill switch.', status: 'Building', slug: null },
 ];
 
 export default function Projects() {
@@ -19,48 +16,31 @@ export default function Projects() {
     <section className="section fade-in" id="projects" ref={ref}>
       <div className="sec-row">
         <span className="sec-label">Projects</span>
-        <a href="https://github.com/kshubham090" target="_blank" rel="noreferrer" className="sec-link">View All →</a>
       </div>
 
-      <div className="ongoing-label">In Progress</div>
-      <ul className="ongoing-list" id="tour-projects">
-        {ongoing.map((p) => (
-          <li key={p.name} className="ongoing-item">
-            <div className="ongoing-left">
-              <span className="ongoing-dot" />
-              <span className="ongoing-name">{p.name}</span>
-            </div>
-            <span className="ongoing-desc">{p.desc}</span>
-            <span className="ongoing-status" style={p.status === 'Shipped' ? { color: '#4ade80' } : undefined}>{p.status}</span>
-          </li>
-        ))}
-        <li className="ongoing-item ongoing-item--oss">
-          <div className="ongoing-left">
-            <span className="ongoing-dot ongoing-dot--oss" />
-            <span className="ongoing-name">Chakra47 — AgenticSwarm</span>
-          </div>
-          <span className="ongoing-desc">Open source. Use it if you're a developer — or simply contribute.</span>
-          <a href="https://github.com/kshubham090/Chakra47-AgenticSwarm" target="_blank" rel="noreferrer" className="ongoing-gh-link">GitHub →</a>
-        </li>
-      </ul>
-
-      <div className="ongoing-label" style={{ marginTop: 56 }}>Done</div>
-      <ul className="proj-list">
-        {done.map((p, i) => (
-          <li key={p.num} className={`proj-row ${p.colorClass}${i % 2 !== 0 ? ' proj-row--reverse' : ''}`}>
-            <div className="proj-row-img">
-              <img src={p.img} alt={p.name} />
-            </div>
-            <div className="proj-row-content">
-              <span className="proj-row-name">{p.name}</span>
-              <div className="proj-row-tags">
-                {p.tags.map((t) => <span key={t} className="proj-tag">{t}</span>)}
+      <ol className="timeline" id="tour-projects">
+        {timeline.map((p) => {
+          const card = (
+            <div className="timeline-card">
+              <div className="timeline-card-head">
+                <span className="timeline-card-title">{p.name}</span>
+                <span className={`timeline-card-status${p.status === 'Building' ? ' timeline-card-status--building' : ''}`}>
+                  {p.status}
+                </span>
               </div>
+              <p className="timeline-card-desc">{p.desc}</p>
             </div>
-            <span className="proj-row-cta">→</span>
-          </li>
-        ))}
-      </ul>
+          );
+          return (
+            <li key={p.name} className="timeline-item">
+              <span className="timeline-dot" />
+              {p.slug ? (
+                <Link to={`/projects/${p.slug}`} className="timeline-card-link">{card}</Link>
+              ) : card}
+            </li>
+          );
+        })}
+      </ol>
     </section>
   );
 }

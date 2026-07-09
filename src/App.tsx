@@ -1,37 +1,27 @@
+import { Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import Nav from './components/Nav';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Journey from './components/Journey';
-import Thoughts from './components/Thoughts';
-import Quote from './components/Quote';
-import FooterCTA from './components/FooterCTA';
 import Footer from './components/Footer';
 import AgentDrawer from './components/AgentDrawer';
 import Neko from './components/Neko';
 import WelcomePopup from './components/WelcomePopup';
+import Home from './pages/Home';
+import ProjectDetail from './pages/ProjectDetail';
+import { AgentDrawerProvider } from './context/AgentDrawerContext';
 
 export default function App() {
   return (
-    <>
+    <AgentDrawerProvider>
       <Nav />
-      <div className="site-wrap">
-        <Hero />
-        <About />
-        <Projects />
-        <Skills />
-        <Journey />
-        <Thoughts />
-        <Quote />
-        <FooterCTA />
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects/:slug" element={<ProjectDetail />} />
+      </Routes>
       <Footer />
       <AgentDrawer />
       <Neko />
       <WelcomePopup />
       <Analytics />
-    </>
+    </AgentDrawerProvider>
   );
 }

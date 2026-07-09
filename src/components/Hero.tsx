@@ -1,7 +1,8 @@
-import { useDynamicHeading } from '../hooks/useDynamicHeading';
+import { useState } from 'react';
+import ConnectPopup from './ConnectPopup';
 
 export default function Hero() {
-  const { lines, swapping } = useDynamicHeading();
+  const [connectOpen, setConnectOpen] = useState(false);
 
   return (
     <section className="hero">
@@ -24,14 +25,14 @@ export default function Hero() {
         </div>
       </div>
       <div className="hero-text-row">
-        <h1 className={`hero-title${swapping ? ' swapping' : ''}`}>
-          {lines[0]}<br />{lines[1]}
-        </h1>
-        <a href="#contact" className="pill-btn">· Let's Connect</a>
+        <h1 className="hero-title">ENGINEERING THE<br />AI BACKBONE.</h1>
+        <button className="pill-btn" onClick={() => setConnectOpen(true)}>· Let's Connect</button>
       </div>
       <div className="hero-image-row">
         <img src="/uploads/grok-image-58f159b9-11fd-4a79-95b0-b414d5fe3471.jpg" alt="Shubham Kumar Gupta" />
       </div>
+
+      {connectOpen && <ConnectPopup onClose={() => setConnectOpen(false)} />}
     </section>
   );
 }

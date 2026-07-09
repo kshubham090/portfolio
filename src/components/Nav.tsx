@@ -16,11 +16,11 @@ export default function Nav() {
           <span /><span /><span />
         </button>
         <ul className={`nav-links${open ? ' nav-links--open' : ''}`}>
-          <li><a href="#about"    onClick={close}>About</a></li>
-          <li><a href="#projects" onClick={close}>Projects</a></li>
-          <li><a href="#skills"   onClick={close}>Skills</a></li>
-          <li><a href="#journey"  onClick={close}>Journey</a></li>
-          <li><a href="#contact"  onClick={close}>Contact</a></li>
+          <li><a href="/#about"   onClick={close}>About</a></li>
+          <li><a href="/#projects" onClick={close}>Projects</a></li>
+          <li><a href="/#skills"  onClick={close}>Skills</a></li>
+          <li><a href="/#journey" onClick={close}>Journey</a></li>
+          <li><a href="/#contact" onClick={close}>Contact</a></li>
         </ul>
       </div>
     </nav>

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { classifyVisitor, type VisitorType } from '../lib/pitchTemplates';
 import { streamChat, type ChatMessage } from '../lib/claude';
 import { sessionStart, sessionAddMessage, sessionEnd } from '../lib/sessionTracker';
+import { useAgentDrawer } from '../context/AgentDrawerContext';
 
 interface Message { role: 'bot' | 'user'; text: string; }
 
@@ -16,7 +17,7 @@ const CHIPS = [
 const OPENING = "hey — hiring, building, or just exploring?";
 
 export default function AgentDrawer() {
-  const [open, setOpen] = useState(false);
+  const { open, setOpen } = useAgentDrawer();
   const [msgs, setMsgs] = useState<Message[]>([
     { role: 'bot', text: OPENING },
   ]);
