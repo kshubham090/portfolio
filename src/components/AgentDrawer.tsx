@@ -40,6 +40,43 @@ export default function AgentDrawer() {
     if (open) setTimeout(() => inputRef.current?.focus(), 350);
   }, [open]);
 
+  /* lock body scroll while open — prevents iOS from scrolling the page
+     itself when the keyboard opens, which is what makes fixed-position
+     panels appear to "break" (jump, float, get cut off) on mobile */
+  useEffect(() => {
+    if (!open) return;
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const prev = { position: body.style.position, top: body.style.top, width: body.style.width };
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+    return () => {
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.width = prev.width;
+      window.scrollTo(0, scrollY);
+    };
+  }, [open]);
+
+  /* keep the drawer's real height pinned to the visible viewport —
+     100vh/100dvh alone don't reliably track the on-screen keyboard on
+     every mobile browser, but visualViewport does */
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv || !drawerRef.current) return;
+    const updateHeight = () => {
+      if (drawerRef.current) drawerRef.current.style.height = open ? `${vv.height}px` : '';
+    };
+    updateHeight();
+    vv.addEventListener('resize', updateHeight);
+    vv.addEventListener('scroll', updateHeight);
+    return () => {
+      vv.removeEventListener('resize', updateHeight);
+      vv.removeEventListener('scroll', updateHeight);
+    };
+  }, [open]);
+
   const sendMessage = useCallback((text: string) => {
     if (!text.trim() || typing) return;
     setChipsVisible(false);
