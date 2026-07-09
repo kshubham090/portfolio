@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useFadeIn } from '../hooks/useFadeIn';
 import { getProject } from '../data/projects';
+import MermaidDiagram from '../components/MermaidDiagram';
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -44,7 +45,23 @@ export default function ProjectDetail() {
         </div>
 
         <div className="project-detail-sections">
-          {project.sections.map((s) => (
+          {project.sections[0] && (
+            <div className="project-detail-section">
+              <h2 className="project-detail-heading">{project.sections[0].heading}</h2>
+              {project.sections[0].body.map((para, i) => (
+                <p key={i} className="project-detail-body">{para}</p>
+              ))}
+            </div>
+          )}
+
+          {project.diagrams?.map((d) => (
+            <div key={d.title} className="diagram-block">
+              <p className="diagram-title">{d.title}</p>
+              <MermaidDiagram code={d.code} caption={d.caption} />
+            </div>
+          ))}
+
+          {project.sections.slice(1).map((s) => (
             <div key={s.heading} className="project-detail-section">
               <h2 className="project-detail-heading">{s.heading}</h2>
               {s.body.map((para, i) => (

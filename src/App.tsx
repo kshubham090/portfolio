@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import Nav from './components/Nav';
@@ -6,8 +7,9 @@ import AgentDrawer from './components/AgentDrawer';
 import Neko from './components/Neko';
 import WelcomePopup from './components/WelcomePopup';
 import Home from './pages/Home';
-import ProjectDetail from './pages/ProjectDetail';
 import { AgentDrawerProvider } from './context/AgentDrawerContext';
+
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 
 export default function App() {
   return (
@@ -15,7 +17,7 @@ export default function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="/projects/:slug" element={<Suspense fallback={null}><ProjectDetail /></Suspense>} />
       </Routes>
       <Footer />
       <AgentDrawer />
