@@ -4,7 +4,6 @@ import { Analytics } from '@vercel/analytics/react';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import AgentDrawer from './components/AgentDrawer';
-import Neko from './components/Neko';
 import WelcomePopup from './components/WelcomePopup';
 import Home from './pages/Home';
 import { AgentDrawerProvider } from './context/AgentDrawerContext';
@@ -21,7 +20,6 @@ export default function App() {
       </Routes>
       <Footer />
       <AgentDrawer />
-      <Neko />
       <WelcomePopup />
       <Analytics />
     </AgentDrawerProvider>
