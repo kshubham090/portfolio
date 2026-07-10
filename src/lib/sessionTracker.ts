@@ -78,5 +78,15 @@ function resetInactivityTimer() {
   inactivityTimer = setTimeout(sessionEnd, INACTIVITY_MS);
 }
 
-// Only fires via: inactivity timer (5 min) or explicit drawer close.
-// visibilitychange and beforeunload removed — they fire mid-conversation on tab switch.
+// Fires via: inactivity timer (5 min), explicit drawer close, or the tab
+// actually closing/navigating away (pagehide).
+//
+// pagehide only fires on real unload (tab close, address-bar navigation,
+// bfcache eviction) — never on a simple tab switch. visibilitychange and
+// beforeunload were tried here before and removed: visibilitychange fires
+// on every tab switch mid-conversation (not just closing), which caused
+// 2-3 duplicate emails per visitor. pagehide doesn't have that problem,
+// and sendBeacon (used in fireNotify) is built to survive it reliably.
+if (typeof window !== 'undefined') {
+  window.addEventListener('pagehide', sessionEnd);
+}
