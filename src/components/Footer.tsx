@@ -75,7 +75,7 @@ export default function Footer() {
             <li><a href="https://linkedin.com/in/shubhamgupta04907" target="_blank" rel="noreferrer">LinkedIn</a></li>
             <li><a href="https://github.com/kshubham090" target="_blank" rel="noreferrer">GitHub</a></li>
             <li><a href="https://x.com/skg_curious" target="_blank" rel="noreferrer">X / Twitter</a></li>
-            <li><a href="/uploads/Shubham_Kumar_GuptaResume2026_ (2).pdf" target="_blank" rel="noreferrer">Resume PDF</a></li>
+            <li><a href="/resume">Resume PDF</a></li>
           </ul>
         </div>
       </div>
