@@ -18,9 +18,6 @@ export default function Skills() {
       </div>
       <div className="skills-wrap" id="tour-skills">
         <div className="skills-left">
-          <svg className="skills-blob" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-            <path d="M320,160 C360,200 380,260 340,310 C300,360 220,380 160,350 C100,320 60,250 80,180 C100,110 180,60 250,70 C320,80 280,120 320,160 Z" fill="white" />
-          </svg>
           <p className="skills-desc-text">
             Building at the intersection of agentic AI and reliability infrastructure. LangGraph pipelines, eval harnesses, LLM proxies, CV systems — from research to prod. Python, Java, Claude API, pgvector, YOLOv8, Spring Boot, GCP.
           </p>

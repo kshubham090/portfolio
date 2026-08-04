@@ -14,9 +14,9 @@ export default function Home() {
   return (
     <div className="site-wrap">
       <Hero />
-      <Testimonial />
       <About />
       <Projects />
+      <Testimonial />
       <Skills />
       <Suspense fallback={null}>
         <GitHubActivity />

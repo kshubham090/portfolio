@@ -33,7 +33,6 @@ export default function Projects() {
           );
           return (
             <li key={p.name} className="timeline-item">
-              <span className="timeline-dot" />
               {p.slug ? (
                 <Link to={`/projects/${p.slug}`} className="timeline-card-link">{card}</Link>
               ) : card}

@@ -1,11 +1,31 @@
 import { useState } from 'react';
 import ConnectPopup from './ConnectPopup';
+import { useAgentDrawer } from '../context/AgentDrawerContext';
 
 export default function Hero() {
   const [connectOpen, setConnectOpen] = useState(false);
+  const { setOpen: setAgentOpen } = useAgentDrawer();
 
   return (
     <section className="hero">
+      <div className="hero-row">
+        <div className="hero-text">
+          <h1 className="hero-title">Shubham Kumar Gupta</h1>
+          <p className="hero-sub">
+            AI engineer building the reliability infra underneath agentic systems — eval harnesses, LLM gateways, guardrails middleware.
+          </p>
+          <div className="hero-cta-row">
+            <button className="pill-btn" onClick={() => setConnectOpen(true)}>Let's connect →</button>
+            <button className="pill-btn pill-btn--agent" onClick={() => setAgentOpen(true)}>
+              <span className="agent-tab-dot" /> Talk to my agent
+            </button>
+          </div>
+        </div>
+        <div className="hero-photo">
+          <img src="/uploads/grok-image-58f159b9-11fd-4a79-95b0-b414d5fe3471.jpg" alt="Shubham Kumar Gupta" />
+        </div>
+      </div>
+
       <div className="hero-stats" id="tour-stats">
         <div className="hero-stat">
           <span className="stat-label">Looking For</span>
@@ -23,13 +43,6 @@ export default function Hero() {
           <span className="stat-label">Status</span>
           <span className="stat-val">Open to Roles ↗</span>
         </div>
-      </div>
-      <div className="hero-text-row">
-        <h1 className="hero-title">ENGINEERING THE<br />AI BACKBONE.</h1>
-        <button className="pill-btn" onClick={() => setConnectOpen(true)}>· Let's Connect</button>
-      </div>
-      <div className="hero-image-row">
-        <img src="/uploads/grok-image-58f159b9-11fd-4a79-95b0-b414d5fe3471.jpg" alt="Shubham Kumar Gupta" />
       </div>
 
       {connectOpen && <ConnectPopup onClose={() => setConnectOpen(false)} />}

@@ -20,10 +20,10 @@ export default function ProjectDetail() {
       <section className="section fade-in projects-page project-detail" ref={ref}>
         <a href="/#projects" className="back-link">← Back</a>
 
-        <div className={`project-detail-hero ${project.colorClass}`}>
+        <div className="project-detail-hero">
           <div className="project-detail-img">
             {project.img
-              ? <img src={project.img} alt={project.name} style={project.imgFit === 'contain' ? { objectFit: 'contain', padding: 32 } : undefined} />
+              ? <img src={project.img} alt={project.name} style={project.imgFit === 'contain' ? { objectFit: 'contain', padding: 10 } : undefined} />
               : <span className="proj-row-mark">{project.shortName.slice(0, 2).toUpperCase()}</span>}
           </div>
           <div className="project-detail-headline">

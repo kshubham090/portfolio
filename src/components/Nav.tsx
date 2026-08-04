@@ -7,7 +7,6 @@ export default function Nav() {
   return (
     <nav>
       <div className="nav-inner">
-        <div className="nav-brand">Shubham Kumar Gupta</div>
         <button
           className={`nav-hamburger${open ? ' nav-hamburger--open' : ''}`}
           onClick={() => setOpen((o) => !o)}

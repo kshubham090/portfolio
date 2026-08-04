@@ -19,7 +19,6 @@ export interface Project {
   name: string;
   shortName: string;
   tagline: string;
-  colorClass: string;
   img?: string;
   imgFit?: 'cover' | 'contain';
   tags: string[];
@@ -34,7 +33,6 @@ export const projects: Project[] = [
     name: 'Chakra47 — Agentic Swarm',
     shortName: 'Chakra47',
     tagline: 'A governed multi-agent framework for environments where you have to prove what your AI did.',
-    colorClass: 'proj-color-chakra',
     img: '/uploads/47 (3).png',
     tags: ['4-Layer Architecture', 'LangGraph Swarm', 'SHA-256 Audit Chain', 'Physical AI'],
     links: [
@@ -73,7 +71,6 @@ export const projects: Project[] = [
     name: 'Stakrid Logistics',
     shortName: 'Stakrid',
     tagline: 'Founded and built solo — a logistics platform taken from zero to production in under a year.',
-    colorClass: 'proj-color-stakrid',
     tags: ['Founder & Lead Engineer', 'GCP Infra', 'Solo Build', 'Payments + SMS'],
     links: [
       { label: 'LinkedIn', url: 'https://www.linkedin.com/company/stakrid' },
@@ -107,7 +104,6 @@ export const projects: Project[] = [
     name: 'Lowq X1 — Agent Eval Harness',
     shortName: 'Agent Eval Harness',
     tagline: 'A production-grade eval system for AI agents, built from scratch — no eval frameworks.',
-    colorClass: 'proj-color-lowq',
     img: '/uploads/lowq-logo.png',
     imgFit: 'contain',
     tags: ['CI Regression Gate', 'LLM-as-Judge', 'Trajectory Scoring', 'Python 3.12'],
@@ -226,7 +222,6 @@ sequenceDiagram
     name: 'Lowq X2 — Contextual LLM Gateway',
     shortName: 'Contextual LLM Gateway',
     tagline: 'An LLM gateway with memory — every call makes the next one smarter.',
-    colorClass: 'proj-color-lowq',
     img: '/uploads/lowq-logo.png',
     imgFit: 'contain',
     tags: ['Neo4j Memory Graph', 'Semantic Cache', 'Cost Attribution', 'FastAPI'],
@@ -366,7 +361,6 @@ sequenceDiagram
     name: 'Military Deployment Decision System',
     shortName: 'Deployment Decision System',
     tagline: 'A 4-layer deployment pipeline — perception, deterministic planning, blocking rules-of-engagement verification, and an on-chain audit trail.',
-    colorClass: 'proj-color-military',
     img: '/uploads/f7a57771-15ab-46ac-8882-97eafd241b96.jpg',
     tags: ['4-Layer Architecture', 'RoE Verification', 'On-Chain Audit Trail', 'YOLOv8 + Semantic NLP'],
     links: [],
@@ -487,7 +481,6 @@ sequenceDiagram
     name: 'Real-Time Posture Analysis',
     shortName: 'Posture Analysis',
     tagline: 'Real-time identity and posture detection running 25+ FPS on CPU — no GPU required.',
-    colorClass: 'proj-color-posture',
     img: '/uploads/image.png',
     tags: ['25+ FPS on CPU', 'MediaPipe', 'Quantization'],
     links: [],
