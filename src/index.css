@@ -191,6 +191,7 @@ nav {
   line-height: 1.8;
   color: #ccc;
   order: 1;
+  text-align: justify;
 }
 
 /* ── PROJECTS LIST ── */
