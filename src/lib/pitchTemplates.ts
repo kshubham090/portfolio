@@ -8,7 +8,7 @@ interface Profile {
 const PROFILES: Record<VisitorType, Profile> = {
   recruiter: {
     keywords: ['hire', 'hiring', 'team', 'position', 'opening', 'role', 'job', 'candidate', 'headcount', 'onboard'],
-    pitch: `got it. AI engineer, 21. Ships in prod — led the voice pipeline at LifeAtlas (Retell AI + Twilio + Claude + pgvector, cut cost ~20X). Before that: founded Stakrid Logistics solo (40+ APIs, cut latency 4x in under a year). Shipped: agent eval harness (CI behavioral regression for agents) and a contextual LLM gateway (Neo4j-backed memory graph, semantic caching, cost attribution). Still building: guardrails middleware.\n\nCurrently looking. Works remote, open to relocation.\n\nWhat kind of role? Even a sentence helps me get specific.`,
+    pitch: `got it. AI engineer, 21. Ships in prod — led the voice pipeline at LifeAtlas (Retell AI + Twilio + Claude + pgvector, cut cost ~20X). Before that: founded Stakrid Logistics solo (40+ APIs, cut latency 4x in under a year). Shipped: Relogged (replay debugger for LangGraph agents — record once, replay free, fork at the broken step), an agent eval harness (CI behavioral regression for agents) and a contextual LLM gateway (Neo4j-backed memory graph, semantic caching, cost attribution). Still building: guardrails middleware.\n\nCurrently looking. Works remote, open to relocation.\n\nWhat kind of role? Even a sentence helps me get specific.`,
   },
   founder: {
     keywords: ['startup', 'co-founder', 'cofounder', 'building', 'product', 'mvp', 'early stage', 'early-stage', 'raise', 'ship'],
@@ -16,7 +16,7 @@ const PROFILES: Record<VisitorType, Profile> = {
   },
   engineer: {
     keywords: ['collaborate', 'open source', 'review', 'pr', 'contribute', 'fork', 'repo', 'library', 'sdk', 'architecture'],
-    pitch: `fellow builder.\n\nChakra47-AgenticSwarm is open source — LangGraph multi-agent swarm for physical AI (github.com/kshubham090/Chakra47-AgenticSwarm). Also shipped an agent eval harness and a contextual LLM gateway (Neo4j memory graph, semantic caching) — both public — if there's overlap.\n\nWhat are you working on?`,
+    pitch: `fellow builder.\n\nChakra47-AgenticSwarm is open source — LangGraph multi-agent swarm for physical AI (github.com/kshubham090/Chakra47-AgenticSwarm). Also shipped Relogged (sandboxed tool-call replay debugger for LangGraph — github.com/kshubham090/relogged), an agent eval harness and a contextual LLM gateway (Neo4j memory graph, semantic caching) — all public — if there's overlap.\n\nWhat are you working on?`,
   },
   investor: {
     keywords: ['portfolio', 'funding', 'invest', 'vc', 'venture', 'ai company', 'fund', 'round', 'thesis', 'traction'],

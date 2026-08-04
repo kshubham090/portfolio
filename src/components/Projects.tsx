@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useFadeIn } from '../hooks/useFadeIn';
 
 const timeline = [
+  { name: 'Relogged — Tool-Call Replay Debugger', desc: 'Record a LangGraph agent run once, replay it with zero API calls, fork it at the exact step that went wrong.', status: 'Shipped', slug: 'relogged' },
   { name: 'Lowq X2 — Contextual LLM Gateway', desc: 'Neo4j memory graph — cost attribution, semantic caching, model routing with fallback.', status: 'Shipped', slug: 'lowq-x2-contextual-llm-gateway' },
   { name: 'Lowq X1 — Agent Eval Harness', desc: 'CI-based behavioral regression testing for agents, built from scratch. 96 tests passing.', status: 'Shipped', slug: 'lowq-x1-agent-eval-harness' },
   { name: 'Chakra47', desc: '4-layer autonomous OS for physical AI. Open source — LangGraph swarm, SHA-256 audit chain.', status: 'Shipped', slug: 'chakra47' },

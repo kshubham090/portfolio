@@ -19,6 +19,7 @@ export default function Nav() {
           <li><a href="/#projects" onClick={close}>Projects</a></li>
           <li><a href="/#skills"  onClick={close}>Skills</a></li>
           <li><a href="/#journey" onClick={close}>Journey</a></li>
+          <li><a href="/#research" onClick={close}>Research</a></li>
           <li><a href="/#contact" onClick={close}>Contact</a></li>
         </ul>
       </div>

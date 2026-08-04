@@ -456,6 +456,58 @@ li:has(> .timeline-card):hover .timeline-card {
 }
 .testimonial-linkedin:hover { background: var(--fg); color: #0a0a0a; }
 
+/* ── RESEARCH ── */
+.research-featured {
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--fg);
+  border-radius: 4px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+}
+.research-status {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.research-featured-title {
+  font-family: var(--disp);
+  font-weight: 400;
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+.research-list { list-style: none; }
+.research-item,
+.research-item-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.research-item { padding: 18px 0; border-bottom: 1px solid var(--border); }
+.research-item-link { text-decoration: none; color: inherit; }
+.research-item-link:hover .research-title { text-decoration: underline; }
+.research-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.research-title { font-family: var(--disp); font-size: 15px; }
+.research-meta { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.research-note { font-size: 12px; line-height: 1.7; color: #bbb; max-width: 720px; margin-bottom: 4px; }
+.research-tag {
+  align-self: flex-start;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 3px 8px;
+}
+
 /* ── LINKEDIN POSTS ── */
 .li-post-grid { display: flex; flex-direction: column; gap: 12px; }
 .li-post-card {

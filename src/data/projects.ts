@@ -357,6 +357,112 @@ sequenceDiagram
     ],
   },
   {
+    slug: 'relogged',
+    name: 'Relogged — Tool-Call Replay Debugger',
+    shortName: 'Relogged',
+    tagline: 'A local-first, sandboxed replay debugger for LangGraph agents — record a run once, replay it for free, fork it at the exact step that went wrong.',
+    tags: ['LangGraph', 'Record & Replay', 'Fork-and-Fix', 'Postgres'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/kshubham090/relogged' },
+    ],
+    sections: [
+      {
+        heading: 'What it is',
+        body: [
+          'Debugging a failed agent run normally means re-running the whole thing and hoping the bug repros — expensive, non-deterministic, and it burns real API calls every time. Relogged records every tool call and state transition during a real run, then lets you replay the full trace with zero LLM calls, zero tool calls, zero network.',
+          'One decorator — @record(project=...) around your existing entry point — and everything is instrumented automatically. No changes to agent code.',
+        ],
+      },
+      {
+        heading: 'Why it exists',
+        body: [
+          "There's no stack trace for a bad agent decision. The agent doesn't crash — a tool returns a bad value and the agent confidently builds a wrong answer on top of it.",
+          'Observability platforms (LangSmith, Langfuse, Braintrust) solve monitoring at scale. They don\'t solve the narrow, personal workflow this targets: "this one run failed — let me step backward through exactly what happened, fix one step, and see if that would have fixed it, without hitting real APIs again."',
+        ],
+      },
+      {
+        heading: 'How it works',
+        body: [
+          'Recording: temporarily monkeypatches CompiledStateGraph.invoke at the class level (scoped by a ContextVar), installs wrap_tool_call on every ToolNode, and logs interleaved tool calls and state snapshots to Postgres with a thread-safe step counter.',
+          'Pure replay is a plain SQL read — no LangGraph object is ever touched, so there is no code path by which it can call a real tool. A sandbox-guarantee test proves it by poisoning the real tools and asserting they are never invoked.',
+          'Fork/override replay resumes the graph live from LangGraph\'s own checkpoint history: steps before the fork never re-run, the fork step gets your corrected value instead of the real tool, and everything after runs for real — does the fix actually change the outcome?',
+          'The whole find-bug → fix → verify loop runs in under 2 seconds end-to-end.',
+        ],
+      },
+    ],
+    diagrams: [
+      {
+        title: 'Architecture',
+        caption: 'One decorator instruments everything; Postgres holds the trace; replay never has to touch your agent.',
+        code: `
+flowchart TB
+    subgraph UserCode["Your agent code (unchanged)"]
+        Fn["run_agent(input)<br/>@record(project=...)"]
+        Graph["graph.invoke(...)"]
+        Fn --> Graph
+    end
+
+    subgraph Relogged["relogged package"]
+        Patch["patch.py<br/>monkeypatched invoke/stream"]
+        Interceptor["interceptor.py<br/>ToolInterceptor"]
+        Callbacks["callbacks.py<br/>state + LLM logging"]
+        Recorder["recorder.py<br/>Recorder + ContextVar"]
+        Replay["replay.py<br/>pure_replay · override_replay"]
+        CLI["cli.py<br/>list / show / replay"]
+    end
+
+    subgraph Storage["Postgres"]
+        Runs[("runs")]
+        Steps[("steps")]
+        Sessions[("replay_sessions")]
+    end
+
+    Graph -. "patched only inside record()" .-> Patch
+    Patch --> Interceptor
+    Patch --> Callbacks
+    Interceptor --> Recorder
+    Callbacks --> Recorder
+    Recorder --> Runs
+    Recorder --> Steps
+    CLI --> Replay
+    Replay --> Steps
+    Replay --> Sessions
+    Replay -. "override mode only:<br/>resume from checkpoint" .-> Graph
+        `,
+      },
+      {
+        title: 'Fork / Override Replay',
+        caption: 'Fix one step, resume live from there — the broken tool is never called again.',
+        code: `
+sequenceDiagram
+    participant CLI as relogged replay --override
+    participant RP as replay.py
+    participant DB as Postgres
+    participant G as Graph (checkpointer)
+    participant I as ToolInterceptor
+
+    CLI->>RP: override_replay(run_id, from_step, fix.json)
+    RP->>DB: load original run + steps
+    RP->>G: get_state_history(thread_id)
+    Note over RP,G: find checkpoint matching from_step
+    RP->>G: graph.invoke(None, resume_checkpoint)
+
+    Note over G: nodes before the fork never re-run
+
+    G->>I: wrap_tool_call() — fork point
+    I-->>G: override output (real tool never called)
+
+    G->>I: wrap_tool_call() — later steps
+    I->>G: real tool call (live)
+
+    G-->>RP: result
+    RP->>DB: INSERT forked run + replay_session
+    RP-->>CLI: new_run_id
+        `,
+      },
+    ],
+  },
+  {
     slug: 'military-deployment-decision-system',
     name: 'Military Deployment Decision System',
     shortName: 'Deployment Decision System',
