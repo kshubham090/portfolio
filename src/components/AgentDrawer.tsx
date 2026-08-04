@@ -42,9 +42,12 @@ export default function AgentDrawer() {
 
   /* lock body scroll while open — prevents iOS from scrolling the page
      itself when the keyboard opens, which is what makes fixed-position
-     panels appear to "break" (jump, float, get cut off) on mobile */
+     panels appear to "break" (jump, float, get cut off) on mobile.
+     Only needed at the width where the drawer goes full-screen (see
+     the 600px breakpoint in index.css) — on desktop it's a side panel
+     and the page behind it should stay scrollable. */
   useEffect(() => {
-    if (!open) return;
+    if (!open || window.innerWidth > 600) return;
     const scrollY = window.scrollY;
     const body = document.body;
     const prev = { position: body.style.position, top: body.style.top, width: body.style.width };
