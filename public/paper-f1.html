@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning — Shubham Kumar Gupta</title>
+<meta name="description" content="A leakage audit of lap-time and pit-stop prediction on 2023 F1 telemetry. A naive random split inflates lap-time R² to 0.994; a leakage-free, race/driver-grouped protocol restores an honest R²=0.991, with a full decomposition of what the original result was actually measuring." />
+<meta name="author" content="Shubham Kumar Gupta" />
+<link rel="canonical" href="https://www.shubham.cv/research/f1-lap-time-pitstop-prediction" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+
+<!-- Highwire Press tags — the format Google Scholar's crawler reads -->
+<meta name="citation_title" content="Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning: A Track-Identity Confound and a Corrected Protocol" />
+<meta name="citation_author" content="Gupta, Shubham Kumar" />
+<meta name="citation_author_institution" content="ASET, Amity University Noida" />
+<meta name="citation_publication_date" content="2026/08" />
+<meta name="citation_online_date" content="2026/08/09" />
+<meta name="citation_pdf_url" content="https://www.shubham.cv/research/f1-lap-time-pitstop-prediction.pdf" />
+<meta name="citation_abstract_html_url" content="https://www.shubham.cv/research/f1-lap-time-pitstop-prediction" />
+<meta name="citation_language" content="en" />
+<meta name="citation_keywords" content="Formula 1; machine learning; evaluation leakage; XGBoost; lap time prediction; pit stop prediction; SHAP; race strategy" />
+
+<!-- Dublin Core fallback -->
+<meta name="DC.title" content="Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning" />
+<meta name="DC.creator" content="Shubham Kumar Gupta" />
+<meta name="DC.date" content="2026-08-09" />
+<meta name="DC.type" content="Text" />
+<meta name="DC.format" content="application/pdf" />
+<meta name="DC.language" content="en" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.shubham.cv/research/f1-lap-time-pitstop-prediction" />
+<meta property="og:title" content="Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning" />
+<meta property="og:description" content="A naive random split inflates lap-time R² to 0.994; a leakage-free, race/driver-grouped protocol restores an honest R²=0.991. Full leakage decomposition, corrected metrics, and a cross-season generalization test." />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning: A Track-Identity Confound and a Corrected Protocol",
+  "author": {
+    "@type": "Person",
+    "name": "Shubham Kumar Gupta",
+    "affiliation": "ASET, Amity University Noida",
+    "url": "https://www.shubham.cv/"
+  },
+  "datePublished": "2026-08-09",
+  "url": "https://www.shubham.cv/research/f1-lap-time-pitstop-prediction",
+  "sameAs": "https://github.com/kshubham090/f1-lap-time-pitstop-prediction",
+  "encoding": {
+    "@type": "MediaObject",
+    "contentUrl": "https://www.shubham.cv/research/f1-lap-time-pitstop-prediction.pdf",
+    "encodingFormat": "application/pdf"
+  },
+  "abstract": "Machine learning models for Formula 1 race strategy are typically evaluated with random train/test splits over lap-level data, which lets adjacent laps from the same race leak between train and test. We quantify this directly on lap time and pit-stop prediction using 2023 FastF1 telemetry (22 races, 20,447 laps). Removing this leakage collapses a naively evaluated XGBoost lap-time model's R² from 0.994 to −2.26 on unseen circuits once track-identity features are also removed. A track-aware evaluation restores an honest R²=0.991 (MAE=0.54s). The same corrected pipeline yields a pit-stop-next-lap classifier (F1=0.303, ROC-AUC=0.888) that trails current published deep-learning approaches, reported as a limitation. A cross-season generalization test shows a substantial gap (R² 0.991 to 0.172)."
+}
+</script>
+
+<style>
+  :root { --bg:#0a0a0a; --bg2:#111; --fg:#ededeb; --muted:#888; --border:#2a2a2a; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font-family: Georgia, 'Cambria', 'Times New Roman', serif; line-height:1.7; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
+  a { color: var(--fg); }
+  .top-nav { text-align:center; margin-bottom: 32px; }
+  .top-nav a { font-family: monospace; font-size: 12px; color: var(--muted); text-decoration:none; }
+  header { text-align:center; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
+  h1 { font-weight:400; font-size: 26px; line-height:1.35; margin: 0 0 16px; }
+  .authors { font-size: 14px; margin-bottom: 4px; }
+  .affil, .meta { font-size: 12px; color: var(--muted); margin: 0 0 4px; }
+  .actions { margin-top: 18px; }
+  .btn { display:inline-block; border:1px solid var(--fg); border-radius:4px; padding:10px 18px; font-family: monospace; font-size:13px; text-decoration:none; color:var(--fg); margin: 0 6px; }
+  .abstract { border:1px solid var(--border); border-radius:4px; padding:20px 24px; margin-bottom:36px; background:var(--bg2); }
+  .abstract-label { display:block; font-family:monospace; font-size:11px; color:var(--muted); margin-bottom:10px; }
+  .abstract p { text-align: justify; font-size: 14px; margin:0; }
+  section { margin-bottom: 34px; }
+  h2 { font-weight:400; font-size:18px; margin-bottom:14px; }
+  h3 { font-weight:400; font-size:15px; color:#ccc; margin: 20px 0 10px; }
+  p { font-size: 14px; color:#bbb; text-align: justify; margin: 0 0 14px; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; margin: 16px 0 26px; }
+  caption { text-align:left; font-size:12px; color:var(--muted); margin-bottom:10px; caption-side: top; }
+  th, td { padding:7px 10px; text-align:left; }
+  thead th { border-top:1.5px solid var(--fg); border-bottom:1px solid var(--fg); font-weight:400; }
+  tbody tr { border-bottom:1px solid var(--border); }
+  tbody tr:last-child { border-bottom:1.5px solid var(--fg); }
+  figure { margin: 0 0 8px; }
+  figure img { width:100%; height:auto; border:1px solid var(--border); border-radius:4px; display:block; }
+  figcaption { font-size:11.5px; color:var(--muted); margin-top:8px; }
+  .fig-row { display:flex; gap:16px; flex-wrap:wrap; margin: 20px 0 4px; }
+  .fig-row figure { flex:1; min-width:240px; }
+  .fig-cap { font-size:12px; color:var(--muted); margin: 4px 0 26px; }
+  ol.refs { list-style: none; counter-reset: refs; padding:0; }
+  ol.refs li { counter-increment: refs; font-size:13px; color:#bbb; padding-left:26px; position:relative; margin-bottom:10px; }
+  ol.refs li::before { content: '[' counter(refs) ']'; position:absolute; left:0; color:var(--muted); font-family:monospace; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top-nav"><a href="/">← shubham.cv</a></nav>
+
+  <header>
+    <h1>Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning: A Track-Identity Confound and a Corrected Protocol</h1>
+    <p class="authors">Shubham Kumar Gupta</p>
+    <p class="affil">ASET, Amity University Noida &middot; shubham.kumar59@s.amity.edu</p>
+    <p class="meta">Preprint &middot; August 2026</p>
+    <div class="actions">
+      <a class="btn" href="/research/f1-lap-time-pitstop-prediction.pdf">Download PDF &rarr;</a>
+      <a class="btn" href="https://github.com/kshubham090/f1-lap-time-pitstop-prediction">View code on GitHub &rarr;</a>
+    </div>
+  </header>
+
+  <div class="abstract">
+    <span class="abstract-label">Abstract</span>
+    <p>Machine learning models for Formula 1 race strategy are typically evaluated with random train/test splits over lap-level data, which lets adjacent laps from the same race leak between train and test. We quantify this directly on lap time and pit-stop prediction using 2023 FastF1 telemetry (22 races, 20,447 laps). Removing this leakage collapses a naively evaluated XGBoost lap-time model's R&sup2; from 0.994 to &minus;2.26 on unseen circuits once track-identity features are also removed, showing that absolute lap time is dominated by track identity rather than the race-condition features (tyre life, stint, weather) typically used to justify these models. A track-aware evaluation (holding out drivers rather than circuits) restores an honest R&sup2;=0.991 (MAE=0.54s, vs. a persistence baseline's R&sup2;=0.949, MAE=0.61s). The same corrected pipeline yields a pit-stop-next-lap classifier (F1=0.303, ROC-AUC=0.888, vs. a logistic regression baseline's ROC-AUC=0.669) that trails current published deep-learning approaches on a closely related task (Sasikumar et al. 2025: F1=0.81), which we report as a limitation rather than a contribution. Applying the lap-time model without retraining to 2024 data shows a substantial generalization gap (R&sup2; 0.991 to 0.172; pit-stop ROC-AUC 0.888 to 0.721), suggesting season-over-season performance changes are not captured by the current feature set. We release code, corrected metrics, and a leakage decomposition to support more reproducible evaluation in this domain.</p>
+  </div>
+
+  <section>
+    <h2>1. Introduction</h2>
+    <p>Formula 1 teams make pit-stop and tyre-management decisions under significant time pressure, and a growing body of applied machine learning work uses lap-level telemetry (much of it sourced from the open FastF1 API) to model lap time degradation and pit-stop timing. A recurring methodological pattern in this literature, including in an earlier version of the pipeline this paper corrects, is to evaluate these models with a row-wise random train/test split over individual laps. Because laps from the same race and the same driver's stint are highly autocorrelated, this split lets information leak between train and test: a model can effectively interpolate within a race it has already partially seen, rather than generalize to conditions it has not.</p>
+    <p>This paper is a leakage audit, not primarily a new modeling technique. Its central contribution is a decomposition that isolates exactly how much of a plausible-looking result is attributable to (a) the row-wise split itself and (b) one-hot encoding driver and circuit identity as model features. We show that these two choices, independently or combined, are sufficient to reproduce a near-perfect lap-time R&sup2; that has essentially nothing to do with modeling tyre degradation. We then propose and validate an honest evaluation protocol: grouped cross-validation, with an explicit distinction between generalizing to an unseen circuit (track-agnostic) versus an unseen driver on a known circuit (track-aware).</p>
+    <p>We do not claim state-of-the-art predictive performance. On the pit-stop classification task specifically, our corrected classifier trails several recently published results (Section 2), and we report this plainly in Section 5 rather than around it. The contribution we do make is a methodology and an empirical demonstration, on a real dataset, of how large an evaluation-leakage confound can be in this application domain.</p>
+  </section>
+
+  <section>
+    <h2>2. Related Work</h2>
+    <p><strong>Machine learning for lap-time prediction.</strong> Zhao (2024) trains a deep neural network to forecast qualifying lap times, categorizing historical data by driver and circuit; this specialization is functionally close to encoding driver and circuit identity as features, the same mechanism this paper identifies as the dominant confound. Brusik (2024) compares univariate and multivariate LSTM and LSTM-FCN architectures for multi-step lap-time forecasting on FastF1 data spanning 2018&ndash;2023 (136,122 laps), using a strict chronological split; error analysis identifies track-status changes as the primary source of large forecasting errors.</p>
+    <p><strong>Deep learning for pit-stop prediction.</strong> Sasikumar, Leema, and Balakrishnan (2025) benchmark five deep sequence and convolutional architectures on FastF1-sourced pit-stop prediction, evaluated on a temporal holdout. Their best model, Bi-LSTM, reaches precision=0.77, recall=0.86, F1=0.81, and ROC-AUC=0.988. Our corrected pit-stop classifier (F1=0.303, ROC-AUC=0.888) does not match it. Fatima and Johrendt's Deep-Racing (2023) reports F1=0.67, and Garc&iacute;a Tejada's SVM-based classifier (2023) reports F1=0.621.</p>
+    <p><strong>Explainable F1 strategy models.</strong> Todd et al. (2025) apply explainable deep learning and XGBoost to tyre energy degradation prediction. Thomas et al. (2025) target the sequential strategy decision with a reinforcement learning policy (RSRL), achieving an average finishing position of P5.33 on the 2023 Bahrain Grand Prix. Our use of SHAP (TreeExplainer) is in the same interpretability spirit, applied to a simpler supervised tabular formulation.</p>
+    <p><strong>Positioning.</strong> We position this paper's contribution as methodological: a race- and driver-grouped cross-validation protocol, an explicit decomposition of how leaky evaluation inflates results in this domain, honest non-trivial baselines, and a cross-season generalization test, rather than a claim of predictive superiority over any cited comparator.</p>
+  </section>
+
+  <section>
+    <h2>3. Methodology</h2>
+    <h3>3.1 Data</h3>
+    <p>We use the FastF1 Python API to fetch lap-by-lap timing data for all 22 races of the 2023 Formula 1 season (24,420 raw laps). Weather is merged onto lap data with a nearest-match merge on timestamp (5-minute tolerance) before races are concatenated. For the cross-season generalization test, we additionally fetch six 2024 races (Bahrain, Japan, Monaco, Great Britain, Singapore, Brazil) chosen to reuse 2023 circuit names. Laps are cleaned by requiring an accurate-lap flag and dropping rows missing key fields, leaving 20,447 laps used throughout the paper.</p>
+    <h3>3.2 Features and targets</h3>
+    <p>Numeric features: tyre life, stint, lap number, lap-time delta from the previous lap, an approximate gap to the car ahead, track/air temperature, rainfall, position, humidity, and wind speed. Categorical features: tyre compound and track status. The regression target is lap time in seconds. The classification target, PitStopNextLap, is defined as (NextTyreLife &lt; TyreLife) AND (TyreLife &gt; 2), shifted within (Grand Prix, Driver) groups. Under this definition, 707 of 20,447 laps (3.5%) are positive.</p>
+    <h3>3.3 Leakage decomposition</h3>
+    <p>We evaluate four scenarios for the lap-time regression task: <strong>A</strong> &mdash; random row-wise split, driver and GP included (reproduces the original leaky setup). <strong>B</strong> &mdash; grouped by race, driver and GP included (GP unseen at test). <strong>C</strong> &mdash; grouped by race, no identity features ("track-agnostic"). <strong>D</strong> &mdash; grouped by driver, GP kept as a feature ("track-aware"). Scenario C is our primary track-agnostic result; Scenario D is our primary track-aware result and the version used for SHAP analysis, the deployed model, and the 2024 generalization test.</p>
+    <h3>3.4 Baselines, model, explainability, and generalization test</h3>
+    <p>For lap-time regression we compare XGBoost against a persistence baseline and linear regression. For pit-stop classification we compare XGBoost against a majority-class baseline and logistic regression with balanced class weights. We compute SHAP values (TreeExplainer) for both final (track-aware) models. Both track-aware models, trained once on the full 2023 season, are evaluated without retraining on the 6-race 2024 holdout (6,133 laps after cleaning).</p>
+  </section>
+
+  <section>
+    <h2>4. Results</h2>
+    <h3>4.1 Leakage decomposition</h3>
+    <p>Table 1 confirms that the original evaluation's near-perfect R&sup2; is reproducible almost exactly once both the row-wise split and identity features are restored (Scenario A), and that identity features alone provide no benefit once the split is honest and the circuit is genuinely unseen (Scenario B). Scenario D shows that keeping circuit identity is not illegitimate in general, and yields a strong, honestly-validated result.</p>
+    <table>
+      <caption>Table 1. Leakage decomposition, lap-time regression.</caption>
+      <thead><tr><th>Scenario</th><th>Split</th><th>Driver/GP features</th><th>R&sup2;</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>Random row-wise</td><td>Both</td><td>0.994</td></tr>
+        <tr><td>B</td><td>Grouped by race</td><td>Both (unseen at test)</td><td>&minus;0.58 &plusmn; 0.47</td></tr>
+        <tr><td>C (track-agnostic, primary)</td><td>Grouped by race</td><td>None</td><td>&minus;2.26 &plusmn; 1.56</td></tr>
+        <tr><td>D (track-aware, primary)</td><td>Grouped by driver</td><td>GP only</td><td>0.991 &plusmn; 0.002</td></tr>
+      </tbody>
+    </table>
+
+    <h3>4.2 Lap time regression</h3>
+    <p>The track-agnostic model performs worse than predicting the training-set mean on unseen circuits (R&sup2; &lt; 0), because absolute lap time is dominated by track length and layout. The track-aware model is a real improvement over a strong persistence baseline (MAE 0.54s vs. 0.61s).</p>
+    <table>
+      <caption>Table 2. Lap time regression: old vs. corrected metrics.</caption>
+      <thead><tr><th>Model</th><th>MAE (s)</th><th>RMSE (s)</th><th>R&sup2;</th></tr></thead>
+      <tbody>
+        <tr><td>Notebook (as found, not reproducible)</td><td>N/A</td><td>0.70</td><td>0.9973</td></tr>
+        <tr><td>Paper (as claimed, not reproducible)</td><td>0.174</td><td>0.769</td><td>0.995</td></tr>
+        <tr><td>Track-agnostic: XGBoost</td><td>13.40 &plusmn; 2.14</td><td>16.24 &plusmn; 1.78</td><td>&minus;2.26 &plusmn; 1.56</td></tr>
+        <tr><td>Track-agnostic: linear regression</td><td>8.28 &plusmn; 1.89</td><td>10.63 &plusmn; 2.53</td><td>&minus;0.29 &plusmn; 0.57</td></tr>
+        <tr><td>Track-agnostic: persistence</td><td>0.61 &plusmn; 0.15</td><td>2.20 &plusmn; 0.95</td><td>0.943 &plusmn; 0.038</td></tr>
+        <tr><td>Track-aware: XGBoost</td><td>0.54 &plusmn; 0.01</td><td>1.03 &plusmn; 0.12</td><td>0.991 &plusmn; 0.002</td></tr>
+        <tr><td>Track-aware: persistence</td><td>0.61 &plusmn; 0.05</td><td>2.41 &plusmn; 0.27</td><td>0.949 &plusmn; 0.012</td></tr>
+      </tbody>
+    </table>
+
+    <h3>4.3 Pit-stop classification</h3>
+    <p>The track-agnostic classifier barely beats a majority-class baseline on F1 and is actually worse than logistic regression on ROC-AUC (0.645 vs. 0.669), while the track-aware classifier is a clear improvement over both non-trivial baselines.</p>
+    <table>
+      <caption>Table 3. Pit-stop-next-lap classification: old vs. corrected metrics.</caption>
+      <thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th></tr></thead>
+      <tbody>
+        <tr><td>Notebook (as found, not reproducible)</td><td>98.62%</td><td>N/A</td><td>N/A</td><td>0.72</td><td>N/A</td></tr>
+        <tr><td>Paper (as claimed, not reproducible)</td><td>89.53%</td><td>0.71</td><td>0.81</td><td>N/A</td><td>0.94</td></tr>
+        <tr><td>Track-agnostic: XGBoost</td><td>87.8% &plusmn; 5.7</td><td>0.087 &plusmn; 0.031</td><td>0.213 &plusmn; 0.082</td><td>0.114 &plusmn; 0.043</td><td>0.645 &plusmn; 0.060</td></tr>
+        <tr><td>Track-agnostic: majority class</td><td>96.6% &plusmn; 0.4</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.500</td></tr>
+        <tr><td>Track-agnostic: logistic regr.</td><td>65.7% &plusmn; 6.0</td><td>0.057 &plusmn; 0.009</td><td>0.565 &plusmn; 0.059</td><td>0.103 &plusmn; 0.015</td><td>0.669 &plusmn; 0.041</td></tr>
+        <tr><td>Track-aware: XGBoost</td><td>89.7% &plusmn; 1.5</td><td>0.200 &plusmn; 0.027</td><td>0.643 &plusmn; 0.039</td><td>0.303 &plusmn; 0.030</td><td>0.888 &plusmn; 0.005</td></tr>
+      </tbody>
+    </table>
+
+    <h3>4.4 Explainability</h3>
+    <p>Figure 1 shows that the track-aware lap-time model's global feature importance is dominated by circuit identity (GP) and weather. Figure 2 shows the opposite, more domain-sensible pattern for the pit-stop model: tyre life and stint dominate, with circuit identity contributing comparatively little.</p>
+    <div class="fig-row">
+      <figure><img src="/research/f1/lap_time_summary.png" alt="Global feature importance, track-aware lap-time model" loading="lazy" /><figcaption>(a) Global feature importance</figcaption></figure>
+      <figure><img src="/research/f1/lap_time_case_high_tyre_life.png" alt="Individual case: high tyre life, wet lap" loading="lazy" /><figcaption>(b) Individual case: high tyre life, wet lap</figcaption></figure>
+    </div>
+    <p class="fig-cap">Figure 1. SHAP analysis, track-aware lap-time model.</p>
+    <div class="fig-row">
+      <figure><img src="/research/f1/pit_stop_summary.png" alt="Global feature importance, track-aware pit-stop model" loading="lazy" /><figcaption>(a) Global feature importance</figcaption></figure>
+      <figure><img src="/research/f1/pit_stop_case_correct_pit_prediction.png" alt="Individual case: correctly predicted pit stop" loading="lazy" /><figcaption>(b) Individual case: correctly predicted pit stop</figcaption></figure>
+    </div>
+    <p class="fig-cap">Figure 2. SHAP analysis, track-aware pit-stop model.</p>
+
+    <h3>4.5 Cross-season generalization</h3>
+    <p>Both track-aware models, trained only on 2023 data, degrade substantially when evaluated without retraining on the 2024 holdout.</p>
+    <table>
+      <caption>Table 4. Cross-season generalization: 2023-trained, evaluated on 2024 without retraining.</caption>
+      <thead><tr><th>Model</th><th>Metric</th><th>2023 (in-season CV)</th><th>2024 (held out)</th></tr></thead>
+      <tbody>
+        <tr><td>Lap time</td><td>MAE (s)</td><td>0.54</td><td>7.85</td></tr>
+        <tr><td>Lap time</td><td>RMSE (s)</td><td>1.03</td><td>10.01</td></tr>
+        <tr><td>Lap time</td><td>R&sup2;</td><td>0.991</td><td>0.172</td></tr>
+        <tr><td>Pit stop</td><td>Accuracy</td><td>89.7%</td><td>87.7%</td></tr>
+        <tr><td>Pit stop</td><td>Precision</td><td>0.200</td><td>0.080</td></tr>
+        <tr><td>Pit stop</td><td>Recall</td><td>0.643</td><td>0.329</td></tr>
+        <tr><td>Pit stop</td><td>F1</td><td>0.303</td><td>0.129</td></tr>
+        <tr><td>Pit stop</td><td>ROC-AUC</td><td>0.888</td><td>0.721</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>5. Limitations</h2>
+    <p><strong>The pit-stop classifier trails the current published field, and we do not soften this.</strong> Our track-aware classifier reaches F1=0.303 and ROC-AUC=0.888, behind Sasikumar et al.'s Bi-LSTM (2025: F1=0.81), Fatima and Johrendt's Deep-Racing (2023: F1=0.67), and Garc&iacute;a Tejada's SVM (2023: F1=0.621). This paper's contribution is the leakage audit and corrected evaluation protocol, not a claim of competing with the best published pit-stop predictors.</p>
+    <p><strong>The track-aware framing is narrower than "lap time prediction" as originally framed.</strong> It generalizes to an unseen driver on a known circuit, not to an unseen circuit.</p>
+    <p><strong>Cross-season generalization is weak without retraining.</strong> Neither model should be deployed across a season boundary without recalibration.</p>
+    <p><strong>Safety cars, red flags, and team orders are not modeled.</strong> Track status is a coarse proxy at best.</p>
+    <p><strong>Driver and constructor identity are deliberately excluded</strong> from the pit-stop model and the lap-time model's driver dimension, to avoid the identity-memorization problem this paper documents.</p>
+    <p><strong>Training data is single-season.</strong> The 2024 data is used only for evaluation, not training.</p>
+    <p><strong>The lap-time delta feature is quasi-derived from the regression target.</strong> An ablation removing it changed the track-agnostic result by less than 0.03 R&sup2;.</p>
+  </section>
+
+  <section>
+    <h2>6. Conclusion</h2>
+    <p>We audited an existing Formula 1 lap-time and pit-stop prediction pipeline and found that its previously reported near-perfect performance was substantially an artifact of a row-wise random train/test split combined with one-hot-encoded driver and circuit identity, not genuine modeling of race conditions. A track-aware reformulation restores strong, honestly-validated performance for lap time, and a more modest but still non-trivial improvement over baselines for pit-stop classification, which nonetheless trails the current published state of the art. We release the corrected pipeline, the leakage decomposition, and all metrics reported here to support more reproducible evaluation practice in this application area.</p>
+  </section>
+
+  <section>
+    <h2>References</h2>
+    <ol class="refs">
+      <li>Zhao, Z. (2024). Deep Neural Network-based Lap Time Forecasting of Formula 1 Racing. <em>Applied and Computational Engineering</em>, 47, 61&ndash;66. doi:10.54254/2755-2721/47/20241191</li>
+      <li>Brusik, F. (2024). <em>Predicting Lap Times in a Formula 1 Race Using Deep Learning Algorithms</em> [Master's thesis, Tilburg University].</li>
+      <li>Sasikumar, A., Leema, A. A., &amp; Balakrishnan, P. (2025). Data-driven pit stop decision support for Formula 1 using deep learning models. <em>Frontiers in Artificial Intelligence</em>, 8, 1673148. doi:10.3389/frai.2025.1673148</li>
+      <li>Fatima, S. S. W., &amp; Johrendt, J. (2023). Deep-Racing: An Embedded Deep Neural Network (EDNN) Model to Predict the Winning Strategy in Formula One Racing. <em>International Journal of Machine Learning</em>, 13(3), 97&ndash;103. doi:10.18178/ijml.2023.13.3.1135</li>
+      <li>Garc&iacute;a Tejada, L. (2023). <em>Applying Machine Learning to Forecast Formula 1 Race Outcomes</em> [Master's thesis, Aalto University].</li>
+      <li>Todd, J., Jiang, J., Russo, A., Winkler, S., Sale, S., McMillan, J., &amp; Rago, A. (2025). Explainable Time Series Prediction of Tyre Energy in Formula One Race Strategy. arXiv:2501.04067</li>
+      <li>Thomas, D., Jiang, J., Kori, A., Russo, A., Winkler, S., Sale, S., McMillan, J., Belardinelli, F., &amp; Rago, A. (2025). Explainable Reinforcement Learning for Formula One Race Strategy. arXiv:2501.04068</li>
+      <li>Sander, T. (2023). <em>FastF1: Python API for Accessing Formula 1 Telemetry and Timing Data</em> (v3.3) [GitHub repository]. github.com/theOehrly/Fast-F1</li>
+    </ol>
+  </section>
+
+  <div class="actions" style="text-align:center; margin: 40px 0;">
+    <a class="btn" href="/research/f1-lap-time-pitstop-prediction.pdf">Download PDF &rarr;</a>
+    <a class="btn" href="https://github.com/kshubham090/f1-lap-time-pitstop-prediction">View code on GitHub &rarr;</a>
+  </div>
+</div>
+</body>
+</html>

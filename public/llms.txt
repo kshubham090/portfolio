@@ -1,0 +1,23 @@
+# Shubham Kumar Gupta
+
+> AI engineer building agentic systems and the reliability infrastructure around them — eval harnesses, LLM gateways, guardrails middleware. Currently AI Engineering Intern at Winniio / LifeAtlas (Sweden, remote). Founded and ran Stakrid Logistics solo before that. Based in Noida, India; open to relocation, SF preferred.
+
+Contact: kshubham04907@gmail.com · https://linkedin.com/in/shubhamgupta04907 · https://github.com/kshubham090 · https://x.com/skg_curious
+
+## Research
+
+- [Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning](https://www.shubham.cv/research/f1-lap-time-pitstop-prediction): A leakage audit of lap-time and pit-stop prediction on 2023 F1 telemetry. A naive random split inflates lap-time R² to 0.994; a leakage-free, race/driver-grouped protocol restores an honest R²=0.991. Full text, tables, and figures on the page; PDF at https://www.shubham.cv/research/f1-lap-time-pitstop-prediction.pdf; code at https://github.com/kshubham090/f1-lap-time-pitstop-prediction.
+
+## Projects
+
+- [Lowq X2 — Contextual LLM Gateway](https://www.shubham.cv/projects/lowq-x2-contextual-llm-gateway): LLM gateway with a Neo4j memory graph — cost attribution, semantic caching, model routing with fallback.
+- [Lowq X1 — Agent Eval Harness](https://www.shubham.cv/projects/lowq-x1-agent-eval-harness): CI-based behavioral regression testing for AI agents, built from scratch — no eval frameworks.
+- [Chakra47](https://www.shubham.cv/projects/chakra47): Open-source governed multi-agent framework — LangGraph swarm, SHA-256 audit chain, code decides / LLM advises.
+- [Military Deployment Decision System](https://www.shubham.cv/projects/military-deployment-decision-system): 4-layer deployment pipeline — perception, deterministic planning, blocking Rules-of-Engagement verification, on-chain audit trail. Presented at the AI Impact Summit 2026, Government of India.
+- [Real-Time Posture Analysis](https://www.shubham.cv/projects/real-time-posture-analysis): Real-time identity and posture detection running 25+ FPS on CPU via MediaPipe and model quantization.
+- [Stakrid Logistics](https://www.shubham.cv/projects/stakrid): Solo-founded logistics platform — 40+ REST endpoints, GCP infra, cut manual processing 80% and latency 4x.
+
+## Other
+
+- [Resume (PDF)](https://www.shubham.cv/resume.pdf)
+- [Full site](https://www.shubham.cv/) — About, Skills, Journey, and current writing.
