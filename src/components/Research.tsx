@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useFadeIn } from '../hooks/useFadeIn';
 
 interface Paper {
@@ -7,6 +8,30 @@ interface Paper {
   tag: string;
   url?: string;
 }
+
+interface OwnPaper {
+  status: string;
+  title: string;
+  note: string;
+  tag: string;
+  href?: string;
+}
+
+const OWN_PAPERS: OwnPaper[] = [
+  {
+    status: 'Published',
+    title: 'Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning',
+    note: 'A leakage audit of lap-time and pit-stop prediction on 2023 F1 telemetry — a naive random split inflates lap-time R² to 0.994; a leakage-free, race/driver-grouped protocol restores an honest R²=0.991, with a full decomposition of what the original result was actually measuring.',
+    tag: 'F1',
+    href: '/research/f1-lap-time-pitstop-prediction',
+  },
+  {
+    status: 'In progress',
+    title: 'Age-Stratified Evaluation of Speech Recognition',
+    note: 'Establishes how to measure whether speech recognition works for older speakers in any language — a portable auditing protocol, demonstrated on Indian languages, showing that it largely doesn’t.',
+    tag: 'Vyashkosh',
+  },
+];
 
 const PAPERS: Paper[] = [
   {
@@ -77,15 +102,25 @@ export default function Research() {
         <span className="sec-label">Research</span>
       </div>
 
-      <div className="research-featured">
-        <span className="research-status">Paper in progress</span>
-        <h3 className="research-featured-title">Age-Stratified Evaluation of Speech Recognition</h3>
-        <p className="research-note">
-          Establishes how to measure whether speech recognition works for older speakers in any language — a
-          portable auditing protocol, demonstrated on Indian languages, showing that it largely doesn't.
-        </p>
-        <span className="research-tag">Vyashkosh</span>
-      </div>
+      {OWN_PAPERS.map((p) => {
+        const inner = (
+          <>
+            <span className="research-status">{p.status}</span>
+            <h3 className="research-featured-title">{p.title}</h3>
+            <p className="research-note">{p.note}</p>
+            <span className="research-tag">{p.tag}</span>
+          </>
+        );
+        return p.href ? (
+          <Link key={p.title} to={p.href} className="research-featured research-featured-link">
+            {inner}
+          </Link>
+        ) : (
+          <div key={p.title} className="research-featured">
+            {inner}
+          </div>
+        );
+      })}
 
       <ul className="research-list">
         {PAPERS.map((p) => {

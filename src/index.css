@@ -342,6 +342,86 @@ li:has(> .timeline-card):hover .timeline-card {
   border-top: 1px solid var(--border);
 }
 
+/* ── PAPER (arXiv-style) ── */
+.paper-page { padding-top: 130px; }
+.paper-wrap { max-width: 760px; margin: 0 auto; }
+.paper-header { text-align: center; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
+.paper-title {
+  font-family: var(--disp);
+  font-weight: 400;
+  font-size: clamp(21px, 2.6vw, 27px);
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+.paper-authors { font-size: 14px; color: var(--fg); margin-bottom: 4px; }
+.paper-affil { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.paper-meta { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+.paper-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.paper-abstract {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin-bottom: 36px;
+  background: var(--bg2);
+}
+.paper-abstract-label {
+  display: block;
+  font-family: var(--body);
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.paper-abstract-text { font-size: 14px; line-height: 1.8; color: #ddd; text-align: justify; }
+.paper-section { margin-bottom: 34px; }
+.paper-heading {
+  font-family: var(--disp);
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 14px;
+  color: var(--fg);
+}
+.paper-subheading {
+  font-family: var(--disp);
+  font-size: 14px;
+  font-weight: 400;
+  margin: 20px 0 10px;
+  color: #ccc;
+}
+.paper-body { font-size: 14px; line-height: 1.85; color: #bbb; margin-bottom: 14px; text-align: justify; }
+.paper-body:last-child { margin-bottom: 0; }
+.paper-table-wrap { margin: 20px 0 26px; overflow-x: auto; }
+.paper-table-caption { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.paper-table { width: 100%; border-collapse: collapse; font-size: 12.5px; white-space: nowrap; }
+.paper-table th, .paper-table td { padding: 7px 12px; text-align: left; }
+.paper-table thead th { border-top: 1.5px solid var(--fg); border-bottom: 1px solid var(--fg); color: var(--fg); font-weight: 400; }
+.paper-table tbody tr { border-bottom: 1px solid var(--border); }
+.paper-table tbody tr:last-child { border-bottom: 1.5px solid var(--fg); }
+.paper-table td.hl, .paper-table th.hl { color: var(--fg); font-weight: 600; }
+.paper-figure-row { display: flex; gap: 16px; margin: 20px 0 8px; flex-wrap: wrap; }
+.paper-figure { flex: 1; min-width: 240px; }
+.paper-figure img { width: 100%; height: auto; display: block; border: 1px solid var(--border); border-radius: 4px; background: var(--bg2); }
+.paper-figure-caption { font-size: 11.5px; color: var(--muted); line-height: 1.6; margin-top: 8px; }
+.paper-figure-block-caption { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 4px; margin-bottom: 26px; }
+.paper-refs { list-style: none; counter-reset: refs; }
+.paper-refs li {
+  counter-increment: refs;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #bbb;
+  padding-left: 26px;
+  position: relative;
+  margin-bottom: 10px;
+}
+.paper-refs li::before {
+  content: '[' counter(refs) ']';
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+  font-family: var(--body);
+  font-size: 12px;
+}
+.paper-refs a { color: var(--fg); }
+
 /* ── GITHUB ACTIVITY ── */
 .gh-calendar-wrap {
   width: 100%;
@@ -459,12 +539,21 @@ li:has(> .timeline-card):hover .timeline-card {
 
 /* ── RESEARCH ── */
 .research-featured {
+  display: block;
   border: 1px solid var(--border);
   border-left: 2px solid var(--fg);
   border-radius: 4px;
   padding: 22px 24px;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, background 0.2s;
 }
+.research-featured-link:hover {
+  border-color: #444;
+  background: var(--bg2);
+}
+.research-featured-link:hover .research-featured-title { text-decoration: underline; }
 .research-status {
   display: inline-block;
   font-size: 10px;
@@ -954,6 +1043,8 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
   .testimonial-card { padding: 20px 22px; }
   .footer-cta { padding: 48px var(--gutter) 40px; }
   .projects-page { padding-top: 96px; }
+  .paper-page { padding-top: 96px; }
+  .paper-figure-row { flex-direction: column; }
   .project-detail-headline { padding: 0; }
   .skills-wrap { grid-template-columns: 1fr; gap: 32px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
