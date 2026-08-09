@@ -42,7 +42,7 @@ export default function Thoughts() {
   return (
     <section className="section fade-in" ref={ref}>
       <div className="sec-row">
-        <span className="sec-label">Writing</span>
+        <h2 className="sec-label">Writing</h2>
         <div className="sec-links-group">
           <a href="https://linkedin.com/in/shubhamgupta04907" target="_blank" rel="noreferrer" className="sec-link">LinkedIn →</a>
           <a href="https://x.com/skg_curious" target="_blank" rel="noreferrer" className="sec-link">X →</a>

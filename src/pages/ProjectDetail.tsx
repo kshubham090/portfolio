@@ -23,7 +23,7 @@ export default function ProjectDetail() {
         <div className="project-detail-hero">
           <div className="project-detail-img">
             {project.img
-              ? <img src={project.img} alt={project.name} style={project.imgFit === 'contain' ? { objectFit: 'contain', padding: 10 } : undefined} />
+              ? <img src={project.img} alt={project.name} width={88} height={88} style={project.imgFit === 'contain' ? { objectFit: 'contain', padding: 10 } : undefined} />
               : <span className="proj-row-mark">{project.shortName.slice(0, 2).toUpperCase()}</span>}
           </div>
           <div className="project-detail-headline">

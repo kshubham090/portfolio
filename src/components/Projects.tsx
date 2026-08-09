@@ -16,7 +16,7 @@ export default function Projects() {
   return (
     <section className="section fade-in" id="projects" ref={ref}>
       <div className="sec-row">
-        <span className="sec-label">Projects</span>
+        <h2 className="sec-label">Projects</h2>
       </div>
 
       <ol className="timeline" id="tour-projects">

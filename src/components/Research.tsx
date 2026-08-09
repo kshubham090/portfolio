@@ -99,7 +99,7 @@ export default function Research() {
   return (
     <section className="section fade-in" id="research" ref={ref}>
       <div className="sec-row">
-        <span className="sec-label">Research</span>
+        <h2 className="sec-label">Research</h2>
       </div>
 
       {OWN_PAPERS.map((p) => {

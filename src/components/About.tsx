@@ -5,7 +5,7 @@ export default function About() {
   return (
     <section className="section fade-in" id="about" ref={ref}>
       <div className="sec-row">
-        <span className="sec-label">About</span>
+        <h2 className="sec-label">About</h2>
       </div>
       <div className="about-body">
         <div className="about-stat-col">

@@ -10,7 +10,7 @@ export default function GitHubActivity() {
   return (
     <section className="section fade-in gh-activity" ref={ref}>
       <div className="sec-row">
-        <span className="sec-label">GitHub Activity</span>
+        <h2 className="sec-label">GitHub Activity</h2>
         <a href="https://github.com/kshubham090" target="_blank" rel="noreferrer" className="sec-link">Profile →</a>
       </div>
 

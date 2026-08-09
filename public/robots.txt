@@ -68,6 +68,16 @@ Allow: /
 User-agent: DuckAssistBot
 Allow: /
 
+User-agent: DuckDuckBot
+Allow: /
+
+# ── Internet Archive ──
+User-agent: archive.org_bot
+Allow: /
+
+User-agent: ia_archiver
+Allow: /
+
 # ── Common Crawl (used by many LLM training pipelines) ──
 User-agent: CCBot
 Allow: /

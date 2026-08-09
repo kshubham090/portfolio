@@ -13,7 +13,7 @@ export default function Journey() {
   return (
     <section className="section fade-in" id="journey" ref={ref}>
       <div className="sec-row">
-        <span className="sec-label">Journey</span>
+        <h2 className="sec-label">Journey</h2>
         <a href="https://linkedin.com/in/shubhamgupta04907" target="_blank" rel="noreferrer" className="sec-link">View All →</a>
       </div>
       <ul className="journey-list">

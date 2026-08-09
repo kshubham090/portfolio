@@ -454,7 +454,7 @@ li:has(> .timeline-card):hover .timeline-card {
   align-items: center;
 }
 .skills-list li.hl  { color: var(--fg); }
-.skills-list li.dim { color: #555; }
+.skills-list li.dim { color: var(--muted); }
 .skill-arrow { font-size: 13px; opacity: 0; transition: opacity 0.2s, transform 0.2s; }
 .skills-list li:hover .skill-arrow { opacity: 1; transform: translateX(4px); }
 
@@ -694,12 +694,12 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
 .newsletter-error { font-size: 11px; color: #e05050; margin-top: 8px; }
 .footer-col-title { font-size: 10px; color: var(--muted); margin-bottom: 18px; }
 .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
-.footer-links a { font-size: 13px; color: #666; text-decoration: none; transition: color 0.2s; }
+.footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--fg); }
 .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
-.footer-copy { font-size: 11px; color: #444; }
+.footer-copy { font-size: 11px; color: var(--muted); }
 .footer-socials { display: flex; gap: 28px; }
-.footer-socials a { font-size: 11px; color: #555; text-decoration: none; transition: color 0.2s; }
+.footer-socials a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
 .footer-socials a:hover { color: var(--fg); }
 
 /* ── AGENT DRAWER ── */
@@ -897,10 +897,14 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
 }
 .welcome-close {
   position: absolute;
-  top: 8px; right: 10px;
+  top: 0; right: 0;
+  width: 32px; height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
-  color: #666;
+  color: var(--muted);
   font-size: 11px;
   cursor: pointer;
   padding: 0;
@@ -991,13 +995,17 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); }
 .modal-back:hover { color: var(--fg); }
 .modal-close {
   position: absolute;
-  top: 16px; right: 16px;
+  top: 8px; right: 8px;
+  width: 32px; height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
-  color: #555;
+  color: var(--muted);
   font-size: 13px;
   cursor: pointer;
-  padding: 4px;
+  padding: 0;
   line-height: 1;
   transition: color 0.2s;
 }

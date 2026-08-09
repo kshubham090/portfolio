@@ -13,7 +13,7 @@ export default function Skills() {
   return (
     <section className="section fade-in" id="skills" ref={ref}>
       <div className="sec-row">
-        <span className="sec-label">Expertise</span>
+        <h2 className="sec-label">Expertise</h2>
         <a href="#journey" className="sec-link">Full Stack →</a>
       </div>
       <div className="skills-wrap" id="tour-skills">

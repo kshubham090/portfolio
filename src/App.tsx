@@ -15,11 +15,13 @@ export default function App() {
   return (
     <AgentDrawerProvider>
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects/:slug" element={<Suspense fallback={null}><ProjectDetail /></Suspense>} />
-        <Route path="/research/f1-lap-time-pitstop-prediction" element={<Suspense fallback={null}><PaperF1 /></Suspense>} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects/:slug" element={<Suspense fallback={null}><ProjectDetail /></Suspense>} />
+          <Route path="/research/f1-lap-time-pitstop-prediction" element={<Suspense fallback={null}><PaperF1 /></Suspense>} />
+        </Routes>
+      </main>
       <Footer />
       <AgentDrawer />
       <WelcomePopup />

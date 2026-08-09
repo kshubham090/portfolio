@@ -22,7 +22,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="hero-photo">
-          <img src="/uploads/grok-image-58f159b9-11fd-4a79-95b0-b414d5fe3471.jpg" alt="Shubham Kumar Gupta" />
+          <img src="/uploads/grok-image-58f159b9-11fd-4a79-95b0-b414d5fe3471.jpg" alt="Shubham Kumar Gupta" width={1280} height={653} />
         </div>
       </div>
 

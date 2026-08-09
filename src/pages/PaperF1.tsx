@@ -325,11 +325,11 @@ export default function PaperF1() {
 
             <div className="paper-figure-row">
               <figure className="paper-figure">
-                <img src="/research/f1/lap_time_summary.png" alt="Global feature importance, track-aware lap-time model" loading="lazy" />
+                <img src="/research/f1/lap_time_summary.png" alt="Global feature importance, track-aware lap-time model" loading="lazy" width={1200} height={1425} />
                 <figcaption className="paper-figure-caption">(a) Global feature importance</figcaption>
               </figure>
               <figure className="paper-figure">
-                <img src="/research/f1/lap_time_case_high_tyre_life.png" alt="Individual case: high tyre life, wet lap" loading="lazy" />
+                <img src="/research/f1/lap_time_case_high_tyre_life.png" alt="Individual case: high tyre life, wet lap" loading="lazy" width={1200} height={1125} />
                 <figcaption className="paper-figure-caption">(b) Individual case: high tyre life, wet lap</figcaption>
               </figure>
             </div>
@@ -337,11 +337,11 @@ export default function PaperF1() {
 
             <div className="paper-figure-row">
               <figure className="paper-figure">
-                <img src="/research/f1/pit_stop_summary.png" alt="Global feature importance, track-aware pit-stop model" loading="lazy" />
+                <img src="/research/f1/pit_stop_summary.png" alt="Global feature importance, track-aware pit-stop model" loading="lazy" width={1200} height={1425} />
                 <figcaption className="paper-figure-caption">(a) Global feature importance</figcaption>
               </figure>
               <figure className="paper-figure">
-                <img src="/research/f1/pit_stop_case_correct_pit_prediction.png" alt="Individual case: correctly predicted pit stop" loading="lazy" />
+                <img src="/research/f1/pit_stop_case_correct_pit_prediction.png" alt="Individual case: correctly predicted pit stop" loading="lazy" width={1200} height={1125} />
                 <figcaption className="paper-figure-caption">(b) Individual case: correctly predicted pit stop</figcaption>
               </figure>
             </div>
