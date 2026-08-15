@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Interview Prep Tracker</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#F6F5F1;--panel:#FFFFFF;--ink:#1A1D29;--ink-soft:#5B5F6B;--ink-faint:#9497A0;--rule:#DEDCD2;
+  --blue:#2B4C7E;--blue-tint:#EAF0F8;--teal:#0F8B8D;--teal-tint:#E4F3F2;
+  --amber:#B5791F;--amber-tint:#FBF1E0;--coral:#C45A45;--coral-tint:#FBEAE6;--radius:10px;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:linear-gradient(var(--rule) 1px, transparent 1px) 0 0/100% 32px, var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;padding:0 0 80px 0;}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px;}
+
+header{padding:40px 0 24px 0;border-bottom:2px solid var(--ink);margin-bottom:22px;}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.12em;color:var(--blue);text-transform:uppercase;font-weight:600;margin-bottom:8px;}
+h1{font-family:'JetBrains Mono',monospace;font-size:clamp(26px,5vw,38px);font-weight:700;margin:0 0 10px 0;letter-spacing:-0.01em;}
+.sub{color:var(--ink-soft);font-size:15px;line-height:1.55;max-width:64ch;margin-bottom:22px;}
+.sub b{color:var(--ink);}
+
+.meter-block{background:var(--panel);border:1px solid var(--rule);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;}
+.meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;flex-wrap:wrap;gap:6px;}
+.meter-label{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-faint);letter-spacing:0.08em;text-transform:uppercase;}
+.meter-count{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--ink);}
+.meter-count span{color:var(--ink-faint);font-weight:500;font-size:15px;}
+.meter-track{height:10px;background:var(--blue-tint);border-radius:6px;overflow:hidden;display:flex;}
+.meter-fill{height:100%;background:repeating-linear-gradient(135deg,var(--teal),var(--teal) 8px,#0d7a7c 8px,#0d7a7c 16px);transition:width .4s ease;border-radius:6px 0 0 6px;}
+.meter-note{margin-top:10px;font-size:12.5px;color:var(--ink-faint);}
+
+/* tabs */
+.tabs{display:flex;gap:10px;margin-bottom:20px;}
+.tab-btn{flex:1;background:var(--panel);border:1px solid var(--rule);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;font-family:inherit;transition:border-color .15s ease;}
+.tab-btn.active{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset;}
+.tab-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em;}
+.tab-title{font-weight:700;font-size:15px;margin:3px 0 9px 0;color:var(--ink);}
+.tab-bar{height:6px;background:var(--blue-tint);border-radius:4px;overflow:hidden;}
+.tab-fill{height:100%;background:var(--teal);transition:width .3s ease;}
+.tab-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:6px;}
+
+.topic{background:var(--panel);border:1px solid var(--rule);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;}
+.topic-head{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;user-select:none;}
+.topic-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--blue);background:var(--blue-tint);border-radius:6px;padding:4px 8px;min-width:28px;text-align:center;flex-shrink:0;}
+.topic-title{font-weight:600;font-size:16px;flex:1;}
+.topic-blurb{font-size:12.5px;color:var(--ink-faint);margin-top:2px;font-weight:400;}
+.topic-progress{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft);flex-shrink:0;}
+.chevron{width:9px;height:9px;border-right:2px solid var(--ink-faint);border-bottom:2px solid var(--ink-faint);transform:rotate(-45deg);transition:transform .2s ease;flex-shrink:0;}
+.topic.open .chevron{transform:rotate(45deg);}
+.topic-body{max-height:0;overflow:hidden;transition:max-height .3s ease;border-top:1px solid transparent;}
+.topic.open .topic-body{border-top:1px solid var(--rule);}
+
+.tie-row{display:flex;align-items:center;gap:8px;padding:10px 18px;background:var(--blue-tint);font-size:12.5px;color:var(--blue);font-family:'JetBrains Mono',monospace;}
+.res-row{padding:8px 18px 2px 18px;font-size:12px;color:var(--ink-faint);}
+.res-row a{color:var(--ink-soft);}
+
+.prob{display:flex;align-items:flex-start;gap:12px;padding:11px 18px;border-bottom:1px solid var(--rule);font-size:14.5px;}
+.prob:last-child{border-bottom:none;}
+.prob input[type=checkbox]{width:17px;height:17px;accent-color:var(--teal);flex-shrink:0;cursor:pointer;margin-top:2px;}
+.prob-main{flex:1;cursor:pointer;}
+.prob-name{font-size:14.5px;font-weight:600;}
+.prob-check{font-size:12.5px;color:var(--ink-soft);margin-top:2px;line-height:1.4;}
+.prob.done .prob-name{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--ink-faint);}
+.prob.done label{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--ink-faint);}
+.prob.done .prob-check{color:var(--ink-faint);}
+.prob-num{font-family:'JetBrains Mono',monospace;color:var(--ink-faint);font-size:12.5px;margin-right:6px;}
+.diff{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:0.03em;padding:3px 7px;border-radius:5px;text-transform:uppercase;flex-shrink:0;}
+.diff.Easy{background:var(--teal-tint);color:var(--teal);}
+.diff.Medium{background:var(--amber-tint);color:var(--amber);}
+.diff.Hard{background:var(--coral-tint);color:var(--coral);}
+.pri{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.03em;padding:3px 7px;border-radius:5px;text-transform:uppercase;flex-shrink:0;margin-top:2px;}
+.pri.Core{background:var(--teal-tint);color:var(--teal);}
+.pri.Extra{background:var(--amber-tint);color:var(--amber);}
+.lc-link{color:var(--ink-faint);flex-shrink:0;text-decoration:none;font-size:13px;border:1px solid var(--rule);border-radius:5px;padding:3px 7px;font-family:'JetBrains Mono',monospace;}
+.lc-link:hover{border-color:var(--blue);color:var(--blue);}
+
+footer{margin-top:26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.reset-btn{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-faint);background:none;border:1px solid var(--rule);border-radius:6px;padding:7px 12px;cursor:pointer;}
+.reset-btn:hover{border-color:var(--coral);color:var(--coral);}
+.foot-note{font-size:12px;color:var(--ink-faint);}
+.sync-note{font-size:11px;color:var(--ink-faint);font-family:'JetBrains Mono',monospace;}
+
+@media (max-width:480px){.tabs{flex-direction:column;}.prob{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Interview Prep &middot; Tracks 1 &amp; 2</div>
+    <h1>Prep Tracker</h1>
+    <div class="sub">Both tracks, one doc. <b>Track 1</b> runs daily in the background. <b>Track 2</b> is about being able to explain what you've already built, not learning from zero. Switch tabs to move between them &mdash; progress on both saves automatically.</div>
+    <div class="meter-block">
+      <div class="meter-top">
+        <span class="meter-label">Combined progress</span>
+        <span class="meter-count" id="overallCount">0 <span>/ 0</span></span>
+      </div>
+      <div class="meter-track"><div class="meter-fill" id="overallFill" style="width:0%"></div></div>
+      <div class="meter-note">Combined across both tracks.</div>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" id="tabBtnDsa" data-track="dsa">
+        <div class="tab-eyebrow">Track 1</div>
+        <div class="tab-title">DSA</div>
+        <div class="tab-bar"><div class="tab-fill" id="tabFillDsa" style="width:0%"></div></div>
+        <div class="tab-count" id="tabCountDsa">0 / 0</div>
+      </button>
+      <button class="tab-btn" id="tabBtnAi" data-track="ai">
+        <div class="tab-eyebrow">Track 2</div>
+        <div class="tab-title">AI/ML Depth</div>
+        <div class="tab-bar"><div class="tab-fill" id="tabFillAi" style="width:0%"></div></div>
+        <div class="tab-count" id="tabCountAi">0 / 0</div>
+      </button>
+    </div>
+  </header>
+
+  <div id="topics"></div>
+
+  <footer>
+    <button class="reset-btn" id="resetBtn">Reset current tab</button>
+    <span class="foot-note" id="footNote"></span>
+  </footer>
+  <div style="margin-top:8px;"><span class="sync-note" id="syncNote">syncing…</span></div>
+</div>
+
+<script>
+const TRACKS = {
+  dsa: {
+    kind:"dsa",
+    footNote:"120 problems · ~6 weeks at daily pace",
+    list:[
+      {t:"Arrays & Hashing", blurb:"Foundation. Get these fast and clean.", p:[
+        ["Two Sum","1","Easy"],["Contains Duplicate","217","Easy"],["Valid Anagram","242","Easy"],
+        ["Group Anagrams","49","Medium"],["Top K Frequent Elements","347","Medium"],
+        ["Product of Array Except Self","238","Medium"],["Longest Consecutive Sequence","128","Medium"],
+      ]},
+      {t:"Two Pointers", blurb:"Sorted-array and string tricks.", p:[
+        ["Valid Palindrome","125","Easy"],["Two Sum II - Input Array Is Sorted","167","Medium"],
+        ["3Sum","15","Medium"],["Container With Most Water","11","Medium"],["Trapping Rain Water","42","Hard"],
+      ]},
+      {t:"Sliding Window", blurb:"Subarray/substring optimization.", p:[
+        ["Best Time to Buy and Sell Stock","121","Easy"],["Longest Substring Without Repeating Characters","3","Medium"],
+        ["Longest Repeating Character Replacement","424","Medium"],["Permutation in String","567","Medium"],
+        ["Minimum Window Substring","76","Hard"],["Sliding Window Maximum","239","Hard"],
+      ]},
+      {t:"Stack", blurb:"LIFO patterns, monotonic stacks.", p:[
+        ["Valid Parentheses","20","Easy"],["Min Stack","155","Medium"],["Evaluate Reverse Polish Notation","150","Medium"],
+        ["Generate Parentheses","22","Medium"],["Daily Temperatures","739","Medium"],["Car Fleet","853","Medium"],
+        ["Largest Rectangle in Histogram","84","Hard"],
+      ]},
+      {t:"Binary Search", blurb:"Search space reduction, not just sorted arrays.", p:[
+        ["Binary Search","704","Easy"],["Search a 2D Matrix","74","Medium"],["Koko Eating Bananas","875","Medium"],
+        ["Find Minimum in Rotated Sorted Array","153","Medium"],["Search in Rotated Sorted Array","33","Medium"],
+        ["Time Based Key-Value Store","981","Medium"],["Median of Two Sorted Arrays","4","Hard"],
+      ]},
+      {t:"Linked List", blurb:"Pointer manipulation, fast/slow patterns.", p:[
+        ["Reverse Linked List","206","Easy"],["Merge Two Sorted Lists","21","Easy"],["Linked List Cycle","141","Easy"],
+        ["Reorder List","143","Medium"],["Remove Nth Node From End of List","19","Medium"],["Add Two Numbers","2","Medium"],
+        ["Copy List with Random Pointer","138","Medium"],["Merge k Sorted Lists","23","Hard"],
+      ]},
+      {t:"Trees", blurb:"DFS/BFS, recursion muscle memory.", p:[
+        ["Invert Binary Tree","226","Easy"],["Maximum Depth of Binary Tree","104","Easy"],["Same Tree","100","Easy"],
+        ["Subtree of Another Tree","572","Easy"],["Lowest Common Ancestor of a BST","235","Medium"],
+        ["Binary Tree Level Order Traversal","102","Medium"],["Validate Binary Search Tree","98","Medium"],
+        ["Kth Smallest Element in a BST","230","Medium"],["Construct Binary Tree from Preorder and Inorder Traversal","105","Medium"],
+        ["Binary Tree Maximum Path Sum","124","Hard"],["Serialize and Deserialize Binary Tree","297","Hard"],
+      ]},
+      {t:"Tries", blurb:"Prefix trees, small but shows up often.", p:[
+        ["Implement Trie (Prefix Tree)","208","Medium"],["Design Add and Search Words Data Structure","211","Medium"],
+        ["Word Search II","212","Hard"],
+      ]},
+      {t:"Heap / Priority Queue", blurb:"Top-k, streaming median patterns.", p:[
+        ["Kth Largest Element in a Stream","703","Easy"],["Last Stone Weight","1046","Easy"],
+        ["K Closest Points to Origin","973","Medium"],["Kth Largest Element in an Array","215","Medium"],
+        ["Task Scheduler","621","Medium"],["Design Twitter","355","Medium"],["Find Median from Data Stream","295","Hard"],
+      ]},
+      {t:"Backtracking", blurb:"Recursive search over choices.", p:[
+        ["Subsets","78","Medium"],["Combination Sum","39","Medium"],["Permutations","46","Medium"],
+        ["Subsets II","90","Medium"],["Combination Sum II","40","Medium"],["Word Search","79","Medium"],
+        ["Palindrome Partitioning","131","Medium"],["Letter Combinations of a Phone Number","17","Medium"],["N-Queens","51","Hard"],
+      ]},
+      {t:"Graphs", blurb:"Grid + adjacency-list traversal, topological sort.", p:[
+        ["Number of Islands","200","Medium"],["Clone Graph","133","Medium"],["Max Area of Island","695","Medium"],
+        ["Pacific Atlantic Water Flow","417","Medium"],["Surrounded Regions","130","Medium"],["Rotting Oranges","994","Medium"],
+        ["Course Schedule","207","Medium"],["Course Schedule II","210","Medium"],["Redundant Connection","684","Medium"],
+        ["Word Ladder","127","Hard"],
+      ]},
+      {t:"1-D Dynamic Programming", blurb:"Where most people freeze up. Drill this hard.", p:[
+        ["Climbing Stairs","70","Easy"],["Min Cost Climbing Stairs","746","Easy"],["House Robber","198","Medium"],
+        ["House Robber II","213","Medium"],["Longest Palindromic Substring","5","Medium"],["Palindromic Substrings","647","Medium"],
+        ["Decode Ways","91","Medium"],["Coin Change","322","Medium"],["Maximum Product Subarray","152","Medium"],
+        ["Word Break","139","Medium"],["Longest Increasing Subsequence","300","Medium"],["Partition Equal Subset Sum","416","Medium"],
+      ]},
+      {t:"2-D Dynamic Programming", blurb:"Grid DP, string DP. Only after 1-D is solid.", p:[
+        ["Unique Paths","62","Medium"],["Longest Common Subsequence","1143","Medium"],
+        ["Best Time to Buy and Sell Stock with Cooldown","309","Medium"],["Coin Change II","518","Medium"],
+        ["Target Sum","494","Medium"],["Interleaving String","97","Medium"],["Edit Distance","72","Medium"],
+        ["Longest Increasing Path in a Matrix","329","Hard"],["Distinct Subsequences","115","Hard"],["Burst Balloons","312","Hard"],
+      ]},
+      {t:"Greedy", blurb:"Local-choice proofs, no backtracking.", p:[
+        ["Maximum Subarray","53","Medium"],["Jump Game","55","Medium"],["Jump Game II","45","Medium"],
+        ["Gas Station","134","Medium"],["Hand of Straights","846","Medium"],["Partition Labels","763","Medium"],
+        ["Valid Parenthesis String","678","Medium"],
+      ]},
+      {t:"Intervals", blurb:"Sort-then-sweep patterns.", p:[
+        ["Insert Interval","57","Medium"],["Merge Intervals","56","Medium"],["Non-overlapping Intervals","435","Medium"],
+        ["Minimum Interval to Include Each Query","1851","Hard"],
+      ]},
+      {t:"Math & Bit Manipulation", blurb:"Quick wins, often asked as warm-ups.", p:[
+        ["Number of 1 Bits","191","Easy"],["Counting Bits","338","Easy"],["Reverse Bits","190","Easy"],
+        ["Missing Number","268","Easy"],["Sum of Two Integers","371","Medium"],["Reverse Integer","7","Medium"],
+      ]},
+    ]
+  },
+  ai: {
+    kind:"ai",
+    footNote:"11 modules · Core first, Extra when time allows · ~2.5–3 weeks alongside DSA",
+    list:[
+      {t:"Math & Classical ML Foundations", blurb:"Quick refresher — baseline, not the focus.", tie:"", res:"", p:[
+        ["Bias-variance tradeoff","Why more model capacity isn't automatically better","Core"],
+        ["Overfitting & regularization","How L1/L2, dropout, and early stopping each work mechanically","Core"],
+        ["Gradient descent intuition","How a loss surface gets minimized, what the learning rate controls","Core"],
+        ["Precision, recall, F1, ROC-AUC","When each metric matters, especially on imbalanced data","Core"],
+        ["Train/val/test split & cross-validation","Why leakage silently breaks an evaluation","Extra"],
+      ]},
+      {t:"Neural Network Fundamentals", blurb:"The mechanics under every model you've fine-tuned.", tie:"", res:'Resources: 3Blue1Brown neural network series &middot; Karpathy, "Neural Networks: Zero to Hero"', p:[
+        ["Perceptron → MLP","How stacking single units becomes a network","Core"],
+        ["Backpropagation","The actual chain-rule mechanics, not just 'it computes gradients'","Core"],
+        ["Activation functions","Why ReLU/GELU replaced sigmoid in deep nets","Core"],
+        ["Loss functions","Why classification uses cross-entropy, not MSE","Core"],
+        ["Optimizers (SGD, Adam, LR schedules)","What momentum and adaptive learning rates actually solve","Core"],
+        ["Batch norm vs layer norm","Why transformers specifically use layer norm","Extra"],
+      ]},
+      {t:"Transformers Deep Dive", blurb:"This is the one interviewers actually probe. Know it cold.", tie:"🔗 Ties to: your LLM gateway, your voice pipeline", res:'Resources: "The Illustrated Transformer" — <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">jalammar.github.io</a> &middot; "Attention Is All You Need" — <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">arXiv:1706.03762</a>', p:[
+        ["Self-attention (Q/K/V)","The actual matrix math — not 'it pays attention to relevant tokens'","Core"],
+        ["Multi-head attention","Why multiple heads instead of one bigger one","Core"],
+        ["Positional encoding","Why transformers need it at all (sinusoidal vs RoPE)","Core"],
+        ["Feed-forward sublayer","Its role sitting between attention layers","Extra"],
+        ["Pre-norm vs post-norm","Why modern LLMs default to pre-norm","Extra"],
+        ["Encoder-decoder vs decoder-only","Why GPT-style models went decoder-only","Core"],
+        ["Why transformers beat RNNs","Parallelization + long-range dependency argument","Core"],
+      ]},
+      {t:"Tokenization & Embeddings", blurb:"You used Voyage + pgvector — know what's underneath.", tie:"🔗 Ties to: your Voyage embeddings + pgvector setup", res:"", p:[
+        ["BPE / WordPiece / SentencePiece","How subword tokenization is actually built","Core"],
+        ["Vocabulary size tradeoffs","Cost of too-small vs too-large vocab","Extra"],
+        ["Embedding spaces & cosine similarity","What 'closeness' means geometrically","Core"],
+        ["Dense vs sparse retrieval (BM25 vs embeddings)","When each approach wins","Core"],
+      ]},
+      {t:"LLM Training Pipeline", blurb:"Pretrain → SFT → alignment, end to end.", tie:"", res:"", p:[
+        ["Pretraining objective","Why next-token prediction alone yields general capability","Core"],
+        ["SFT (supervised fine-tuning)","How it differs mechanically from pretraining","Core"],
+        ["RLHF vs DPO","Reward model + PPO vs direct preference optimization","Core"],
+        ["Scaling laws (Chinchilla-style)","High-level compute/data/params tradeoff","Extra"],
+        ["Context window mechanics","Why longer context costs more — attention is quadratic","Core"],
+      ]},
+      {t:"Fine-tuning Techniques", blurb:"Directly feeds your fine-tuning projects (Track 3).", tie:"🔗 Ties to: your fine-tuning projects (Track 3)", res:'Resources: LoRA paper — <a href="https://arxiv.org/abs/2106.09685" target="_blank" rel="noopener">arXiv:2106.09685</a> &middot; QLoRA paper — <a href="https://arxiv.org/abs/2305.14314" target="_blank" rel="noopener">arXiv:2305.14314</a>', p:[
+        ["Full fine-tune vs parameter-efficient","The cost/tradeoff argument for going PEFT","Core"],
+        ["LoRA","The low-rank decomposition math — rank r, alpha scaling","Core"],
+        ["QLoRA","How quantization and LoRA combine","Core"],
+        ["Prefix/prompt tuning & adapters","How they differ from LoRA","Extra"],
+        ["Catastrophic forgetting","Why it happens and how PEFT mitigates it","Extra"],
+      ]},
+      {t:"Quantization & Inference Optimization", blurb:"You claim a 20x cost cut — be ready to defend the number.", tie:"🔗 Ties to: your 20x cost reduction on the voice pipeline", res:"", p:[
+        ["INT8/INT4 quantization","What precision reduction actually does to weights","Core"],
+        ["GPTQ vs AWQ","The difference at a high level","Extra"],
+        ["KV cache","Why it exists and what it trades off","Core"],
+        ["Speculative decoding","How a draft model speeds up generation","Extra"],
+        ["Continuous batching","Why it beats static batching for serving","Core"],
+      ]},
+      {t:"RAG & Vector Search", blurb:"Your knowledge graph layer lives here.", tie:"🔗 Ties to: your RAG + Neo4j knowledge graph layer", res:"", p:[
+        ["Chunking strategies","Tradeoff between chunk size and retrieval precision","Core"],
+        ["ANN search (HNSW, IVF)","Why exact search doesn't scale","Core"],
+        ["Reranking","Why a second-stage reranker improves retrieval","Core"],
+        ["Hybrid search (dense + sparse)","When combining beats either alone","Extra"],
+        ["RAG failure modes","Retrieved-but-wrong-answer scenarios","Core"],
+        ["RAG vs fine-tuning vs long-context","When you'd actually choose each","Core"],
+      ]},
+      {t:"Agents & Tool Use", blurb:"This is your strongest ground — you led a 6-person build here.", tie:"🔗 Ties to: WINNIIO superconnector, your team build", res:"", p:[
+        ["ReAct pattern","The reason-act-observe loop","Core"],
+        ["Function/tool calling mechanics","How the model actually decides to call a tool","Core"],
+        ["Multi-agent orchestration","Coordination patterns — supervisor vs peer","Core"],
+        ["Memory systems","Short-term vs long-term state in agents","Extra"],
+        ["Agent evaluation challenges","Why evaluating agents is harder than single-turn output","Core"],
+      ]},
+      {t:"Evaluation & Guardrails", blurb:"Your Agent Reliability Stack — know this one cold.", tie:"🔗 Ties to: your eval harness + guardrails middleware", res:"", p:[
+        ["Building eval harnesses","Your own design decisions, defensible line by line","Core"],
+        ["LLM-as-judge","The methodology and its known biases","Core"],
+        ["Hallucination detection","Common detection strategies","Core"],
+        ["Offline vs online eval","When each is appropriate","Extra"],
+        ["Guardrails middleware","What failure modes you were actually guarding against","Core"],
+      ]},
+      {t:"System Design for AI Services", blurb:"Where round 2+ often goes for AI eng roles.", tie:"", res:"", p:[
+        ["Latency/cost tradeoffs","How you'd budget latency across a pipeline","Core"],
+        ["Caching strategies","Semantic caching, prompt caching — where they help most","Core"],
+        ["Provider fallback / load balancing","Resilience design across model APIs","Extra"],
+        ["Streaming responses","Why streaming matters for UX","Extra"],
+        ["Scaling considerations","What breaks first as traffic grows","Extra"],
+      ]},
+    ]
+  }
+};
+
+const STORAGE_KEYS = { dsa:"dsa-grind-checked", ai:"ai-depth-checked" };
+let checked = { dsa:{}, ai:{} };
+let currentTrack = "dsa";
+
+function slugify(name){ return name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+function pid(ti,pi){ return ti+"-"+pi; }
+function totalFor(track){ return TRACKS[track].list.reduce((a,tp)=>a+tp.p.length,0); }
+function doneFor(track){ return Object.values(checked[track]).filter(Boolean).length; }
+
+function rowHTML(track, ti, pi, prob){
+  const id = pid(ti,pi);
+  const isDone = !!checked[track][id];
+  if(track==="dsa"){
+    const [name,num,diff] = prob;
+    const url = 'https://leetcode.com/problems/'+slugify(name)+'/';
+    return `<div class="prob ${isDone?'done':''}">
+      <input type="checkbox" id="cb-${track}-${id}" data-track="${track}" data-id="${id}" ${isDone?'checked':''}>
+      <label for="cb-${track}-${id}" style="flex:1;cursor:pointer;"><span class="prob-num">#${num}</span>${name}</label>
+      <span class="diff ${diff}">${diff}</span>
+      <a class="lc-link" href="${url}" target="_blank" rel="noopener">open</a>
+    </div>`;
+  } else {
+    const [name, chk, pri] = prob;
+    return `<div class="prob ${isDone?'done':''}">
+      <input type="checkbox" id="cb-${track}-${id}" data-track="${track}" data-id="${id}" ${isDone?'checked':''}>
+      <div class="prob-main"><label for="cb-${track}-${id}"><div class="prob-name">${name}</div>
+      <div class="prob-check">Self-check: ${chk}</div></label></div>
+      <span class="pri ${pri}">${pri}</span>
+    </div>`;
+  }
+}
+
+function renderTopics(){
+  const track = currentTrack;
+  const root = document.getElementById('topics');
+  root.innerHTML = '';
+  TRACKS[track].list.forEach((topic,ti)=>{
+    const done = topic.p.filter((_,pi)=>checked[track][pid(ti,pi)]).length;
+    const el = document.createElement('div');
+    el.className = 'topic';
+    el.innerHTML = `
+      <div class="topic-head" data-ti="${ti}">
+        <span class="topic-num">${String(ti+1).padStart(2,'0')}</span>
+        <div style="flex:1">
+          <div class="topic-title">${topic.t}</div>
+          <div class="topic-blurb">${topic.blurb}</div>
+        </div>
+        <span class="topic-progress">${done}/${topic.p.length}</span>
+        <span class="chevron"></span>
+      </div>
+      <div class="topic-body">
+        ${topic.tie ? `<div class="tie-row">${topic.tie}</div>` : ''}
+        ${topic.res ? `<div class="res-row">${topic.res}</div>` : ''}
+        ${topic.p.map((prob,pi)=>rowHTML(track,ti,pi,prob)).join('')}
+      </div>
+    `;
+    root.appendChild(el);
+  });
+
+  root.querySelectorAll('.topic-head').forEach(h=>{
+    h.addEventListener('click',()=>{
+      const parent = h.parentElement;
+      parent.classList.toggle('open');
+      const body = parent.querySelector('.topic-body');
+      body.style.maxHeight = parent.classList.contains('open') ? body.scrollHeight+'px' : '0';
+    });
+  });
+
+  root.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change', async (e)=>{
+      const tr = e.target.dataset.track;
+      const id = e.target.dataset.id;
+      checked[tr][id] = e.target.checked;
+      await save(tr);
+      renderTopics();
+      updateMeters();
+      reopenAfterRerender(id);
+    });
+  });
+
+  document.getElementById('footNote').textContent = TRACKS[track].footNote;
+}
+
+function reopenAfterRerender(id){
+  const ti = id.split('-')[0];
+  const el = document.querySelectorAll('.topic')[parseInt(ti)];
+  if(el){
+    el.classList.add('open');
+    const body = el.querySelector('.topic-body');
+    body.style.maxHeight = body.scrollHeight+'px';
+  }
+}
+
+function updateMeters(){
+  const dTotal = totalFor('dsa'), dDone = doneFor('dsa');
+  const aTotal = totalFor('ai'), aDone = doneFor('ai');
+  document.getElementById('tabCountDsa').textContent = dDone+' / '+dTotal;
+  document.getElementById('tabFillDsa').style.width = (dTotal? dDone/dTotal*100:0)+'%';
+  document.getElementById('tabCountAi').textContent = aDone+' / '+aTotal;
+  document.getElementById('tabFillAi').style.width = (aTotal? aDone/aTotal*100:0)+'%';
+
+  const total = dTotal+aTotal, done = dDone+aDone;
+  document.getElementById('overallCount').innerHTML = done+' <span>/ '+total+'</span>';
+  document.getElementById('overallFill').style.width = (total? done/total*100:0)+'%';
+}
+
+async function load(track){
+  try{
+    const res = await fetch('/api/prep-data?track='+track);
+    if(res.ok){
+      const data = await res.json();
+      if(data && data.value){ checked[track] = JSON.parse(data.value); }
+    }
+  }catch(e){ checked[track] = {}; }
+}
+async function save(track){
+  const note = document.getElementById('syncNote');
+  try{
+    note.textContent = 'saving…';
+    const res = await fetch('/api/prep-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ track, value: JSON.stringify(checked[track]) }),
+    });
+    note.textContent = res.ok ? 'synced' : 'save failed — retry by re-checking';
+  }catch(e){
+    console.error('save failed', e);
+    note.textContent = 'save failed — retry by re-checking';
+  }
+}
+
+document.getElementById('tabBtnDsa').addEventListener('click',()=>switchTab('dsa'));
+document.getElementById('tabBtnAi').addEventListener('click',()=>switchTab('ai'));
+function switchTab(track){
+  currentTrack = track;
+  document.getElementById('tabBtnDsa').classList.toggle('active', track==='dsa');
+  document.getElementById('tabBtnAi').classList.toggle('active', track==='ai');
+  renderTopics();
+}
+
+document.getElementById('resetBtn').addEventListener('click', async()=>{
+  const label = currentTrack==='dsa' ? 'DSA' : 'AI/ML Depth';
+  if(!confirm('Reset all checked items in '+label+'? This cannot be undone.')) return;
+  checked[currentTrack] = {};
+  await save(currentTrack);
+  renderTopics();
+  updateMeters();
+});
+
+(async function init(){
+  const note = document.getElementById('syncNote');
+  note.textContent = 'loading…';
+  await load('dsa');
+  await load('ai');
+  renderTopics();
+  updateMeters();
+  note.textContent = 'synced';
+})();
+</script>
+</body>
+</html>

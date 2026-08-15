@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import ConnectPopup from './ConnectPopup';
-import { useAgentDrawer } from '../context/AgentDrawerContext';
 
 export default function Hero() {
   const [connectOpen, setConnectOpen] = useState(false);
-  const { setOpen: setAgentOpen } = useAgentDrawer();
 
   return (
     <section className="hero">
@@ -16,9 +14,6 @@ export default function Hero() {
           </p>
           <div className="hero-cta-row">
             <button className="pill-btn" onClick={() => setConnectOpen(true)}>Let's connect →</button>
-            <button className="pill-btn pill-btn--agent" onClick={() => setAgentOpen(true)}>
-              <span className="agent-tab-dot" /> Talk to my agent
-            </button>
           </div>
         </div>
         <div className="hero-photo">

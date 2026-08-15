@@ -3,17 +3,14 @@ import { Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
-import AgentDrawer from './components/AgentDrawer';
-import WelcomePopup from './components/WelcomePopup';
 import Home from './pages/Home';
-import { AgentDrawerProvider } from './context/AgentDrawerContext';
 
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const PaperF1 = lazy(() => import('./pages/PaperF1'));
 
 export default function App() {
   return (
-    <AgentDrawerProvider>
+    <>
       <Nav />
       <main>
         <Routes>
@@ -23,9 +20,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
-      <AgentDrawer />
-      <WelcomePopup />
       <Analytics />
-    </AgentDrawerProvider>
+    </>
   );
 }

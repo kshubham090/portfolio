@@ -7,6 +7,7 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/research/f1-lap-time-pitstop-prediction", "destination": "/paper-f1.html" },
+    { "source": "/prep", "destination": "/api/prep" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

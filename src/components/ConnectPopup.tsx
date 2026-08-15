@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useAgentDrawer } from '../context/AgentDrawerContext';
 
 const CALENDLY_URL = 'https://calendly.com/kshubham04907/shubham-kumar-sync';
 
@@ -24,7 +23,6 @@ function CalendlyEmbed() {
 
 export default function ConnectPopup({ onClose }: { onClose: () => void }) {
   const [view, setView] = useState<'menu' | 'calendly'>('menu');
-  const { setOpen: setAgentOpen } = useAgentDrawer();
 
   useEffect(() => {
     document.body.classList.add('modal-open');
@@ -55,10 +53,6 @@ export default function ConnectPopup({ onClose }: { onClose: () => void }) {
               <button className="connect-option" onClick={() => setView('calendly')}>
                 <span className="connect-option-label">Book a Call</span>
                 <span className="connect-option-desc">Pick a slot right here</span>
-              </button>
-              <button className="connect-option" onClick={() => { onClose(); setAgentOpen(true); }}>
-                <span className="connect-option-label">Chat with skg-agent</span>
-                <span className="connect-option-desc">Ask questions, get pitched, get his contact</span>
               </button>
             </div>
           </>
