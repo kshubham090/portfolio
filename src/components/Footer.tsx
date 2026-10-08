@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <div className="footer-brand">Shubham Gupta</div>
-          <p className="footer-tagline">AI engineer. agentic systems + the reliability infra around them. noida. remote. open to relocation.</p>
+          <p className="footer-tagline">Software engineer. AI systems and full-stack products. Noida. Open to engineering opportunities.</p>
           <div className="newsletter">
             <input
               type="email"
@@ -63,8 +63,9 @@ export default function Footer() {
         <div>
           <p className="footer-col-title">Projects</p>
           <ul className="footer-links">
+            <li><Link to="/projects/hunt">HUNT</Link></li>
+            <li><Link to="/projects/staffly">Staffly</Link></li>
             <li><Link to="/projects/chakra47">Chakra47</Link></li>
-            <li><Link to="/projects/stakrid">Stakrid Logistics</Link></li>
             <li><Link to="/projects/lowq-x1-agent-eval-harness">Lowq X1 — Eval Harness</Link></li>
             <li><Link to="/projects/lowq-x2-contextual-llm-gateway">Lowq X2 — LLM Gateway</Link></li>
           </ul>

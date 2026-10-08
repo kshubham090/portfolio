@@ -1,116 +1,55 @@
 # shubham.cv
 
-Personal portfolio of **Shubham Kumar Gupta** — AI engineer building agentic systems and the reliability infra around them.
+Personal portfolio of **Shubham Kumar Gupta**, a software engineer building AI systems and full-stack products.
 
 Live: [www.shubham.cv](https://www.shubham.cv)
 
----
+## Current work
 
-## what's in here
+- **HUNT** — early-access accounts-receivable product. The public demo uses fictional records and scripted conversations.
+- **Staffly** — live staffing MVP with public onboarding and an isolated demo; AI-assisted workflows with human review.
+- **Chakra47** — an application and management layer for physical systems, currently in development above existing Linux, RTOS and controller software.
+- **Agent Eval Harness and Contextual LLM Gateway** — agent evaluation, scoped context, durable graph updates and inference experiments.
+- **Relogged and FlexFit Studio** — agent replay tooling and a full-stack gym-management application.
+- **Research** — two Zenodo preprints, a second Vyaskosh manuscript in progress, and the earlier AgenticSwarm prototype.
 
-Not a template. Not a theme. Built from scratch.
+Project descriptions separate product availability, local verification and research. Test totals and performance measurements carry their verification dates and workload scope. Historical research articles and PDFs remain available as dated artifacts.
 
-- **React + Vite + TypeScript** — single-page, zero dependencies beyond what's needed
-- **skg-agent v2** — an AI rep that reads the visitor, pitches for the right role, and emails me a summary after every session
-- **Dynamic hero** — heading rotates through 8 variants, fades on interval
-- **Portfolio tour** — first-visit spotlight walkthrough, localStorage gated, no library
-- **Session tracker** — captures full transcript, extracts visitor email, fires on 5-min idle
-- **Voice call (Phase 6)** — Web Speech API → Claude → speechSynthesis loop (coming)
-- **Neko** — obviously
+## Stack
 
----
-
-## stack
-
-| Layer | What |
+| Layer | Technology |
 |---|---|
-| Frontend | React 19, Vite 8, TypeScript |
-| Styling | Global CSS, CSS custom properties, `clamp()` — no Tailwind |
-| AI | Claude API (Anthropic) — `claude-haiku-4-5` for chat + summaries |
-| Email | Resend — `hireme@shubham.cv` → visitor + me CC'd |
-| Deploy | Vercel — serverless functions in `/api`, CI from GitHub |
-| Fonts | IBM Plex Mono + IBM Plex Sans (Google Fonts) |
+| Frontend | React 19, Vite 8, TypeScript, React Router |
+| Styling | Global CSS and CSS custom properties |
+| Diagrams | Mermaid |
+| Server endpoints | Vercel functions in `api/` |
+| Fonts | IBM Plex Mono and IBM Plex Sans |
 
----
+## Local development
 
-## agent capabilities
-
-| # | Capability | Status |
-|---|---|---|
-| 1 | Role-aware pitch (recruiter / founder / engineer / investor) | live |
-| 2 | In-site voice call (Web Speech API + Claude) | planned |
-| 3 | Post-session email to me + visitor copy with resume | live |
-| 4 | Dynamic hero heading (8-variant rotation) | live |
-| 5 | First-visit portfolio tour | live |
-
----
-
-## run locally
-
-```bash
-# clone
-git clone https://github.com/kshubham090/portfolio
-cd portfolio
-
-# install
-npm install
-
-# env
-cp .env.local.example .env.local
-# add ANTHROPIC_API_KEY to .env.local
-
-# dev (with API routes)
-vercel dev
-
-# or just frontend
+```sh
+npm ci
 npm run dev
 ```
 
-API routes won't work with `npm run dev` — use `vercel dev` if you need `/api/chat` locally.
+The Vite development server serves the frontend. Server endpoints under `api/` require the corresponding deployment configuration; use `vercel dev` when working with those endpoints locally.
 
----
-
-## env vars
-
-```env
-ANTHROPIC_API_KEY=sk-ant-...      # required — Claude chat + summaries
-RESEND_API_KEY=re_...             # required — email notifications
-GROQ_API_KEY=gsk_...             # optional — Whisper STT (Phase 6)
-ELEVENLABS_API_KEY=sk_...        # optional — TTS upgrade (Phase 6)
+```sh
+npm run build
+npm run lint
 ```
 
-Set these in Vercel dashboard → Settings → Environment Variables.
+## Content structure
 
----
+- `src/data/projects.ts` — shared project descriptions, categories, status, links and diagrams.
+- `src/components/` — homepage sections and reusable UI.
+- `public/llms.txt` — a concise, dated description of current work.
+- `public/sitemap.xml` — public routes, including historical research artifacts.
+- `index.html` — page metadata and structured profile data.
+- `public/uploads/` — existing project artwork.
 
-## structure
+The project data distinguishes Products, Agent systems, Research and Applications. The current Chakra47 product direction and earlier AgenticSwarm research have separate entries.
 
-```
-api/
-  chat.ts          Claude streaming endpoint
-  notify.ts        Session summary + Resend email
+## Deployment
 
-src/
-  components/      Nav, Hero, Projects, Skills, AgentDrawer, Tour, Neko...
-  hooks/           useFadeIn, useDynamicHeading, useTour
-  lib/             claude.ts, pitchTemplates.ts, sessionTracker.ts
-
-public/
-  resume.pdf       served at /resume
-  uploads/         project images
-```
-
----
-
-## deploy
-
-Vercel CI is connected to this repo. Every push to `master` deploys automatically.
-
-Manual deploy:
-```bash
-vercel --prod
-```
-
----
-
-built by shubham. don't copy the agent — build your own.
+The repository is configured for Vercel. Review a preview deployment before merging website changes into the production branch. API credentials belong in deployment configuration and must not be committed.
