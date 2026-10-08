@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
 import { useFadeIn } from '../hooks/useFadeIn';
 import { projects } from '../data/projects';
+import ProductBrowser from './ProductBrowser';
+import ProjectIndex from './ProjectIndex';
 
 const selectedSlugs = [
   'hunt', 'staffly', 'chakra47', 'lowq-x1-agent-eval-harness',
   'lowq-x2-contextual-llm-gateway', 'relogged', 'flexfit-studio', 'stakrid',
+  'chakra47-agentic-swarm',
 ];
 
 const selectedProjects = projects
@@ -19,28 +21,8 @@ export default function Projects() {
         <h2 className="sec-label">Projects</h2>
       </div>
 
-      <ol className="timeline" id="tour-projects">
-        {selectedProjects.map((p) => {
-          const card = (
-            <div className="timeline-card">
-              <div className="timeline-card-head">
-                <span className="timeline-card-title">{p.name}</span>
-                <span className="timeline-card-status">
-                  {p.status}
-                </span>
-              </div>
-              <p className="timeline-card-desc">{p.tagline}</p>
-            </div>
-          );
-          return (
-            <li key={p.name} className="timeline-item">
-              {p.slug ? (
-                <Link to={`/projects/${p.slug}`} className="timeline-card-link">{card}</Link>
-              ) : card}
-            </li>
-          );
-        })}
-      </ol>
+      <ProductBrowser />
+      <ProjectIndex projects={selectedProjects} />
     </section>
   );
 }

@@ -3,6 +3,8 @@ import { Navigate, useParams } from 'react-router-dom';
 import { useFadeIn } from '../hooks/useFadeIn';
 import { getProject } from '../data/projects';
 import MermaidDiagram from '../components/MermaidDiagram';
+import ProductBrowser from '../components/ProductBrowser';
+import { productPreviews } from '../data/previews';
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -43,6 +45,10 @@ export default function ProjectDetail() {
             )}
           </div>
         </div>
+
+        {productPreviews.some((preview) => preview.slug === project.slug) && (
+          <ProductBrowser key={project.slug} initialSlug={project.slug} single />
+        )}
 
         <div className="project-detail-sections">
           {project.sections[0] && (
