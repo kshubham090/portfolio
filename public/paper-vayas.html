@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition — Shubham Kumar Gupta &amp; Sania Gurung</title>
+<meta name="description" content="A matched-cohort audit of four Hindi ASR systems. Full preprint by Shubham Kumar Gupta and Sania Gurung, with results, figures, statistical caveats and reproducible code.">
+<meta name="author" content="Shubham Kumar Gupta, Sania Gurung">
+<link rel="canonical" href="https://www.shubham.cv/research/vayas-age-stratified-asr">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="citation_title" content="VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition">
+<meta name="citation_author" content="Shubham Kumar Gupta">
+<meta name="citation_author_institution" content="Amity University">
+<meta name="citation_author" content="Sania Gurung">
+<meta name="citation_author_institution" content="Amity University">
+<meta name="citation_publication_date" content="2026/08/30">
+<meta name="citation_online_date" content="2026/08/30">
+<meta name="citation_pdf_url" content="https://www.shubham.cv/research/vayas-age-stratified-asr.pdf">
+<meta name="citation_abstract_html_url" content="https://www.shubham.cv/research/vayas-age-stratified-asr">
+<meta name="citation_doi" content="10.5281/zenodo.22176362">
+<meta name="citation_language" content="en">
+<meta name="citation_keywords" content="Hindi; automatic speech recognition; age; zero-shot audit; WER; CER; matched cohorts; Vyaskosh">
+<meta name="DC.title" content="VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition">
+<meta name="DC.creator" content="Shubham Kumar Gupta">
+<meta name="DC.creator" content="Sania Gurung">
+<meta name="DC.date" content="2026-08-30">
+<meta name="DC.type" content="Text">
+<meta name="DC.format" content="text/html">
+<meta name="DC.language" content="en">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.shubham.cv/research/vayas-age-stratified-asr">
+<meta property="og:title" content="VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition">
+<meta property="og:description" content="A matched-cohort audit of four Hindi ASR systems. Full preprint by Shubham Kumar Gupta and Sania Gurung, with results, figures, statistical caveats and reproducible code.">
+<meta property="article:published_time" content="2026-08-30">
+<meta property="article:modified_time" content="2026-10-08">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition">
+<meta name="twitter:description" content="A matched-cohort audit of four Hindi ASR systems. Full preprint by Shubham Kumar Gupta and Sania Gurung, with results, figures, statistical caveats and reproducible code.">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition",
+  "name": "VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Shubham Kumar Gupta",
+      "url": "https://www.shubham.cv/",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Amity University"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Sania Gurung",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Amity University"
+      }
+    }
+  ],
+  "datePublished": "2026-08-30",
+  "dateModified": "2026-10-08",
+  "version": "v1",
+  "creativeWorkStatus": "Preprint",
+  "inLanguage": "en",
+  "url": "https://www.shubham.cv/research/vayas-age-stratified-asr",
+  "sameAs": "https://doi.org/10.5281/zenodo.22176362",
+  "identifier": "https://doi.org/10.5281/zenodo.22176362",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "description": "A matched-cohort audit of four Hindi ASR systems. Full preprint by Shubham Kumar Gupta and Sania Gurung, with results, figures, statistical caveats and reproducible code.",
+  "encoding": {
+    "@type": "MediaObject",
+    "contentUrl": "https://www.shubham.cv/research/vayas-age-stratified-asr.pdf",
+    "encodingFormat": "application/pdf"
+  },
+  "isBasedOn": "https://github.com/kshubham090/vayas-kosh/blob/1a3301e2158c04fc60df3fc8a0d204eaf41e7820/Research/Paper%201/vayas/docs/paper/main.tex"
+}</script>
+<style>
+  :root { --bg:#0a0a0a; --bg2:#111; --fg:#ededeb; --muted:#999; --border:#2a2a2a; color-scheme:dark; }
+  * { box-sizing:border-box; }
+  html { scroll-padding-top:24px; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.8 Georgia,Cambria,'Times New Roman',serif; }
+  .wrap { max-width:800px; margin:auto; padding:40px 20px 76px; }
+  a { color:var(--fg); text-underline-offset:3px; }
+  a:hover { color:white; }
+  a:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline:2px solid var(--fg); outline-offset:4px; }
+  .skip-link { position:absolute; top:-70px; left:20px; padding:10px; background:var(--fg); color:var(--bg); }
+  .skip-link:focus { top:10px; }
+  .top-nav { display:flex; justify-content:space-between; gap:16px; padding-bottom:26px; font:12px/1.5 monospace; }
+  .top-nav a { color:var(--muted); text-decoration:none; }
+  header { text-align:center; border-bottom:1px solid var(--border); padding-bottom:28px; margin-bottom:24px; }
+  h1 { font-size:clamp(23px,3vw,28px); line-height:1.4; font-weight:400; margin:0 0 23px; }
+  h1 strong { font-weight:400; }
+  h1 sup { font-size:12px; }
+  .authors { display:flex; justify-content:center; gap:20px 44px; flex-wrap:wrap; }
+  .authors p { color:var(--fg); text-align:center; margin:0 0 12px; font-size:14px; }
+  .authors a { color:var(--muted); font:11px/1.6 monospace; text-decoration:none; }
+  .affil,.meta { text-align:center; font-size:12px; color:var(--muted); margin:0 0 5px; }
+  .actions { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:20px; }
+  .btn { border:1px solid #777; border-radius:4px; padding:9px 14px; font:11px/1.6 monospace; text-decoration:none; }
+  .btn:hover { border-color:var(--fg); background:#191919; }
+  .contents { border:1px solid var(--border); border-radius:4px; padding:12px 18px; margin-bottom:24px; }
+  .contents summary { cursor:pointer; font:11px/1.8 monospace; color:var(--muted); }
+  .contents ul { columns:2; list-style:none; padding:0; margin:14px 0 4px; }
+  .contents li { break-inside:avoid; padding:3px 0; }
+  .contents a { font-size:13px; text-decoration:none; }
+  .abstract { border:1px solid var(--border); border-radius:4px; padding:22px 24px; margin-bottom:36px; background:var(--bg2); }
+  .abstract-label { font:11px/1.5 monospace; color:var(--muted); margin:0 0 13px; }
+  .abstract p { margin:0; color:#ccc; }
+  section { margin-bottom:36px; }
+  h2 { font-weight:400; font-size:19px; line-height:1.5; margin:30px 0 14px; }
+  h3 { font-weight:400; font-size:16px; line-height:1.5; color:#d4d4d4; margin:24px 0 12px; }
+  p { color:#bbb; text-align:justify; margin:0 0 15px; }
+  strong { color:#dedede; }
+  ul { padding-left:22px; }
+  li p { margin-bottom:12px; }
+  code { font-size:.9em; overflow-wrap:anywhere; color:#ccc; }
+  math { font-size:1em; }
+  .table-scroll { margin:24px 0; overflow-x:auto; overscroll-behavior-x:contain; }
+  table { width:100%; border-collapse:collapse; font-size:12px; font-variant-numeric:tabular-nums; line-height:1.65; }
+  caption { text-align:left; color:var(--muted); font-size:12px; padding-bottom:12px; }
+  th,td { padding:8px 10px; white-space:nowrap; }
+  thead th { border-top:1.5px solid var(--fg); border-bottom:1px solid var(--fg); font-weight:400; }
+  tbody tr { border-bottom:1px solid var(--border); }
+  tbody tr:last-child { border-bottom:1.5px solid var(--fg); }
+  figure { margin:28px 0; }
+  figure img { display:block; width:100%; height:auto; border:1px solid var(--border); border-radius:4px; background:white; }
+  figure > a { display:block; }
+  .figure-narrow { max-width:540px; margin-left:auto; margin-right:auto; }
+  figcaption { font-size:12px; line-height:1.7; color:var(--muted); margin-top:10px; }
+  .references { font-size:13px; color:#bbb; overflow-wrap:anywhere; }
+  .csl-entry { margin:0 0 14px; padding-left:22px; text-indent:-22px; }
+  .footnotes { font-size:12px; margin-top:32px; }
+  .footnotes hr { border:0; border-top:1px solid var(--border); }
+  .footnotes p { text-align:left; }
+  .footnote-back { padding-left:6px; }
+  .edition { margin-top:38px; border-top:1px solid var(--border); padding-top:4px; }
+  .edition p { text-align:left; font-size:13px; }
+  .edition .edition-note { color:var(--muted); font:11px/1.8 monospace; }
+  .back-top { font:12px/1.8 monospace; }
+  @media (max-width:560px) {
+    .wrap { padding:24px 18px 48px; }
+    .top-nav { font-size:11px; }
+    .authors { gap:0 24px; }
+    .authors p { width:100%; }
+    .abstract { padding:18px; }
+    p { text-align:left; font-size:15px; line-height:1.8; }
+    .contents ul { columns:1; }
+    caption { text-align:left; min-width:260px; }
+  }
+  @media print {
+    :root { --bg:white; --bg2:white; --fg:#111; --muted:#444; --border:#bbb; color-scheme:light; }
+    .wrap { max-width:none; padding:0; }
+    .top-nav,.actions,.contents,.skip-link,.back-top { display:none; }
+    body { font-size:10pt; }
+    p,.abstract p,strong,code,h3,.references,.authors p { color:#111; }
+    p { text-align:left; }
+    h2,h3,figcaption,caption { break-after:avoid; }
+    figure,tr { break-inside:avoid; }
+    .table-scroll { overflow:visible; }
+    table { font-size:8pt; }
+    th,td { white-space:normal; padding:5px; }
+    figure { max-width:520px; margin:18px auto; }
+    a { color:#111; text-decoration:none; }
+  }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#paper-title">Skip to paper</a>
+<main class="wrap">
+<nav class="top-nav" aria-label="Site navigation"><a href="/#research">← shubham.cv / research</a><a href="https://doi.org/10.5281/zenodo.22176362">doi:10.5281/zenodo.22176362</a></nav>
+<article aria-labelledby="paper-title"><header><h1 class="title" id="paper-title"><strong>VAYAS<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition</strong></h1>
+<div class="authors">
+<p>Shubham Kumar Gupta<br><a href="mailto:kshubham04907@gmail.com">kshubham04907@gmail.com</a></p>
+<p>Sania Gurung<br><a href="mailto:saniagurung5452@gmail.com">saniagurung5452@gmail.com</a></p>
+</div>
+<p class="affil">Amity University</p>
+<p class="meta">Preprint · v1 · <time datetime="2026-08-30">30 August 2026</time> · Paper 1 of the Vyaskosh series</p>
+<div class="actions">
+<a class="btn" href="/research/vayas-age-stratified-asr.pdf" download>Download PDF →</a><a class="btn" href="https://doi.org/10.5281/zenodo.22176362">View on Zenodo →</a><a class="btn" href="https://github.com/kshubham090/vayas-kosh">View code →</a>
+</div></header><details class="contents"><summary>Contents · 8 sections and references</summary><nav aria-label="Paper contents"><ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#introduction">1. Introduction</a></li>
+<li><a href="#related-work">2. Related Work</a></li>
+<li><a href="#sec:data">3. Data</a></li>
+<li><a href="#methodology">4. Methodology</a></li>
+<li><a href="#results">5. Results</a></li>
+<li><a href="#sec:discussion">6. Discussion</a></li>
+<li><a href="#sec:limitations">7. Limitations</a></li>
+<li><a href="#conclusion">8. Conclusion</a></li>
+<li><a href="#bibliography">References</a></li>
+</ul></nav></details><div class="abstract" id="abstract">
+<h2 class="abstract-label">Abstract</h2>
+<p>We present a zero-shot audit of four automatic speech recognition (ASR) systems for Hindi, examining whether word- and character-error rates differ by speaker age under a matched-cohort design. Common Voice Hindi, the most widely used open Hindi ASR benchmark, turns out to have almost no confirmed elderly speakers once its self-reported age field is actually counted (2 in their 60s, 0 older, out of 369 speakers). We instead use IndicVoices-R Hindi, a public spontaneous-speech corpus with genuine elderly (age 60+) representation, comparing 50 elderly speakers against a duration-matched, same-corpus control cohort randomly sampled from a 318-speaker pool (313–317 speakers actually drawn, depending on system; Section <a href="#sec:matching">3.3</a>), across four systems: OpenAI Whisper large-v3, Meta MMS-1B, and two India-specialized models, AI4Bharat’s IndicConformer and IndicWhisper. IndicConformer achieves the lowest error rates by a wide margin (WER 17.1–18.3%, CER 5.2–7.6%); we flag a serious, unresolved caveat on this result, since AI4Bharat’s models are documented elsewhere as trained in part on IndicVoices, the corpus IndicVoices-R is itself derived from, raising a real train-test contamination risk we could not rule out. IndicWhisper, also India-specialized, is the weakest performer (WER 46.4–50.5%); we trace a substantial share of this (about a quarter of the elderly-control gap) to a decoder repetition-loop failure mode, 16–80x more frequent than in the other three systems, concentrated on short utterances. Age-cohort effect sizes are small across all four systems (Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&lt;</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">d &lt; 0.2</annotation></semantics></math> in every case); one nominally significant elderly disadvantage (IndicWhisper, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.032</mn></mrow><annotation encoding="application/x-tex">p = 0.032</annotation></semantics></math>–<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.036</mn><annotation encoding="application/x-tex">0.036</annotation></semantics></math>) does not survive correction for multiple comparisons across the eight system-metric tests, and is below this sample’s minimum detectable effect size, so we report it as suggestive, not confirmed. We tested and ruled out one alternative explanation directly: re-scoring every clip against a disfluency-free reference transcript (rather than the disfluency-preserving one used throughout) leaves all eight effect signs, and IndicWhisper’s pattern specifically, essentially unchanged. We release the full zero-shot audit pipeline, matched-cohort sampling code, and per-clip results.</p>
+</div>
+<section aria-labelledby="introduction"><h2 id="introduction">1. Introduction</h2>
+<p>Automatic speech recognition (ASR) systems are increasingly deployed as the primary interface for voice assistants, transcription tools, and accessibility technology. Prior audits of commercial ASR in English have found substantial disparities in error rate across demographic groups defined by race <span class="citation" data-cites="koenecke2020racial">(<a href="#ref-koenecke2020racial" role="doc-biblioref">Koenecke et al. 2020</a>)</span>, and structural audits of other speech and vision systems have shown that undisclosed performance gaps across a benchmark’s underlying population are common when systems are evaluated only in aggregate <span class="citation" data-cites="buolamwini2018gender">(<a href="#ref-buolamwini2018gender" role="doc-biblioref">Buolamwini and Gebru 2018</a>)</span>. Age is a comparatively under-studied axis for this kind of audit, and Hindi, despite being among the most widely spoken languages in the world, has very little public infrastructure for answering this question at all: the most commonly used open Hindi ASR benchmark, Common Voice, turns out to have almost no <em>confirmed</em> elderly speakers once its self-reported age field is actually counted (Section <a href="#sec:data">3</a>).</p>
+<p>This paper reports a zero-shot audit (no system is fine-tuned or otherwise modified) of four ASR systems on Hindi speech, following the general blueprint of building a benchmark and auditing existing systems against it rather than training anything new <span class="citation" data-cites="buolamwini2018gender">(<a href="#ref-buolamwini2018gender" role="doc-biblioref">Buolamwini and Gebru 2018</a>)</span>, and adopting the matched-cohort design of <span class="citation" data-cites="koenecke2020racial">Koenecke et al. (<a href="#ref-koenecke2020racial" role="doc-biblioref">2020</a>)</span>: an elderly group and a same-source, same-conditions control group, so that age is the only systematic difference between the two samples being compared. We find one dominant result (a large, consistent quality gap between systems, whose interpretation is complicated by a training-data contamination risk we flag but cannot resolve) and one narrower, suggestive but not statistically confirmed signal (a small elderly disadvantage specific to one system, driven partly, not wholly, by an identifiable failure mode in its decoder). We treat both as worth reporting in full, including where they fall short of confirmation: a mostly-null result across three of four systems is not a failure of the audit, it is information about where an age-based accessibility problem does and does not currently show up at the sample size this study could run.</p>
+</section><section aria-labelledby="related-work"><h2 id="related-work">2. Related Work</h2>
+<p><span class="citation" data-cites="koenecke2020racial">Koenecke et al. (<a href="#ref-koenecke2020racial" role="doc-biblioref">2020</a>)</span> audited five commercial ASR systems on African American Vernacular English versus white American English using matched speaker cohorts, finding substantially higher word error rates for Black speakers across every system tested; the matched-cohort design used here (same corpus, same recording conditions, one demographic axis varied) follows that methodology directly. <span class="citation" data-cites="buolamwini2018gender">Buolamwini and Gebru (<a href="#ref-buolamwini2018gender" role="doc-biblioref">2018</a>)</span> established the broader structural pattern this work follows: constructing a benchmark with genuine population coverage and auditing already-deployed systems against it, rather than proposing a new model. <span class="citation" data-cites="pellegrini2012impact">Pellegrini et al. (<a href="#ref-pellegrini2012impact" role="doc-biblioref">2012</a>)</span> is the closest prior study of age effects specifically, examining the impact of age on ASR performance in a non-English setting; we adopt its motivating question but, as discussed in Section <a href="#sec:data">3</a>, could not replicate its finer decade-level age banding given our source data’s constraints. <span class="citation" data-cites="thennal2025cer">Thennal D K et al. (<a href="#ref-thennal2025cer" role="doc-biblioref">2025</a>)</span> motivate reporting both WER and CER together rather than WER alone, since word- and character-level error can diverge in morphologically rich languages; Hindi’s own morphology (case-marked postpositions, extensive compounding) makes this decomposition relevant here even though the original motivation was a different language family.</p>
+<p>On the systems side, this audit covers Whisper <span class="citation" data-cites="radford2023whisper">(<a href="#ref-radford2023whisper" role="doc-biblioref">Radford et al. 2023</a>)</span>, a general-purpose multilingual encoder-decoder model; MMS <span class="citation" data-cites="pratap2023mms">(<a href="#ref-pratap2023mms" role="doc-biblioref">Pratap et al. 2023</a>)</span>, Meta’s massively multilingual CTC-based system; and two Hindi-specialized systems from AI4Bharat, IndicConformer <span class="citation" data-cites="indicconformer2025">(<a href="#ref-indicconformer2025" role="doc-biblioref">AI4Bharat 2025</a>)</span> and IndicWhisper <span class="citation" data-cites="bhogale2023vistaar">(<a href="#ref-bhogale2023vistaar" role="doc-biblioref">Bhogale et al. 2023</a>)</span>, both fine-tuned or trained specifically for Indian languages. Both AI4Bharat systems draw, directly or indirectly, on IndicVoices <span class="citation" data-cites="indicvoices2024">(<a href="#ref-indicvoices2024" role="doc-biblioref">Javed et al. 2024</a>)</span> as training data, a fact with direct consequences for this audit’s own eval corpus (Section <a href="#sec:contamination">3.4</a>).</p>
+</section><section aria-labelledby="sec:data"><h2 id="sec:data">3. Data</h2>
+<h3 id="source-selection">3.1 Source selection</h3>
+<p>We initially considered Mozilla Common Voice Hindi (<code>cv-corpus-26.0-2026-06-12</code>, validated split) as the elderly-cohort source, since it is the most widely cited open Hindi ASR corpus and provides decade-level age brackets. Counting its validated split directly, however, shows this is not viable: of 369 total speakers, 145 fall in the under-60 control range, 222 left the (optional, self-reported) age field blank, and only <strong>2</strong> speakers are confirmed aged in their 60s, with <strong>zero</strong> confirmed in their 70s or 80s. Applying an n<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace width="0.167em"></mspace><mo>≥</mo><mspace width="0.167em"></mspace></mrow><annotation encoding="application/x-tex">\,\geq\,</annotation></semantics></math>8-speakers-per-band stopping rule, every elderly band fails outright.</p>
+<p>We therefore used <strong>IndicVoices-R Hindi</strong> <span class="citation" data-cites="indicvoicesr">(<a href="#ref-indicvoicesr" role="doc-biblioref">Sankar et al. 2024</a>)</span>, the Hindi subset of AI4Bharat’s IndicVoices-R corpus, as the source of record for both the elderly and control cohorts. A full, column-selective read of all 10 parquet shards (368 unique speakers, 26,318 utterances total, no audio decoded during this scan) gives real, exact per-age-band counts:</p>
+<div id="tab:datacounts" class="table-scroll" tabindex="0" role="region" aria-label="Table 1, scroll horizontally if needed">
+<table>
+<caption>Table 1. IndicVoices-R Hindi: real speaker and utterance counts by age band.</caption>
+<thead>
+<tr>
+<th style="text-align: left;" scope="col"><strong>Age group</strong></th>
+<th style="text-align: right;" scope="col"><strong>Speakers</strong></th>
+<th style="text-align: right;" scope="col"><strong>Utterances</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">18–30</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">8<span>,</span>778</td>
+</tr>
+<tr>
+<td style="text-align: left;">30–45</td>
+<td style="text-align: right;">117</td>
+<td style="text-align: right;">8<span>,</span>503</td>
+</tr>
+<tr>
+<td style="text-align: left;">45–60</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">5<span>,</span>138</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>60+</strong></td>
+<td style="text-align: right;"><strong>50</strong></td>
+<td style="text-align: right;"><strong>3<span>,</span>899</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">368</td>
+<td style="text-align: right;">26<span>,</span>318</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The elderly (60+) band clears the n<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace width="0.167em"></mspace><mo>≥</mo><mspace width="0.167em"></mspace></mrow><annotation encoding="application/x-tex">\,\geq\,</annotation></semantics></math>8 threshold with wide margin, and the combined under-60 pool (318 speakers) is more than sufficient for a same-corpus, duration-matched control cohort (Section <a href="#sec:matching">3.3</a>). Figure <a href="#fig:cohort">1</a> and Figure <a href="#fig:datasetcompare">2</a> summarize this comparison.</p>
+<figure id="fig:cohort" data-latex-placement="H" class="figure-narrow">
+<a href="/research/vayas/figures/figure1_cohort.png" target="_blank" rel="noreferrer" aria-label="Open Figure 1 at full size"><img src="/research/vayas/figures/figure1_cohort.png" alt="Speaker cohort: 128 aged 18–30, 117 aged 30–45, 73 aged 45–60 and 50 aged 60 or above, out of 368 speakers." width="1040" height="840" loading="lazy" decoding="async">
+</a><figcaption>Figure 1. Full speaker cohort composition, IndicVoices-R Hindi (n=368).</figcaption>
+</figure>
+<figure id="fig:datasetcompare" data-latex-placement="H" class="figure-narrow">
+<a href="/research/vayas/figures/figure2_dataset_comparison.png" target="_blank" rel="noreferrer" aria-label="Open Figure 2 at full size"><img src="/research/vayas/figures/figure2_dataset_comparison.png" alt="Confirmed elderly speakers: 2 in Common Voice Hindi compared with 50 in IndicVoices-R Hindi." width="1040" height="840" loading="lazy" decoding="async">
+</a><figcaption>Figure 2. Elderly-speaker availability: Common Voice Hindi vs. IndicVoices-R Hindi.</figcaption>
+</figure>
+<h3 id="age-band-resolution-and-speech-type">3.2 Age-band resolution and speech type</h3>
+<p>IndicVoices-R’s <code>age_group</code> field is a 4-class label (<code>18-30</code>, <code>30-45</code>, <code>45-60</code>, <code>60+</code>) with no finer resolution available from public metadata. Unlike the decade-level scheme used by <span class="citation" data-cites="pellegrini2012impact">Pellegrini et al. (<a href="#ref-pellegrini2012impact" role="doc-biblioref">2012</a>)</span> and originally targeted by this project, there is no way to distinguish speakers in their 60s, 70s, or 80s from this source. We therefore report a single collapsed elderly (60+) band against a single control (&lt; 60) band, rather than the finer scheme we had originally intended; this is a real resolution loss we state plainly rather than silently substituting a coarser claim for a finer one.</p>
+<p>We manually inspected a sample of <code>verbatim</code>/<code>normalized</code>/<code>task_name</code> fields to confirm speech type before treating this as a spontaneous-speech corpus. Two signals both indicate genuine spontaneous, topic-elicited speech rather than read-aloud script: (1) <code>task_name</code> values are topic prompts (“KYP - Cooking”, “Daily Life”, “Alexa Commands”), not transcript references; and (2) <code>verbatim</code> preserves colloquial spelling and at least one visible disfluency/false-start that the cleaned <code>normalized</code> field scrubs. We use <code>verbatim</code> as the gold reference throughout, since it is the field that actually preserves what a spontaneous-speech evaluation should measure against.</p>
+<p>One caveat carries through every result in this paper: IndicVoices-R applies a speech-enhancement (denoising/dereverberation) preprocessing step before release, which may suppress some of the acoustic degradation an age-based audit is trying to measure. We flag this as a standing limitation (Section <a href="#sec:limitations">7</a>), not a resolved issue.</p>
+<h3 id="sec:matching">3.3 Cohort construction</h3>
+<p>The elderly cohort is all 50 confirmed 60+ speakers in IndicVoices-R Hindi. The control cohort is drawn from the same corpus’s 318-speaker under-60 pool via duration-matched random sampling: control clips are shuffled and greedily accumulated until their total duration meets or exceeds the elderly cohort’s total duration, so that the two cohorts are comparable in scale as well as source. Sourcing both cohorts from the same corpus, rather than pairing IndicVoices-R elderly speakers against a Common Voice control group, is what makes this a matched-cohort design in the sense of <span class="citation" data-cites="koenecke2020racial">Koenecke et al. (<a href="#ref-koenecke2020racial" role="doc-biblioref">2020</a>)</span>: the only systematic difference between the two samples is age, not platform, recording setup, or elicitation protocol.</p>
+<p>Two of the four systems (MMS, IndicConformer) were run against the full elderly pool (3,899 clips) plus an equal-duration control sample (3,787 clips), 7,686 clips total. The other two (Whisper large-v3, IndicWhisper) measured 2–4x slower than real-time on the GPUs available for this study (an RTX 3050 laptop GPU, 4GB VRAM, for development; Kaggle-hosted NVIDIA P100/T4 instances for the full batch runs), so were run against a smaller, still duration-matched, non-overlapping union of three sampling passes (elderly and control positions from each earlier pass were explicitly excluded before sampling the next, using the same deterministic scan order and a fresh random seed per pass; see <code>scripts/</code> in the released code, which recovers each pass’s exact sample by replaying its seed rather than only checking for accidental overlap after the fact): 4,807 unique clips total, comprising 2,434 elderly and 2,373 control clips.</p>
+<p>Duration-matching alone does not equalize per-speaker clip counts. Elderly speakers contribute far more clips each than control speakers: 77.98 clips/speaker (elderly) vs. 11.95 (control) in the MMS/IndicConformer pool, and 48.68 vs. 7.58 in the Whisper/IndicWhisper pool. Since our statistics aggregate to one mean per speaker before computing confidence intervals and effect sizes (Section <a href="#sec:stats">4.3</a>), control speaker-level means are computed from far fewer clips each and are correspondingly noisier; this is the direct cause of at least one visibly wide control-cohort confidence interval in Table <a href="#tab:summary">2</a> (IndicConformer control CER). Age remains the only <em>demographic</em> axis deliberately varied between cohorts, but it is not the only difference in how each cohort’s statistics are computed, and we do not claim otherwise. Balancing clips per speaker, not just total duration, is the clear next step for this sampling design (Section <a href="#sec:limitations">7</a>).</p>
+<h3 id="sec:contamination">3.4 Training-data contamination risk</h3>
+<p>A serious caveat applies specifically to IndicConformer and IndicWhisper, one we were not able to fully resolve before running the audit. IndicVoices-R, this paper’s evaluation corpus, is explicitly described by its own authors as derived from IndicVoices <span class="citation" data-cites="indicvoices2024">(<a href="#ref-indicvoices2024" role="doc-biblioref">Javed et al. 2024</a>)</span> via an audio-restoration pipeline (demixing, dereverberation, denoising) applied to the same underlying recordings, not an independently collected corpus <span class="citation" data-cites="indicvoicesr">(<a href="#ref-indicvoicesr" role="doc-biblioref">Sankar et al. 2024</a>)</span>. Publicly available AI4Bharat documentation states that their ASR models, including IndicWav2Vec and IndicWhisper, are trained in part on IndicVoices; we could not obtain an authoritative, model-specific statement confirming or ruling out IndicConformer’s exact training set, despite checking its Hugging Face model card, its GitHub organization, and AI4Bharat’s own ASR project page, none of which publish a dataset-level training manifest.</p>
+<p>This means IndicConformer’s result in this paper cannot be presented as a clean zero-shot comparison without qualification: if its training data included IndicVoices, it may have seen the same underlying recordings and transcripts as some or all of this paper’s evaluation clips (post-enhancement audio, pre-enhancement audio, or both), which would inflate its apparent accuracy relative to the two systems in this audit with no plausible IndicVoices exposure (Whisper large-v3, MMS). One partial, non-conclusive counter-data-point: IndicConformer also produced an exact-match transcript on a single Common Voice Hindi clip during pilot validation (a corpus wholly unrelated to IndicVoices), suggesting at least some of its accuracy is not corpus-specific, but a single clip cannot settle a corpus-level contamination question, and we do not treat it as doing so. Given this, we report IndicConformer’s result descriptively rather than causally: it is the best-performing system <em>on this benchmark, as measured</em>, and we explicitly do not claim this reflects a fair, contamination-free zero-shot comparison against the other three systems. Framing its advantage as an architecture or training-recipe insight (rather than a possible data-leakage artifact) is not supportable without the speaker- or utterance-level training manifest AI4Bharat has not published, and we do not make that framing (see Section <a href="#sec:discussion">6</a>). We raise this as a general recommendation rather than a complaint specific to AI4Bharat, whose IndicVoices, IndicVoices-R, and Vistaar releases are themselves valuable, well-documented contributions this paper relies on directly: publishing a speaker- or utterance-level training manifest alongside released ASR checkpoints, or at minimum a clear per-model statement of exactly which corpora contributed training data, would let audits like this one resolve exactly this kind of question rather than having to flag it as an open risk.</p>
+</section><section aria-labelledby="methodology"><h2 id="methodology">4. Methodology</h2>
+<h3 id="sec:systems">4.1 Systems audited</h3>
+<p>All four systems are run zero-shot: no fine-tuning, no prompt engineering beyond specifying the target language where the API supports it.</p>
+<ul>
+<li><p><strong>Whisper large-v3</strong> <span class="citation" data-cites="radford2023whisper">(<a href="#ref-radford2023whisper" role="doc-biblioref">Radford et al. 2023</a>)</span> (<code>openai/whisper-large-v3</code>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>1.55B parameters): general-purpose multilingual encoder-decoder, called directly via <code>WhisperForConditionalGeneration</code> rather than the higher-level <code>pipeline()</code> wrapper, after the latter surfaced three separate real integration bugs during development (a missing system <code>ffmpeg</code> dependency, a <code>torchcodec</code> library mismatch, and a genuine <code>transformers</code> bug in its dict-input preprocessing path). No explicit beam size, temperature-fallback, or repetition-penalty configuration was set beyond library defaults; this gap in disclosure applies equally to IndicWhisper below and is discussed as a limitation (Section <a href="#sec:limitations">7</a>) directly relevant to Section <a href="#sec:degenerate">5.3</a>.</p></li>
+<li><p><strong>MMS-1B</strong> <span class="citation" data-cites="pratap2023mms">(<a href="#ref-pratap2023mms" role="doc-biblioref">Pratap et al. 2023</a>)</span> (<code>facebook/mms-1b-all</code>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>1B parameters): CTC-based, part of Meta’s Massively Multilingual Speech project. MMS ships one model with per-language adapter weights rather than one checkpoint per language; the Hindi adapter is loaded explicitly via <code>processor.tokenizer.set_target_lang("hin")</code> and <code>model.load_adapter("hin")</code> before every transcription call.</p></li>
+<li><p><strong>IndicConformer</strong> <span class="citation" data-cites="indicconformer2025">(<a href="#ref-indicconformer2025" role="doc-biblioref">AI4Bharat 2025</a>)</span> (<code>ai4bharat/indic-conformer-600m-multilingual</code>, 600M parameters): AI4Bharat’s Conformer-based multilingual Indic ASR model, run with its CTC decoding head (the model also supports RNNT decoding; CTC is what this audit used throughout).</p></li>
+<li><p><strong>IndicWhisper</strong> <span class="citation" data-cites="bhogale2023vistaar">(<a href="#ref-bhogale2023vistaar" role="doc-biblioref">Bhogale et al. 2023</a>)</span>: AI4Bharat’s Hindi Whisper fine-tune, distributed as a direct checkpoint archive (not a standard Hugging Face Hub repository) per the Vistaar project. That archive ships <em>two</em> Hindi checkpoints, fine-tuned from different Whisper base sizes; we confirmed via each checkpoint’s own <code>config.json</code> that this audit used <code>whisper-large-hi-noldcil</code> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi>l</mi></mrow></msub><mo>=</mo><mn>1280</mn></mrow><annotation encoding="application/x-tex">d_{model}=1280</annotation></semantics></math>, 32 encoder and 32 decoder layers, matching Whisper large’s architecture, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>1.55B parameters), not the archive’s other <code>whisper-medium-hi_alldata_multigpu</code> checkpoint (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi>l</mi></mrow></msub><mo>=</mo><mn>1024</mn></mrow><annotation encoding="application/x-tex">d_{model}=1024</annotation></semantics></math>, 24+24 layers, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>769M parameters). We flag this deliberately: our original loading code selected whichever checkpoint a directory scan happened to return first, which is filesystem-order-dependent and was not a considered choice at the time; we verified after the fact which one actually ran, and have since fixed the loader to select explicitly rather than by scan order.</p></li>
+</ul>
+<p>Two further systems in the originally planned seven-system set were excluded after real, documented attempts rather than assumption: IndicWav2Vec’s LM-decoding dependency (<code>pyctcdecode</code><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math><code>kenlm</code>) does not build against the Python version used in this environment, and Meta’s Omnilingual ASR ships no Windows-compatible native backend wheel at all. Both are platform gaps in the development environment used for this study, not judgments that the systems are unusable in principle. A fifth system, Sarvam (a billed API), remains in-scope but deferred pending an explicit cost decision, and is not included in the results below.</p>
+<h3 id="sec:metrics">4.2 Metrics</h3>
+<p>For every clip with a non-empty gold reference, we compute Word Error Rate (WER) and Character Error Rate (CER) via <code>jiwer</code> <span class="citation" data-cites="jiwer">(<a href="#ref-jiwer" role="doc-biblioref">Vaessen 2024</a>)</span>, using its default whitespace word tokenization and raw character-sequence comparison (no Hindi-specific text normalization is applied; this is a documented choice, not an oversight). We additionally report the WER<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>CER divergence <span class="citation" data-cites="thennal2025cer">(<a href="#ref-thennal2025cer" role="doc-biblioref">Thennal D K et al. 2025</a>)</span>, per-clip substitution/insertion/deletion counts, and a speaking-rate proxy (reference word count divided by clip duration).</p>
+<p>We use IndicVoices-R’s <code>verbatim</code> field as the gold reference throughout, since it preserves disfluencies and false starts rather than the cleaned <code>normalized</code> field. This is a deliberate choice for measuring spontaneous-speech ASR, but it has a real methodological consequence: no system in this audit is trained to emit disfluencies, so any age-related difference in disfluency rate could in principle produce a WER/CER gap attributable to reference style rather than acoustic recognition failure, in the same direction this paper’s central hypothesis (elderly speech is harder to recognize) would also predict. We tested this directly by re-scoring every clip against <code>normalized</code> references and recomputing every effect size in Table <a href="#tab:effects">3</a>: all 8 effects keep the same sign under both reference styles, and IndicWhisper’s WER/CER pattern in particular is essentially unchanged (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>0.136</mn></mrow><annotation encoding="application/x-tex">d=0.136</annotation></semantics></math>/<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.181</mn><annotation encoding="application/x-tex">0.181</annotation></semantics></math> normalized vs. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.139</mn><annotation encoding="application/x-tex">0.139</annotation></semantics></math>/<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.187</mn><annotation encoding="application/x-tex">0.187</annotation></semantics></math> verbatim; still nominally significant, still short of surviving Benjamini–Hochberg correction, under both scorings). The disfluency confound does not explain away this paper’s age-effect signal, which is a real strengthening of the IndicWhisper result even though it remains statistically suggestive rather than confirmed (Section <a href="#sec:stats">4.3</a>).</p>
+<h3 id="sec:stats">4.3 Statistics</h3>
+<p>Every aggregate statistic below is reported as an <code>(estimate, CI_low, CI_high, n)</code> tuple, never a bare point estimate. Per-clip metrics are first aggregated to one mean value per speaker (not pooled across clips directly), since multiple clips from the same speaker are not independent observations; 95% confidence intervals are then obtained via bootstrap resampling of speakers (10,000 resamples). Elderly-vs-control effect sizes are reported as both Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> (parametric, mean-based) and a rank-biserial correlation derived from a two-sided Mann-Whitney U test (nonparametric, robust to skew) on the same per-speaker distributions, with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values from the same test. With 4 systems <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>×</mi><annotation encoding="application/x-tex">\times</annotation></semantics></math> 2 metrics, this paper runs 8 such tests; we apply a Benjamini–Hochberg correction across all 8 and report both raw and corrected <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values (Table <a href="#tab:effects">3</a>), rather than letting the smallest raw <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values stand uncorrected. We also report each test’s minimum detectable effect (MDE) at 80% power given its actual sample sizes, since a null result from an underpowered test is not evidence of no effect.</p>
+</section><section aria-labelledby="results"><h2 id="results">5. Results</h2>
+<h3 id="error-rate-by-system">5.1 Error rate by system</h3>
+<p>Figure <a href="#fig:wercer">3</a> and Table <a href="#tab:summary">2</a> show WER and CER for all four systems, split by age cohort. IndicConformer has the lowest error rate by a wide margin (WER 17.1% elderly / 18.3% control) despite being architecturally the smallest of the four models tested (600M parameters vs. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>1B–1.55B for the others), <strong>but this comparison carries the training-data contamination risk flagged in Section <a href="#sec:contamination">3.4</a> and is not presented as a clean zero-shot result.</strong> MMS-1B and Whisper large-v3 are comparable to each other (WER <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>≈</mo><annotation encoding="application/x-tex">\approx</annotation></semantics></math> 35–36% in both cohorts). IndicWhisper, an India-specialized fine-tune of a Whisper large-architecture checkpoint (Section <a href="#sec:systems">4.1</a>), is instead the weakest of the four systems by a substantial margin (WER 46.4% control / 50.5% elderly), despite sharing IndicConformer’s exposure to AI4Bharat’s training data ecosystem; that a same-provenance system performs <em>worst</em>, not best, is itself a data point against treating training-data overlap as a full explanation for IndicConformer’s result. Section <a href="#sec:degenerate">5.3</a> investigates IndicWhisper’s result rather than taking it at face value.</p>
+<figure id="fig:wercer" data-latex-placement="H">
+<a href="/research/vayas/figures/figure4_wer_cer_by_system.png" target="_blank" rel="noreferrer" aria-label="Open Figure 3 at full size"><img src="/research/vayas/figures/figure4_wer_cer_by_system.png" alt="Word and character error rates with 95% confidence intervals for four systems and both cohorts. IndicConformer is lowest, with an unresolved contamination caveat; IndicWhisper is highest. Exact values appear in Table 2." width="2100" height="919" loading="lazy" decoding="async">
+</a><figcaption>Figure 3. WER and CER (mean of per-speaker means, 95% bootstrap CI) by system and age cohort.</figcaption>
+</figure>
+<div id="tab:summary" class="table-scroll" tabindex="0" role="region" aria-label="Table 2, scroll horizontally if needed">
+<table>
+<caption>Table 2. WER / CER by system and age cohort (mean of per-speaker means, 95% bootstrap CI).</caption>
+<thead>
+<tr>
+<th style="text-align: left;" scope="col"><strong>System</strong></th>
+<th style="text-align: left;" scope="col"><strong>Cohort</strong></th>
+<th style="text-align: right;" scope="col"><strong>WER (%)</strong></th>
+<th style="text-align: right;" scope="col"><strong>CER (%)</strong></th>
+<th style="text-align: right;" scope="col"><strong>n speakers</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">MMS-1B</td>
+<td style="text-align: left;">Elderly</td>
+<td style="text-align: right;">35.79 [34.27, 37.32]</td>
+<td style="text-align: right;">13.15 [12.44, 13.87]</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">MMS-1B</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">35.43 [34.51, 36.36]</td>
+<td style="text-align: right;">13.06 [12.58, 13.55]</td>
+<td style="text-align: right;">317</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicConformer</td>
+<td style="text-align: left;">Elderly</td>
+<td style="text-align: right;">17.06 [16.02, 18.20]</td>
+<td style="text-align: right;">5.20 [4.84, 5.59]</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicConformer</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">18.31 [17.13, 20.13]</td>
+<td style="text-align: right;">7.61 [5.64, 11.10]</td>
+<td style="text-align: right;">317</td>
+</tr>
+<tr>
+<td style="text-align: left;">Whisper large-v3</td>
+<td style="text-align: left;">Elderly</td>
+<td style="text-align: right;">35.50 [34.16, 36.90]</td>
+<td style="text-align: right;">15.34 [14.40, 16.35]</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">Whisper large-v3</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">35.80 [33.79, 38.34]</td>
+<td style="text-align: right;">16.11 [14.41, 18.46]</td>
+<td style="text-align: right;">313</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicWhisper</td>
+<td style="text-align: left;">Elderly</td>
+<td style="text-align: right;">50.54 [46.07, 55.77]</td>
+<td style="text-align: right;">34.53 [30.92, 38.37]</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicWhisper</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">46.37 [43.40, 50.24]</td>
+<td style="text-align: right;">30.74 [28.56, 33.18]</td>
+<td style="text-align: right;">313</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="age-cohort-effect-sizes">5.2 Age-cohort effect sizes</h3>
+<p>Figure <a href="#fig:effects">4</a> and Table <a href="#tab:effects">3</a> report Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> and rank-biserial <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> for every system/metric combination. Effect sizes are small throughout (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>d</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">|d| &lt; 0.2</annotation></semantics></math> in all eight system<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>×</mi><annotation encoding="application/x-tex">\times</annotation></semantics></math>metric pairs), below this sample’s own minimum detectable effect of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>0.427</mn></mrow><annotation encoding="application/x-tex">d = 0.427</annotation></semantics></math> at 80% power (Section <a href="#sec:stats">4.3</a>), so every null result here is genuinely uninformative about whether a small true effect exists, not evidence that none does. Three raw <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values fall under .05 (IndicWhisper WER and CER, Whisper large-v3 CER), but <strong>none survive Benjamini–Hochberg correction across the 8 tests</strong> (all corrected <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≥</mo><mn>0.10</mn></mrow><annotation encoding="application/x-tex">p \geq 0.10</annotation></semantics></math>; Table <a href="#tab:effects">3</a>). We report IndicWhisper’s WER/CER pattern as suggestive rather than confirmed: both raw <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values are the smallest in the table, both point the same direction (elderly disadvantage), and one of the two survives even after excluding IndicWhisper’s degenerate-output clips (CER, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.040</mn></mrow><annotation encoding="application/x-tex">p=0.040</annotation></semantics></math>; WER does not, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.085</mn></mrow><annotation encoding="application/x-tex">p=0.085</annotation></semantics></math>; Section <a href="#sec:degenerate">5.3</a>), a plausible real signal at the sample size this audit could run, but not one we can call statistically confirmed. Whisper large-v3’s CER effect flips sign between Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0.045</mn></mrow><annotation encoding="application/x-tex">-0.045</annotation></semantics></math>, elderly slightly better on raw data) and the rank-biserial estimate (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>0.183</mn></mrow><annotation encoding="application/x-tex">+0.183</annotation></semantics></math>, elderly slightly worse by rank), a real, not erroneous, consequence of a mean-based and a rank-based statistic disagreeing under a skewed distribution, and does not survive correction either; we report both statistics rather than picking the one that tells a cleaner story.</p>
+<figure id="fig:effects" data-latex-placement="H">
+<a href="/research/vayas/figures/figure6_effect_sizes.png" target="_blank" rel="noreferrer" aria-label="Open Figure 4 at full size"><img src="/research/vayas/figures/figure6_effect_sizes.png" alt="Cohen’s d for each system and metric. All eight age-cohort effect magnitudes are below 0.2. Exact effect sizes and corrected p-values appear in Table 3." width="1440" height="919" loading="lazy" decoding="async">
+</a><figcaption>Figure 4. Age-cohort effect size (Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>) by system and metric.</figcaption>
+</figure>
+<div id="tab:effects" class="table-scroll" tabindex="0" role="region" aria-label="Table 3, scroll horizontally if needed">
+<table>
+<caption>Table 3. Elderly-vs-control effect sizes. Positive values indicate higher error for the elderly cohort. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mrow><mi>B</mi><mi>H</mi></mrow></msub><annotation encoding="application/x-tex">p_{BH}</annotation></semantics></math> is Benjamini–Hochberg-corrected across all 8 tests; MDE is this test’s minimum detectable Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> at 80% power given its actual <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</caption>
+<thead>
+<tr>
+<th style="text-align: left;" scope="col"><strong>System</strong></th>
+<th style="text-align: left;" scope="col"><strong>Metric</strong></th>
+<th style="text-align: right;" scope="col"><strong>Cohen’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math></strong></th>
+<th style="text-align: right;" scope="col"><strong>Rank-biserial <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math></strong></th>
+<th style="text-align: right;" scope="col"><strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></strong></th>
+<th style="text-align: right;" scope="col"><strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mrow><mi>B</mi><mi>H</mi></mrow></msub><annotation encoding="application/x-tex">p_{BH}</annotation></semantics></math></strong></th>
+<th style="text-align: right;" scope="col"><strong>MDE</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">MMS-1B</td>
+<td style="text-align: left;">WER</td>
+<td style="text-align: right;">0.044</td>
+<td style="text-align: right;">0.077</td>
+<td style="text-align: right;">0.380</td>
+<td style="text-align: right;">0.434</td>
+<td style="text-align: right;">0.427</td>
+</tr>
+<tr>
+<td style="text-align: left;">MMS-1B</td>
+<td style="text-align: left;">CER</td>
+<td style="text-align: right;">0.019</td>
+<td style="text-align: right;">0.097</td>
+<td style="text-align: right;">0.273</td>
+<td style="text-align: right;">0.434</td>
+<td style="text-align: right;">0.427</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicConformer</td>
+<td style="text-align: left;">WER</td>
+<td style="text-align: right;">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>0.094</td>
+<td style="text-align: right;">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>0.037</td>
+<td style="text-align: right;">0.674</td>
+<td style="text-align: right;">0.674</td>
+<td style="text-align: right;">0.427</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicConformer</td>
+<td style="text-align: left;">CER</td>
+<td style="text-align: right;">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>0.093</td>
+<td style="text-align: right;">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>0.081</td>
+<td style="text-align: right;">0.360</td>
+<td style="text-align: right;">0.434</td>
+<td style="text-align: right;">0.427</td>
+</tr>
+<tr>
+<td style="text-align: left;">Whisper large-v3</td>
+<td style="text-align: left;">WER</td>
+<td style="text-align: right;">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>0.016</td>
+<td style="text-align: right;">0.136</td>
+<td style="text-align: right;">0.123</td>
+<td style="text-align: right;">0.245</td>
+<td style="text-align: right;">0.430</td>
+</tr>
+<tr>
+<td style="text-align: left;">Whisper large-v3</td>
+<td style="text-align: left;">CER</td>
+<td style="text-align: right;">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>−</mi><annotation encoding="application/x-tex">-</annotation></semantics></math>0.045</td>
+<td style="text-align: right;">0.183</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">0.101</td>
+<td style="text-align: right;">0.430</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicWhisper</td>
+<td style="text-align: left;">WER</td>
+<td style="text-align: right;">0.139</td>
+<td style="text-align: right;">0.185</td>
+<td style="text-align: right;">0.036</td>
+<td style="text-align: right;">0.101</td>
+<td style="text-align: right;">0.430</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicWhisper</td>
+<td style="text-align: left;">CER</td>
+<td style="text-align: right;">0.187</td>
+<td style="text-align: right;">0.189</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.101</td>
+<td style="text-align: right;">0.430</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="sec:degenerate">5.3 IndicWhisper’s repetition-loop failure mode</h3>
+<p>Manual inspection of IndicWhisper’s highest-WER clips (several exceeding WER <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>&gt;</mo><annotation encoding="application/x-tex">&gt;</annotation></semantics></math> 1.0, mathematically possible only via runaway insertion) revealed genuine decoder degeneration: a short reference phrase transcribed correctly, followed by a repeated token or short phrase looping tens to hundreds of times (e.g. a three-word phrase repeated 9 times, degenerating into a single-syllable loop of 30, then 100+, repetitions). This is a known failure mode of encoder-decoder ASR models under greedy or lightly-constrained decoding, particularly on short inputs, and is not a computation artifact in our pipeline.</p>
+<p>We quantify this directly by counting clips with WER <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>&gt;</mo><annotation encoding="application/x-tex">&gt;</annotation></semantics></math> 1.0 as a “degenerate-output rate” (Figure <a href="#fig:degenerate">5</a>, Table <a href="#tab:degenerate">4</a>). This threshold is a deliberately simple, mathematically motivated proxy (WER <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>&gt;</mo><annotation encoding="application/x-tex">&gt;</annotation></semantics></math> 1.0 is only reachable via runaway insertion), not a repetition-specific detector (e.g. max-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-gram-repeat count); we manually confirmed a sample of flagged clips shows genuine repetition, but the threshold is also biased toward shorter references, which cross it with fewer excess words than longer ones. IndicWhisper degenerates on 7.16% of its clips, 16–80x the rate of the other three systems individually (0.09%, 0.34%, 0.46%; the range is wide because the other three systems’ own rates differ by a factor of five from each other). Degenerate clips do skew shorter on average (6.67s vs. 9.91s), but given the length-bias just noted, we treat this as a secondary, illustrative observation, not as independent confirmatory evidence.</p>
+<figure id="fig:degenerate" data-latex-placement="H" class="figure-narrow">
+<a href="/research/vayas/figures/figure5_degenerate_output_rate.png" target="_blank" rel="noreferrer" aria-label="Open Figure 5 at full size"><img src="/research/vayas/figures/figure5_degenerate_output_rate.png" alt="Degenerate-output rates on a logarithmic scale: MMS 0.34%, IndicConformer 0.09%, Whisper large-v3 0.46% and IndicWhisper 7.16%." width="1280" height="840" loading="lazy" decoding="async">
+</a><figcaption>Figure 5. Repetition-loop degenerate-output rate by system (log scale).</figcaption>
+</figure>
+<div id="tab:degenerate" class="table-scroll" tabindex="0" role="region" aria-label="Table 4, scroll horizontally if needed">
+<table>
+<caption>Table 4. Degenerate-output rate (WER <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>&gt;</mo><annotation encoding="application/x-tex">&gt;</annotation></semantics></math> 1.0) by system, overall and by cohort.</caption>
+<thead>
+<tr>
+<th style="text-align: left;" scope="col"><strong>System</strong></th>
+<th style="text-align: right;" scope="col"><strong>n clips</strong></th>
+<th style="text-align: right;" scope="col"><strong>Rate (overall)</strong></th>
+<th style="text-align: right;" scope="col"><strong>Rate (elderly)</strong></th>
+<th style="text-align: right;" scope="col"><strong>Rate (control)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">MMS-1B</td>
+<td style="text-align: right;">7<span>,</span>686</td>
+<td style="text-align: right;">0.34%</td>
+<td style="text-align: right;">0.33%</td>
+<td style="text-align: right;">0.34%</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicConformer</td>
+<td style="text-align: right;">7<span>,</span>686</td>
+<td style="text-align: right;">0.09%</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.18%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Whisper large-v3</td>
+<td style="text-align: right;">4<span>,</span>807</td>
+<td style="text-align: right;">0.46%</td>
+<td style="text-align: right;">0.45%</td>
+<td style="text-align: right;">0.46%</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicWhisper</td>
+<td style="text-align: right;">4<span>,</span>807</td>
+<td style="text-align: right;"><strong>7.16%</strong></td>
+<td style="text-align: right;">7.60%</td>
+<td style="text-align: right;">6.70%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The by-cohort breakdown matters for two reasons. First, IndicWhisper’s degenerate rate is only modestly higher for elderly speakers (7.60% vs. 6.70%): the pathology is not an elderly-specific failure mode, it is a general short-clip failure mode that elderly speakers hit slightly more often, consistent with (though not proof of) the speaking-rate relationship in Section <a href="#sec:speakingrate">5.4</a>. Second, IndicConformer’s own degenerate clips are entirely concentrated in the control cohort (7 of 7, 0.18% vs. 0.00% elderly); this, not a general control-cohort noise property, is what produces IndicConformer’s unusually wide control CER confidence interval in Table <a href="#tab:summary">2</a> (a handful of outlier clips dominating a per-speaker mean), and is a second concrete illustration of why the per-speaker clip-count imbalance noted in Section <a href="#sec:matching">3.3</a> matters in practice, not just in principle.</p>
+<p>Recomputing WER/CER with degenerate clips excluded (Table <a href="#tab:trimmed">5</a>) shows this pathology explains part, not all, of IndicWhisper’s disadvantage: trimmed WER drops from 50.5% to 42.1% (elderly) and 46.4% to 38.9% (control), and the elderly-control WER gap itself shrinks from 4.18 to 3.20 percentage points, a 23% reduction, not the majority of the gap. IndicWhisper remains clearly the worst-performing system of the four even after trimming, and re-running the significance tests on trimmed data (Section <a href="#sec:stats">4.3</a>’s method, unchanged) shows the elderly-disadvantage signal itself is sensitive to this choice: CER stays nominally significant (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>0.290</mn></mrow><annotation encoding="application/x-tex">d=0.290</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.040</mn></mrow><annotation encoding="application/x-tex">p=0.040</annotation></semantics></math>) but WER does not (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>0.233</mn></mrow><annotation encoding="application/x-tex">d=0.233</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.085</mn></mrow><annotation encoding="application/x-tex">p=0.085</annotation></semantics></math>), where both were nominally significant untrimmed. We report this instability directly rather than choosing whichever version of the analysis looks cleaner: the pathology is a genuine, partial explanation, not a full one, and the age-effect claim built on top of it is correspondingly fragile.</p>
+<div id="tab:trimmed" class="table-scroll" tabindex="0" role="region" aria-label="Table 5, scroll horizontally if needed">
+<table>
+<caption>Table 5. WER / CER excluding degenerate (WER <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>&gt;</mo><annotation encoding="application/x-tex">&gt;</annotation></semantics></math> 1.0) clips.</caption>
+<thead>
+<tr>
+<th style="text-align: left;" scope="col"><strong>System</strong></th>
+<th style="text-align: left;" scope="col"><strong>Cohort</strong></th>
+<th style="text-align: right;" scope="col"><strong>WER (%)</strong></th>
+<th style="text-align: right;" scope="col"><strong>CER (%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">MMS-1B</td>
+<td style="text-align: left;">Elderly</td>
+<td style="text-align: right;">35.37</td>
+<td style="text-align: right;">13.04</td>
+</tr>
+<tr>
+<td style="text-align: left;">MMS-1B</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">35.00</td>
+<td style="text-align: right;">12.92</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicConformer</td>
+<td style="text-align: left;">Elderly</td>
+<td style="text-align: right;">17.06</td>
+<td style="text-align: right;">5.20</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicConformer</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">17.35</td>
+<td style="text-align: right;">5.45</td>
+</tr>
+<tr>
+<td style="text-align: left;">Whisper large-v3</td>
+<td style="text-align: left;">Elderly</td>
+<td style="text-align: right;">34.76</td>
+<td style="text-align: right;">14.71</td>
+</tr>
+<tr>
+<td style="text-align: left;">Whisper large-v3</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">33.76</td>
+<td style="text-align: right;">14.40</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicWhisper</td>
+<td style="text-align: left;">Elderly</td>
+<td style="text-align: right;">42.07</td>
+<td style="text-align: right;">28.36</td>
+</tr>
+<tr>
+<td style="text-align: left;">IndicWhisper</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">38.87</td>
+<td style="text-align: right;">24.80</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="sec:speakingrate">5.4 Speaking rate and error rate</h3>
+<p>Figure <a href="#fig:speakingrate">6</a> shows binned mean WER against speaking rate (reference words per second) for each system. Faster speech is associated with lower WER for all four systems. Since WER’s denominator is reference word count, and our speaking-rate proxy is also reference words divided by duration, part of this association is a length-normalization artifact rather than a purely acoustic/phonetic effect: controlling for reference word count via partial correlation attenuates Whisper large-v3’s raw Spearman <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mi>−</mi><mn>0.287</mn></mrow><annotation encoding="application/x-tex">\rho=-0.287</annotation></semantics></math> to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mi>−</mi><mn>0.214</mn></mrow><annotation encoding="application/x-tex">\rho=-0.214</annotation></semantics></math>, still a real association but roughly a quarter smaller once the length confound is accounted for; the already small IndicConformer and IndicWhisper correlations are essentially unchanged by the same control (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mi>−</mi><mn>0.005</mn><mo>→</mo><mi>−</mi><mn>0.005</mn></mrow><annotation encoding="application/x-tex">\rho=-0.005 \to -0.005</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mi>−</mi><mn>0.070</mn><mo>→</mo><mi>−</mi><mn>0.046</mn></mrow><annotation encoding="application/x-tex">\rho=-0.070 \to -0.046</annotation></semantics></math> respectively). We had originally speculated that slower, more hesitant speech is “plausibly more common among elderly speakers” as a mediating mechanism; testing this directly (per-speaker mean speaking rate, elderly vs. control) shows it is not supported in this corpus: elderly speakers’ mean rate (2.58 words/sec) is only marginally lower than control’s (2.63 words/sec), and the difference is not significant (Mann-Whitney <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.41</mn></mrow><annotation encoding="application/x-tex">p=0.41</annotation></semantics></math>). The speaking-rate/WER association is real but not a demonstrated channel for this paper’s age comparisons specifically.</p>
+<figure id="fig:speakingrate" data-latex-placement="H">
+<a href="/research/vayas/figures/figure7_speaking_rate_wer.png" target="_blank" rel="noreferrer" aria-label="Open Figure 6 at full size"><img src="/research/vayas/figures/figure7_speaking_rate_wer.png" alt="Binned mean word error rate against reference words per second for each of the four systems. The paper discusses the shared word-count denominator and why this is not a demonstrated explanation for its age comparisons." width="1900" height="1600" loading="lazy" decoding="async">
+</a><figcaption>Figure 6. Speaking rate vs. WER, binned mean per system.</figcaption>
+</figure>
+</section><section aria-labelledby="sec:discussion"><h2 id="sec:discussion">6. Discussion</h2>
+<p>The central finding of this audit is not the one it originally set out to test cleanly. Rather than a uniform elderly-speaker accessibility gap, we find a large <em>system-quality</em> gap (IndicConformer vs. the other three) whose interpretation is compromised by an unresolved contamination risk (Section <a href="#sec:contamination">3.4</a>), and a narrower, suggestive, not statistically confirmed age-linked signal specific to one system (IndicWhisper). Neither is the clean result the matched-cohort design was built to produce, and we think reporting both honestly, including where they fall short of confirmation, is more useful than reporting either as settled.</p>
+<p>The near-null age effect for MMS-1B, IndicConformer, and Whisper large-v3 is not evidence that elderly-speaker ASR accessibility is a solved problem in general: every one of these null results sits below this sample’s minimum detectable effect (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>0.427</mn></mrow><annotation encoding="application/x-tex">d=0.427</annotation></semantics></math>–<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.430</mn><annotation encoding="application/x-tex">0.430</annotation></semantics></math> at 80% power; Section <a href="#sec:stats">4.3</a>), so the honest reading is “no large effect detected at this sample size,” not “no effect exists.” IndicWhisper’s WER/CER pattern is the kind of result a matched-cohort audit is designed to surface, but it does not survive multiple-comparison correction, is itself below the sample’s MDE (meaning if the effect is real, this sample likely overstates its size), and is only partially robust to excluding the system’s own repetition-loop pathology (CER survives retesting on trimmed data, WER does not; Section <a href="#sec:degenerate">5.3</a>). We report it as a real candidate for a follow-up, adequately powered study, not as a confirmed finding of this one.</p>
+<p>We explicitly do not draw the conclusion IndicConformer’s raw numbers might otherwise invite – that architecture or training-recipe choices explain its advantage over three larger models. Given the documented, unresolved possibility that its training data overlaps this evaluation corpus (Section <a href="#sec:contamination">3.4</a>), a data-leakage explanation is at least as plausible as an architectural one, and we do not have the evidence to distinguish them. What this audit <em>can</em> say without qualification is narrower: on this benchmark, as measured, IndicConformer produced the lowest error rates of the four systems tested, and whether that reflects genuine generalization or prior exposure to related data is an open question this paper raises but does not resolve.</p>
+</section><section aria-labelledby="sec:limitations"><h2 id="sec:limitations">7. Limitations</h2>
+<ul>
+<li><p><strong>Training-data contamination risk</strong> (Section <a href="#sec:contamination">3.4</a>) is the most serious open item in this paper: IndicConformer’s and, on the same public documentation, possibly IndicWhisper’s training data may overlap IndicVoices-R’s source recordings, and we could not obtain an authoritative training manifest to confirm or rule this out. IndicConformer’s headline result should be read with this caveat foremost, not as a footnote.</p></li>
+<li><p><strong>Per-speaker clip-count imbalance</strong> (Section <a href="#sec:matching">3.3</a>): duration-matching does not equalize clips per speaker (elderly speakers contribute 6.5–6.9x more clips each than control speakers across the two system pools). This inflates the effective precision of elderly per-speaker means relative to control ones and is the direct, confirmed cause of at least one unusually wide confidence interval in this paper’s results (IndicConformer control CER, Section <a href="#sec:degenerate">5.3</a>).</p></li>
+<li><p><strong>Gold-reference confound, tested</strong>: we score against <code>verbatim</code> transcripts, which preserve disfluencies no audited system is trained to produce, raising the possibility that an elderly-control disfluency-rate difference alone could inflate WER/CER gaps. We re-scored every clip against <code>normalized</code> references to test this directly (Section <a href="#sec:metrics">4.2</a>); all 8 age-effect signs are unchanged and IndicWhisper’s pattern is essentially identical under both scorings. This does not resolve the multiple-comparison caveat, but it does rule out disfluency scoring as the source of the signal that exists.</p></li>
+<li><p><strong>Decoding configuration is underspecified</strong>: beam size, temperature fallback, and repetition-penalty settings were left at library defaults for Whisper large-v3 and IndicWhisper and were not recorded per-run. Since Whisper’s reference implementation ships a temperature-fallback mechanism specifically to reduce repetition loops, some share of Section <a href="#sec:degenerate">5.3</a>’s degenerate-output rate may reflect this audit’s configuration rather than the checkpoints’ intrinsic behavior under their own developers’ recommended settings.</p></li>
+<li><p><strong>Unequal sample sizes across systems</strong> (7,686 clips for MMS/IndicConformer vs. 4,807 for Whisper/IndicWhisper, driven by compute constraints, Section <a href="#sec:matching">3.3</a>) mean the degenerate-output-rate comparison in Table <a href="#tab:degenerate">4</a> is not drawn from identical clip pools across all four systems, though the elderly/control ratio is held constant within each pool.</p></li>
+<li><p><strong>Statistical power</strong>: every null age-effect result in this paper is below its own minimum detectable effect at 80% power (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>≈</mo><mn>0.43</mn></mrow><annotation encoding="application/x-tex">d \approx 0.43</annotation></semantics></math>); we report this explicitly (Section <a href="#sec:discussion">6</a>) rather than letting a null result read as stronger evidence than it is.</p></li>
+<li><p><strong>Age-band resolution</strong> collapses to a single 60+ vs. under-60 split; the finer 60s/70s/80s scheme originally targeted, and used by <span class="citation" data-cites="pellegrini2012impact">Pellegrini et al. (<a href="#ref-pellegrini2012impact" role="doc-biblioref">2012</a>)</span>, is not recoverable from either public source checked.</p></li>
+<li><p><strong>Speech enhancement</strong>: IndicVoices-R applies denoising/dereverberation before release. This may suppress acoustic degradation an age-based audit is trying to measure, but denoising can also distort breathy or jittery elderly voices in ways that manufacture rather than hide a gap; we do not know which direction dominates here, and flag both rather than only the suppression case. Any elderly-vs-control gap reported here is a gap <em>after</em> this preprocessing, not a raw-audio result.</p></li>
+<li><p><strong>A fifth system, Sarvam</strong>, a billed commercial API, remains explicitly deferred rather than included or silently dropped, pending a cost decision outside the scope of this paper.</p></li>
+<li><p><strong>Two further systems</strong> (IndicWav2Vec, Meta’s Omnilingual ASR) were excluded due to real, documented platform incompatibilities in the development environment used (a Python version/native-library mismatch and a lack of Windows wheels, respectively), not a judgment that they are unusable in principle.</p></li>
+<li><p><strong>Single-language scope</strong>: this audit covers Hindi only. The original two-family (Indo-Aryan/Dravidian) design was dropped when a viable Tamil data source could not be confirmed; the claim this paper can support is a single-language proof of concept and an explicit call for replication in other languages, not a cross-family comparison.</p></li>
+</ul>
+</section><section aria-labelledby="conclusion"><h2 id="conclusion">8. Conclusion</h2>
+<p>We audited four zero-shot Hindi ASR systems on a matched elderly/control cohort drawn from IndicVoices-R Hindi, a corpus we selected specifically because the field’s more commonly used Hindi benchmark, Common Voice, turns out to have almost no <em>confirmed</em> elderly speaker representation once actually counted (a majority of Common Voice Hindi speakers leave the age field blank, so this is a claim about confirmed representation, not a claim that no elderly speakers exist in that corpus at all). We find IndicConformer to have the lowest error rates of the four systems, though this result carries an unresolved training-data contamination risk we could not rule out and do not present as a clean zero-shot comparison; IndicWhisper to be the weakest, partly (about a quarter of its elderly-control gap) due to an identified decoder repetition-loop pathology on short clips; and small age-cohort effects across all four systems that do not survive correction for multiple comparisons, with IndicWhisper’s pattern the one candidate worth a dedicated, adequately powered follow-up study rather than a confirmed finding here. We release the full audit pipeline, matched-cohort sampling code, and per-clip results at <a href="https://github.com/kshubham090/vayas-kosh" class="uri">https://github.com/kshubham090/vayas-kosh</a> so this protocol, including the parts of it that did not resolve cleanly, can be checked, extended, and improved on.</p>
+</section><section aria-labelledby="bibliography"><h2 class="unnumbered" id="bibliography">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-indicconformer2025" class="csl-entry" role="listitem">
+AI4Bharat. 2025. <em>IndicConformer-600M-Multilingual</em>. <a href="https://huggingface.co/ai4bharat/indic-conformer-600m-multilingual" class="uri">https://huggingface.co/ai4bharat/indic-conformer-600m-multilingual</a>.
+</div>
+<div id="ref-bhogale2023vistaar" class="csl-entry" role="listitem">
+Bhogale, Kaushal Santosh, Sai Sundaresan, Abhigyan Raman, Tahir Javed, Mitesh M. Khapra, and Pratyush Kumar. 2023. <span>“Vistaar: Diverse Benchmarks and Training Sets for Indian Language <span>ASR</span>.”</span> <em>Proceedings of Interspeech 2023</em>, 4384–88. <a href="https://doi.org/10.21437/Interspeech.2023-2589">https://doi.org/10.21437/Interspeech.2023-2589</a>.
+</div>
+<div id="ref-buolamwini2018gender" class="csl-entry" role="listitem">
+Buolamwini, Joy, and Timnit Gebru. 2018. <span>“Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification.”</span> <em>Proceedings of the 1st Conference on Fairness, Accountability and Transparency</em>, Proceedings of machine learning research, vol. 81: 77–91.
+</div>
+<div id="ref-indicvoices2024" class="csl-entry" role="listitem">
+Javed, Tahir, Janki Nawale, Eldho Ittan George, et al. 2024. <span>“<span>IndicVoices</span>: Towards Building an Inclusive Multilingual Speech Dataset for <span>I</span>ndian Languages.”</span> <em>Findings of the Association for Computational Linguistics: ACL 2024</em>. <a href="https://aclanthology.org/2024.findings-acl.639/">https://aclanthology.org/2024.findings-acl.639/</a>.
+</div>
+<div id="ref-koenecke2020racial" class="csl-entry" role="listitem">
+Koenecke, Allison, Andrew Nam, Emily Lake, et al. 2020. <span>“Racial Disparities in Automated Speech Recognition.”</span> <em>Proceedings of the National Academy of Sciences</em> 117 (14): 7684–89.
+</div>
+<div id="ref-pellegrini2012impact" class="csl-entry" role="listitem">
+Pellegrini, Thomas, Isabel Trancoso, Annika Hämäläinen, António Calado, Miguel Sales Dias, and Daniela Braga. 2012. <span>“Impact of Age in <span>ASR</span> for the Elderly: Preliminary Experiments in <span>E</span>uropean <span>P</span>ortuguese.”</span> <em>Advances in Speech and Language Technologies for Iberian Languages (IberSPEECH 2012)</em> (Berlin, Heidelberg), Communications in computer and information science, vol. 328. <a href="https://doi.org/10.1007/978-3-642-35292-8_15">https://doi.org/10.1007/978-3-642-35292-8_15</a>.
+</div>
+<div id="ref-pratap2023mms" class="csl-entry" role="listitem">
+Pratap, Vineel, Andros Tjandra, Bowen Shi, et al. 2023. <span>“Scaling Speech Technology to 1,000+ Languages.”</span> <em>arXiv Preprint arXiv:2305.13516</em>.
+</div>
+<div id="ref-radford2023whisper" class="csl-entry" role="listitem">
+Radford, Alec, Jong Wook Kim, Tao Xu, Greg Brockman, Christine McLeavey, and Ilya Sutskever. 2023. <span>“Robust Speech Recognition via Large-Scale Weak Supervision.”</span> <em>Proceedings of the 40th International Conference on Machine Learning</em>, PMLR, vol. 202: 28492–518.
+</div>
+<div id="ref-indicvoicesr" class="csl-entry" role="listitem">
+Sankar, Ashwin, Srija Anand, Praveen Srinivasa Varadhan, et al. 2024. <span>“<span>IndicVoices-R</span>: Unlocking a Massive Multilingual Multi-Speaker Speech Corpus for Scaling <span>I</span>ndian <span>TTS</span>.”</span> <em>Advances in Neural Information Processing Systems 37 (NeurIPS 2024), Datasets and Benchmarks Track</em>.
+</div>
+<div id="ref-thennal2025cer" class="csl-entry" role="listitem">
+Thennal D K, Jesin James, Deepa Padmini Gopinath, and Muhammed Ashraf K. 2025. <span>“Advocating Character Error Rate for Multilingual <span>ASR</span> Evaluation.”</span> <em>Findings of the Association for Computational Linguistics: NAACL 2025</em>. <a href="https://aclanthology.org/2025.findings-naacl.277/">https://aclanthology.org/2025.findings-naacl.277/</a>.
+</div>
+<div id="ref-jiwer" class="csl-entry" role="listitem">
+Vaessen, Nik. 2024. <em>Jiwer: Evaluate Automatic Speech Recognition Systems</em>. <a href="https://github.com/jitsi/jiwer" class="uri">https://github.com/jitsi/jiwer</a>.
+</div>
+</div>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>VAYAS is this project’s name (Paper 1 of the Vyaskosh series), not a letter-by-letter acronym.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<footer class="edition"><h2>Cite this paper</h2>
+<p>Shubham Kumar Gupta and Sania Gurung. 2026. <cite>VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition</cite>. Zenodo, v1. <a href="https://doi.org/10.5281/zenodo.22176362">doi:10.5281/zenodo.22176362</a>.</p>
+<p><a href="/research/vayas/citation.bib" download>Download BibTeX</a> · <a href="/research/vayas-age-stratified-asr.pdf">Published PDF</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+<p class="edition-note">HTML reading edition prepared on <time datetime="2026-10-08">8 October 2026</time> from the published v1 manuscript. Text, tables and published figures are retained; layout, mathematical notation and reference formatting are adapted for the web.</p>
+<a class="back-top" href="#top">Back to top ↑</a></footer></article>
+
+</main>
+</body>
+</html>

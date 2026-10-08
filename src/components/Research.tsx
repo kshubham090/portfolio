@@ -15,6 +15,7 @@ interface OwnPaper {
   note: string;
   tag: string;
   href?: string;
+  reloadDocument?: boolean;
 }
 
 const OWN_PAPERS: OwnPaper[] = [
@@ -27,10 +28,11 @@ const OWN_PAPERS: OwnPaper[] = [
   },
   {
     status: 'Published · Zenodo · Aug 2026',
-    title: 'VAYAS: Age-Stratified Audit of Hindi Speech Recognition',
+    title: 'VAYAS: An Age-Stratified Zero-Shot Audit of Hindi Speech Recognition',
     note: 'A co-authored preprint comparing four ASR systems with 50 older speakers and matched controls. WER/CER analysis, bootstrap uncertainty and multiple-testing correction put the observed age effects in context; none remained significant after correction.',
     tag: 'Vyaskosh / ASR',
-    href: 'https://doi.org/10.5281/zenodo.22176362',
+    href: '/research/vayas-age-stratified-asr',
+    reloadDocument: true,
   },
   {
     status: 'In progress',
@@ -130,7 +132,7 @@ export default function Research() {
             {inner}
           </a>
         ) : p.href ? (
-          <Link key={p.title} to={p.href} className="research-featured research-featured-link">
+          <Link key={p.title} to={p.href} reloadDocument={p.reloadDocument} className="research-featured research-featured-link">
             {inner}
           </Link>
         ) : (
