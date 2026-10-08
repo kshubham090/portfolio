@@ -19,6 +19,8 @@ export interface Project {
   name: string;
   shortName: string;
   tagline: string;
+  status?: string;
+  category?: 'Products' | 'Agent systems' | 'Research' | 'Applications';
   img?: string;
   imgFit?: 'cover' | 'contain';
   tags: string[];
@@ -29,338 +31,375 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'chakra47',
-    name: 'Chakra47 — Agentic Swarm',
-    shortName: 'Chakra47',
-    tagline: 'A governed multi-agent framework for environments where you have to prove what your AI did.',
-    img: '/uploads/47 (3).png',
-    tags: ['4-Layer Architecture', 'LangGraph Swarm', 'SHA-256 Audit Chain', 'Physical AI'],
-    links: [
-      { label: 'Visit Site', url: 'https://chakra47.com' },
-      { label: 'GitHub', url: 'https://github.com/kshubham090/Chakra47-AgenticSwarm' },
+    "slug": "hunt",
+    "name": "HUNT — Accounts Receivable",
+    "shortName": "HUNT",
+    "tagline": "Invoice workflows, financial visibility and AI-assisted payment follow-ups with human approval.",
+    "status": "Early access",
+    "category": "Products",
+    "tags": [
+      "TypeScript / React",
+      "Node.js / Fastify",
+      "PostgreSQL",
+      "Azure OpenAI"
     ],
-    sections: [
+    "links": [
       {
-        heading: 'What it is',
-        body: [
-          'An open-source, general-purpose framework for building governed, multi-agent systems — a central orchestrator coordinates specialist agents to perceive, reason, decide, and act.',
-          'Built for anything that needs structured, auditable, multi-agent behavior: SaaS automation pipelines, PaaS orchestration layers, decision engines, monitoring systems — any domain where deterministic reliability matters more than raw LLM flexibility.',
-        ],
+        "label": "Visit HUNT",
+        "url": "https://www.gogethunt.com"
       },
       {
-        heading: 'Why it exists',
-        body: [
-          'Most agentic frameworks hand every decision to an LLM. That works in a demo and falls apart the moment something needs to be provable after the fact.',
-          'Chakra47 flips the default: code runs everything it can, and the LLM only gets called when code genuinely cannot decide. The mission is the best open-source agentic swarm framework governed by neuro-symbolic AI, where code is the default and LLMs are the exception.',
-        ],
-      },
-      {
-        heading: 'How it works',
-        body: [
-          'Layer 1 — Perception: ingests input from any source and normalizes it into structured context.',
-          'Layer 2 — Symbolic Rule Engine: deterministic decision trees handle known situations in code; an exception classifier routes only genuine unknowns to a local LLM (Ollama) for a PASS / BLOCK / ESCALATE gate.',
-          'Layer 3 — Cryptographic Audit Chain: every decision is SHA-256 hash-chained and tagged with its source (code vs LLM) — tamper-evident and fully traceable.',
-          'Layer 4 — Agentic Orchestrator + Swarm: ten specialist agent classes (MissionPlanner, RiskAgent, RuleValidator, AuditAgent and others) run code-first, with human-in-the-loop approval on anything escalated.',
-          'The golden rule: code decides, LLM advises. That keeps the system fast, predictable, auditable, and offline-capable.',
-        ],
-      },
+        "label": "Explore the demo",
+        "url": "https://demo.gogethunt.com"
+      }
     ],
+    "sections": [
+      {
+        "heading": "What it is",
+        "body": [
+          "An accounts-receivable workspace for B2B teams: create and review invoices, understand outstanding balances, and prepare payment follow-ups with configurable AI personas and human approval controls.",
+          "HUNT is in early access. The public demo uses fictional records and scripted conversations so visitors can explore the product without connecting a business account."
+        ]
+      },
+      {
+        "heading": "What I built",
+        "body": [
+          "A TypeScript and React frontend backed by Node.js/Fastify REST APIs, PostgreSQL and a derived Neo4j graph. The invoice workspace supports creation, draft editing, issuance, customer records, payment allocations and reviewed CSV, XLSX and text-PDF imports.",
+          "Owner/admin permissions and PostgreSQL row-level security scope access to each workspace. Transactions, request idempotency and balance checks protect ledger updates from duplicate allocations and overpayment."
+        ]
+      },
+      {
+        "heading": "Engineering and current scope",
+        "body": [
+          "Vitest API tests and Playwright browser journeys cover imports, access controls and invoice workflows. GitHub Actions runs linting, type checks, builds and integration checks against disposable PostgreSQL and Neo4j services.",
+          "Azure OpenAI and Key Vault integrations support AI-assisted workflows and credential handling. Public demo access is separate from the authenticated product and does not establish live outreach or payment-provider activation."
+        ]
+      },
+      {
+        "heading": "Startup programs",
+        "body": [
+          "HUNT has been accepted into Microsoft for Startups, NVIDIA Inception and Sarvam's Startup Program."
+        ]
+      }
+    ]
   },
   {
-    slug: 'stakrid',
-    name: 'Stakrid Logistics',
-    shortName: 'Stakrid',
-    tagline: 'Founded and built solo — a logistics platform taken from zero to production in under a year.',
-    tags: ['Founder & Lead Engineer', 'GCP Infra', 'Solo Build', 'Payments + SMS'],
-    links: [
-      { label: 'LinkedIn', url: 'https://www.linkedin.com/company/stakrid' },
+    "slug": "staffly",
+    "name": "Staffly — Staffing & Workforce Management",
+    "shortName": "Staffly",
+    "tagline": "AI-assisted, human-led staffing: requests, reviewed offers, shifts, hours and approval documents in one workflow.",
+    "status": "Live MVP",
+    "category": "Products",
+    "tags": [
+      "Next.js / React",
+      "TypeScript",
+      "PostgreSQL",
+      "Azure OpenAI"
     ],
-    sections: [
+    "links": [
       {
-        heading: 'What it is',
-        body: [
-          'A logistics company founded and run solo — product, backend, infra, and operations all built and shipped by one person, start to finish.',
-          '40+ REST endpoints backing the core platform, deployed on GCP with CI/CD, Supabase for data and auth, and integrated payments and SMS for the operational workflow.',
-        ],
-      },
-      {
-        heading: 'Why it exists',
-        body: [
-          'Logistics operations were running on manual, error-prone processes. The goal was to replace that with software that was fast, reliable, and cheap to run — without a team, without outside funding, without cutting corners on infra.',
-        ],
-      },
-      {
-        heading: 'What shipped',
-        body: [
-          'Manual processing cut by 80% after the platform went live.',
-          'API latency brought down from 800ms to under 200ms.',
-          'Ran for a full year (Jan 2025 – Jan 2026) as the founder\'s sole technical and operational owner.',
-        ],
-      },
+        "label": "Open Staffly",
+        "url": "https://staffly-navy-psi.vercel.app"
+      }
     ],
+    "sections": [
+      {
+        "heading": "What it is",
+        "body": [
+          "A staffing and workforce-management MVP with public onboarding and an isolated demo. Company, operator, worker and finance interfaces connect staffing requests to reviewed offers, shift acceptance, reported hours and approval drafts.",
+          "The product is AI-assisted and human-led: people review matches, offers and documents before acting. English, Swedish and French interfaces support the workflow."
+        ]
+      },
+      {
+        "heading": "What I built",
+        "body": [
+          "TypeScript, React and Next.js interfaces with Node.js server workflows, Supabase/PostgreSQL persistence and Azure OpenAI for structured assistance and reviewed document drafts.",
+          "Transactional workflow commands, idempotent retries and tenant isolation handle repeated requests and concurrent acceptance. Database checks prevent overlapping assignments and overbooking."
+        ]
+      },
+      {
+        "heading": "Verification and scope",
+        "body": [
+          "Local verification recorded on 5 October 2026 includes 768 unit/regression tests and 42 database concurrency scenarios covering workflow behavior and access boundaries.",
+          "Generated PDFs support review and approval. Payroll processing and legally issued invoices are outside the current MVP scope."
+        ]
+      }
+    ]
   },
   {
-    slug: 'lowq-x1-agent-eval-harness',
-    name: 'Lowq X1 — Agent Eval Harness',
-    shortName: 'Agent Eval Harness',
-    tagline: 'A production-grade eval system for AI agents, built from scratch — no eval frameworks.',
-    img: '/uploads/lowq-logo.png',
-    imgFit: 'contain',
-    tags: ['CI Regression Gate', 'LLM-as-Judge', 'Trajectory Scoring', 'Python 3.12'],
-    links: [
-      { label: 'GitHub', url: 'https://github.com/kshubham090/Agent-Eval-Harness' },
+    "slug": "chakra47",
+    "name": "Chakra47 — Apps for the Physical World",
+    "shortName": "Chakra47",
+    "tagline": "An application and management layer above Linux, RTOS environments and robot controllers.",
+    "status": "In development",
+    "category": "Products",
+    "img": "/uploads/47 (3).png",
+    "tags": [
+      "Physical-world applications",
+      "Application management",
+      "Linux / RTOS",
+      "In development"
     ],
-    sections: [
+    "links": [
       {
-        heading: 'What it is',
-        body: [
-          'The harness answers one question — "is my agent getting better or worse?" — and blocks deploys when the answer is worse.',
-          'A dataset and an agent go in; a pass/fail decision comes out. Pluggable scorers (exact match, regex, embedding similarity, LLM-as-judge) all implement one protocol, plus LCS-based trajectory scoring that checks the agent\'s tool-call sequence, not just its final answer.',
-        ],
+        "label": "Visit Chakra47",
+        "url": "https://chakra47.com"
       },
       {
-        heading: 'Why it exists',
-        body: [
-          'Agents regress silently. A prompt tweak or a model swap can quietly make an agent worse in ways that never show up until a user hits it in production.',
-          'This closes that gap: save a baseline from a known-good run, and any metric that drops past a threshold fails the CI check with exit code 1 — wired directly into GitHub Actions.',
-        ],
-      },
-      {
-        heading: 'How it works',
-        body: [
-          'Cases run concurrently in a thread pool; one crashing case scores 0.0 and the run continues — failure isolation, not failure cascade.',
-          'Multi-run statistics report mean ± std across repeated runs, so the gate reacts to real signal, not single-run noise. Dataset fingerprinting refuses to compare runs against a different dataset version.',
-          'A meta-eval step calibrates the LLM judge against human-graded cases before anyone trusts its scores.',
-        ],
-      },
-      {
-        heading: 'Real numbers, one agent, three verdicts',
-        body: [
-          'Run on a 60-case dataset against the same agent: exact-match scores 0.867 (docked for formatting differences like "Six" vs "6"). Embedding similarity rescues most of that, landing at 0.984 — but stumbles on "H₂O" vs "H2O" because the subscript breaks tokenization. The calibrated LLM judge scores 1.000, correctly grading all 60 as right.',
-          'Same agent, three different pass rates — which is exactly why the scorer ladder exists, and why you calibrate the judge before trusting it.',
-        ],
-      },
+        "label": "Earlier AgenticSwarm research",
+        "url": "https://github.com/kshubham090/Chakra47-AgenticSwarm"
+      }
     ],
-    diagrams: [
+    "sections": [
       {
-        title: 'Component Architecture',
-        caption: 'A dataset and an agent go in; a pass/fail decision comes out.',
-        code: `
-flowchart LR
-    subgraph Input
-        DS[("Golden Dataset<br/>JSONL")]
-        AG["Agent Under Test<br/>get_agent()"]
-    end
-
-    subgraph Core["harness/ core"]
-        DL["dataset.py<br/>load + validate + hash"]
-        ER["eval_runner.py<br/>ThreadPoolExecutor"]
-        SC["scorers/*<br/>exact · regex · embedding · llm_judge"]
-        TR["trajectory.py<br/>LCS step-match"]
-        AGG["results.py<br/>aggregate + multi-run stats"]
-    end
-
-    subgraph Storage
-        RES[("results/*.json")]
-        BASE[("baselines/*.json")]
-    end
-
-    subgraph Output
-        REP["report.py<br/>self-contained HTML"]
-        GATE{{"baseline.py<br/>compare_to_baseline"}}
-        CI["exit 0 / exit 1"]
-    end
-
-    DS --> DL --> ER
-    AG --> ER
-    ER --> SC --> AGG
-    ER --> TR --> AGG
-    AGG --> RES
-    RES -.save.-> BASE
-    RES --> REP
-    RES --> GATE
-    BASE --> GATE
-    GATE --> CI
-        `,
+        "heading": "Apps for the physical world",
+        "body": [
+          "Chakra47 is being developed as an application and management layer for physical systems. The direction is to help teams work with applications above the Linux, RTOS and robot-controller software already running on their devices."
+        ]
       },
       {
-        title: 'Eval Run — Process Flow',
-        caption: 'What happens inside a single agent-eval eval invocation.',
-        code: `
-sequenceDiagram
-    participant U as You
-    participant CLI as agent-eval CLI
-    participant D as Dataset Loader
-    participant P as Thread Pool
-    participant A as Agent
-    participant S as Scorers
-    participant G as Baseline Gate
-
-    U->>CLI: eval --dataset --agent --compare-baseline ci
-    CLI->>D: load_dataset(path)
-    D-->>CLI: cases[] + dataset_sha
-
-    par for every case, up to --concurrency
-        P->>A: run(input)
-        A-->>P: output + trajectory
-        P->>S: score(expected, actual)
-        S-->>P: 0.0 - 1.0
-        Note over P: exceptions caught here — one bad case never kills the run
-    end
-
-    P-->>CLI: CaseResult[] (order preserved)
-    CLI->>CLI: aggregate() -> means, pass_rate, errors
-    CLI->>G: compare_to_baseline(result, baseline)
-    G-->>CLI: regressions[] (metric, delta)
-    CLI-->>U: HTML report + console table + exit code
-        `,
+        "heading": "Current stage",
+        "body": [
+          "The current work is product and architecture development. The public site introduces the concept; hardware integration and device deployment remain development goals.",
+          "Existing operating systems and controllers remain underneath the proposed layer. Chakra47 is not a shipped replacement for those systems."
+        ]
       },
-    ],
+      {
+        "heading": "Research background",
+        "body": [
+          "Earlier work explored governed multi-agent orchestration, policy checks and auditable decisions. That work remains available separately as the AgenticSwarm research prototype, associated with the Symbiote-X presentation at the India AI Impact Summit 2026."
+        ]
+      }
+    ]
   },
   {
-    slug: 'lowq-x2-contextual-llm-gateway',
-    name: 'Lowq X2 — Contextual LLM Gateway',
-    shortName: 'Contextual LLM Gateway',
-    tagline: 'An LLM gateway with memory — every call makes the next one smarter.',
-    img: '/uploads/lowq-logo.png',
-    imgFit: 'contain',
-    tags: ['Neo4j Memory Graph', 'Semantic Cache', 'Cost Attribution', 'FastAPI'],
-    links: [
-      { label: 'GitHub', url: 'https://github.com/kshubham090/contextual-llm-gateway' },
+    "slug": "chakra47-agentic-swarm",
+    "name": "AgenticSwarm — Governed Multi-Agent Research",
+    "shortName": "AgenticSwarm",
+    "tagline": "A research prototype combining structured orchestration, policy checks and a hash-linked decision record.",
+    "status": "Research prototype",
+    "category": "Research",
+    "tags": [
+      "LangGraph",
+      "Policy checks",
+      "SHA-256 audit chain",
+      "Multi-agent research"
     ],
-    sections: [
+    "links": [
       {
-        heading: 'What it is',
-        body: [
-          'An LLM gateway that doesn\'t just proxy and cache calls — it builds a knowledge graph of every call it handles and feeds relevant history back into new calls, so responses get better the more the system is used.',
-          'Five backing services behind one FastAPI process: Redis for rate limiting, pgvector for the vector math, Neo4j for relationship traversal, and Claude reached through a provider abstraction so a second model slots in without touching the pipeline.',
-        ],
-      },
-      {
-        heading: 'Why it exists',
-        body: [
-          'Most gateways are dumb pipes with a cache bolted on — request in, check for an exact match, miss, forward, log. That treats every call as disconnected from the last.',
-          'This one treats every call as a node in a growing graph, connected to the user, the feature it came from, the model that served it, and the calls semantically related to it. A new prompt doesn\'t get a binary cache hit or miss — the gateway walks the neighborhood of similar past calls and injects that context, so the model answers with awareness of history it was never explicitly given.',
-        ],
-      },
-      {
-        heading: 'How it works',
-        body: [
-          'One embedding call serves three purposes: cache lookup, graph seeding, and write-back — so the "smart" path costs exactly one extra external call versus a plain proxy.',
-          'Cache hits (similarity ≥ 0.95) return instantly at zero LLM cost. On a miss, the gateway walks 1–2 hops from graph seeds (≥ 0.75 similarity), ranks the neighborhood by similarity × recency × feature-affinity, and injects a compact context blob into the prompt before it reaches Claude.',
-          'Persistence happens off the request path — the client gets its answer as soon as the model responds, while Postgres and Neo4j writes complete in the background.',
-        ],
-      },
-      {
-        heading: 'Why it belongs in production',
-        body: [
-          'Every call writes a cost row attributed to user, feature, and day — GET /v1/usage is the finance answer, not an estimate.',
-          'Rate-limit errors, timeouts, and 5xxs auto-retry on a secondary model tier, and the failover is recorded so degraded periods are visible after the fact.',
-          'Every response\'s metadata lists the exact context call IDs used to ground it — grounding is inspectable, not a black box.',
-        ],
-      },
+        "label": "GitHub",
+        "url": "https://github.com/kshubham090/Chakra47-AgenticSwarm"
+      }
     ],
-    diagrams: [
+    "sections": [
       {
-        title: 'System Architecture',
-        caption: 'Five backing services, one FastAPI process, each doing the one thing it\'s best at.',
-        code: `
-flowchart LR
-    client["Client<br/>(any app or service)"]
-
-    subgraph gateway["Contextual LLM Gateway — FastAPI"]
-        direction LR
-        rl["Rate Limiter"]
-        emb["Embedding<br/>Client"]
-        cache["Semantic Cache<br/>(similarity >= 0.95)"]
-        ctx["Graph Context<br/>Retriever (>= 0.75)"]
-        router["Model Router<br/>+ Fallback"]
-        wb["Write-back<br/>(parallel)"]
-    end
-
-    redis[("Redis<br/>per-user windows")]
-    pg[("Postgres + pgvector<br/>call log · cost rows · HNSW index")]
-    neo[("Neo4j<br/>memory graph")]
-    voyage(["Voyage AI<br/>voyage-3.5 embeddings"])
-    claude(["Claude API<br/>Haiku 4.5 / Sonnet 5"])
-
-    client -->|POST /v1/chat| rl
-
-    rl --> redis
-    emb --> voyage
-    cache -->|nearest-neighbor query| pg
-    ctx -->|1-2 hop walk from seeds| neo
-    router -->|routed call<br/>auto-fallback on 429/timeout/5xx| claude
-    wb -->|cost + usage row| pg
-    wb -->|Call node + edges| neo
-
-    rl ~~~ emb
-    emb ~~~ cache
-    cache ~~~ ctx
-    ctx ~~~ router
-    router ~~~ wb
-        `,
+        "heading": "What it explores",
+        "body": [
+          "A four-layer approach to multi-agent systems: structured input, a symbolic rule engine, a SHA-256 audit chain and LangGraph-based orchestration. Deterministic checks handle defined conditions, with uncertain cases routed for model assistance or human review."
+        ]
       },
       {
-        title: 'The Life of a Request',
-        caption: 'Persistence happens off the request path — the client never waits on it.',
-        code: `
-sequenceDiagram
-    actor Client
-    participant GW as Gateway (FastAPI)
-    participant R as Redis
-    participant V as Voyage AI
-    participant PG as Postgres + pgvector
-    participant N4J as Neo4j
-    participant LLM as Claude API
-
-    Client->>GW: POST /v1/chat {prompt, user_id, feature_tag}
-    GW->>R: rate-limit check (per user / minute)
-
-    alt limit exceeded
-        GW-->>Client: 429 + Retry-After
-    else allowed
-        GW->>V: embed(prompt)
-        V-->>GW: 1024-dim vector
-
-        GW->>PG: nearest neighbors (one query, two thresholds)
-        PG-->>GW: similar calls + scores
-
-        alt best match >= 0.95 (semantic cache HIT)
-            GW->>PG: log cost row (cache_hit, dollar0)
-            GW->>N4J: Call node -> SERVED_FROM_CACHE -> original
-            GW-->>Client: cached response (zero LLM cost, fast path)
-        else cache miss
-            GW->>N4J: walk 1-2 hops from seeds >= 0.75
-            N4J-->>GW: topical cluster of past calls
-
-            Note over GW: Rank candidates: similarity x recency x feature-affinity
-
-            GW->>LLM: prompt + injected context (Haiku <-> Sonnet routing)
-
-            alt primary model 429 / timeout / 5xx
-                GW->>LLM: retry on secondary tier
-            end
-
-            LLM-->>GW: response + token usage
-            GW-->>Client: response + metadata
-
-            par background write-back
-                GW->>PG: cost row (tokens, dollar, latency, model)
-            and
-                GW->>N4J: new Call node + all edges
-            end
-        end
-    end
-        `,
-      },
+        "heading": "Research history",
+        "body": [
+          "The earlier Chakra47 research was presented as Symbiote-X at the India AI Impact Summit 2026. This public prototype is distinct from the newer Chakra47 application and management layer now in development.",
+          "The repository provides an implementation to inspect and experiment with; it does not establish deployment of an operating system or physical-device control platform."
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "lowq-x1-agent-eval-harness",
+    "name": "Lowq X1 — Agent Eval Harness",
+    "shortName": "Agent Eval Harness",
+    "tagline": "Evaluate agent outputs and tool trajectories, compare repeated runs, and catch dataset or scoring-protocol regressions.",
+    "status": "Open source",
+    "category": "Agent systems",
+    "img": "/uploads/lowq-logo.png",
+    "imgFit": "contain",
+    "tags": [
+      "Python",
+      "Codex / Claude Code adapters",
+      "Trajectory scoring",
+      "Regression gates"
     ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/kshubham090/Agent-Eval-Harness"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "What it is",
+        "body": [
+          "An evaluation harness for testing changes to agent behavior. It scores final outputs and tool-call trajectories, saves comparable baselines, and produces reports that make regressions easier to investigate.",
+          "Adapters support Codex, Claude Code, Python callables, command-line programs and HTTP endpoints. Codex trace parsing recognizes MCP tool names when they appear in protocol events."
+        ]
+      },
+      {
+        "heading": "How it works",
+        "body": [
+          "Output scorers include exact match, regular expressions, embedding similarity and LLM-as-judge. Trajectory scoring examines the sequence of tool calls alongside the final answer.",
+          "Dataset fingerprints and scoring-protocol checks protect baseline comparisons. Repeated runs report variation, while configurable regression gates provide a CI pass/fail result."
+        ]
+      },
+      {
+        "heading": "Verification — 4 October 2026",
+        "body": [
+          "407 tests passed on Linux, with CI coverage across Linux, macOS and Windows. Offline protocol tests exercise adapter parsing; they are not authenticated live Codex or Claude Code benchmark runs.",
+          "Judge calibration and agent evaluation are separate experiments. A high judge score on a benchmark does not, by itself, establish agreement with human grading."
+        ]
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "Evaluation flow",
+        "caption": "Adapters normalize agent responses before output and trajectory scoring; comparisons check both the dataset and scoring protocol.",
+        "code": "flowchart LR\n    D[\"Dataset + fingerprint\"] --> R[\"Evaluation runner\"]\n    A[\"Codex / Claude Code / Python / CLI / HTTP adapters\"] --> R\n    R --> O[\"Output + trajectory scorers\"]\n    O --> S[\"Results + repeated-run statistics\"]\n    S --> C[\"Dataset and protocol checks\"]\n    B[\"Saved baseline\"] --> C\n    C --> G[\"Regression gate + report\"]"
+      }
+    ]
+  },
+  {
+    "slug": "lowq-x2-contextual-llm-gateway",
+    "name": "Lowq X2 — Contextual LLM Gateway",
+    "shortName": "Contextual LLM Gateway",
+    "tagline": "Scoped context, exact caching and durable graph updates around an observable LLM request pipeline.",
+    "status": "Open source",
+    "category": "Agent systems",
+    "img": "/uploads/lowq-logo.png",
+    "imgFit": "contain",
+    "tags": [
+      "FastAPI",
+      "PostgreSQL / Neo4j",
+      "Transactional outbox",
+      "Inference benchmarks"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/kshubham090/contextual-llm-gateway"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "What it is",
+        "body": [
+          "A FastAPI gateway for LLM requests with scoped PostgreSQL and Neo4j context, exact caching, provider routing and usage records. It makes retrieved context and request behavior inspectable without assuming that more stored history automatically improves an answer."
+        ]
+      },
+      {
+        "heading": "Durability and isolation",
+        "body": [
+          "PostgreSQL records durable state and graph-update outbox work together. An outbox worker delivers changes to Neo4j, so derived graph updates can recover from interruption rather than depending on an untracked background task.",
+          "Tenant scoping, circuit breakers and Prometheus metrics address access boundaries and service failures. Context retrieval and caching respect request scope; generated-answer quality still needs evaluation for the application using the gateway."
+        ]
+      },
+      {
+        "heading": "Verification — 4 October 2026",
+        "body": [
+          "158 tests passed, including nine service integration tests covering the gateway and its service boundaries."
+        ]
+      },
+      {
+        "heading": "Embedding experiment — 4 October 2026",
+        "body": [
+          "A three-trial MiniLM experiment measured 8.36× higher warm embedding throughput on Apple MPS with batch size 32 versus 1. This result is specific to the embedding workload, batching comparison and tested hardware.",
+          "Optional CPU, CUDA and MPS inference backends are implemented. The MPS result is neither an end-to-end gateway speedup nor a measured CUDA result."
+        ]
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "Context and durable graph updates",
+        "caption": "PostgreSQL holds durable state; Neo4j is updated through the outbox worker. Exact caching and retrieved context stay within request scope.",
+        "code": "flowchart LR\n    C[\"Client request\"] --> G[\"FastAPI gateway + scope checks\"]\n    G --> E[\"Exact cache / scoped context\"]\n    E -->|cache miss| P[\"Model provider\"]\n    E <--> DB[(\"PostgreSQL + pgvector\")]\n    E <--> N[(\"Neo4j context graph\")]\n    P --> W[\"Record result + outbox work\"]\n    W --> DB\n    DB --> O[\"Outbox worker\"]\n    O --> N\n    G --> M[\"Circuit breakers + Prometheus metrics\"]"
+      }
+    ]
+  },
+  {
+    "slug": "flexfit-studio",
+    "name": "FlexFit Studio — Gym Management",
+    "shortName": "FlexFit Studio",
+    "tagline": "A full-stack application for bookings, memberships, payments and waitlists, with transactional domain workflows.",
+    "status": "Application prototype",
+    "category": "Applications",
+    "tags": [
+      "TypeScript / Next.js",
+      "tRPC",
+      "Drizzle / SQLite",
+      "Vitest"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/kshubham090/flexfit-studio"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "What it is",
+        "body": [
+          "A gym-management application built with TypeScript, React, Next.js, Node.js and tRPC. Role-aware interfaces cover bookings, memberships, rescheduling and administrative workflows."
+        ]
+      },
+      {
+        "heading": "Data and domain logic",
+        "body": [
+          "Typed API routers are separated from domain services. A Drizzle/SQLite model connects 14 related tables, with transactional cancellations, credit refunds and waitlist promotion.",
+          "Loading and error states, cache updates and authorization-aware controls connect the frontend to the underlying workflow rules."
+        ]
+      },
+      {
+        "heading": "Verification",
+        "body": [
+          "The inspected repository includes 76 Vitest tests across 12 files covering booking, payment and administrative behavior."
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "stakrid",
+    "name": "Stakrid Logistics",
+    "shortName": "Stakrid",
+    "tagline": "A logistics platform built and operated end to end, from REST APIs and cloud infrastructure to daily workflows.",
+    "status": "Completed · Jan 2025–Jan 2026",
+    "category": "Applications",
+    "tags": [
+      "Java / Spring Boot",
+      "40+ REST endpoints",
+      "GCP",
+      "CI/CD"
+    ],
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/company/stakrid"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "What I built",
+        "body": [
+          "40+ Spring Boot REST endpoints and GCP infrastructure with CI/CD and monitoring, supporting a logistics platform and its operational workflows.",
+          "I handled product engineering, infrastructure and operations from January 2025 to January 2026."
+        ]
+      },
+      {
+        "heading": "Results",
+        "body": [
+          "Workflow automation reduced manual processing by 80%.",
+          "Query optimization and connection pooling reduced API latency from 800 ms to under 200 ms. These are separate operational and performance improvements."
+        ]
+      }
+    ]
   },
   {
     slug: 'relogged',
     name: 'Relogged — Tool-Call Replay Debugger',
     shortName: 'Relogged',
-    tagline: 'A local-first, sandboxed replay debugger for LangGraph agents — record a run once, replay it for free, fork it at the exact step that went wrong.',
+    status: 'Open source',
+    category: 'Agent systems',
+    tagline: 'Record and inspect LangGraph runs, then replay a trace or resume from a checkpoint to investigate a decision.',
     tags: ['LangGraph', 'Record & Replay', 'Fork-and-Fix', 'Postgres'],
     links: [
       { label: 'GitHub', url: 'https://github.com/kshubham090/relogged' },
@@ -369,7 +408,7 @@ sequenceDiagram
       {
         heading: 'What it is',
         body: [
-          'Debugging a failed agent run normally means re-running the whole thing and hoping the bug repros — expensive, non-deterministic, and it burns real API calls every time. Relogged records every tool call and state transition during a real run, then lets you replay the full trace with zero LLM calls, zero tool calls, zero network.',
+          'Debugging a failed agent run normally means re-running the whole thing and hoping the bug repros — expensive, non-deterministic, and it burns real API calls every time. Relogged records every tool call and state transition during a real run, then lets you read the stored trace without live model or tool calls.',
           'One decorator — @record(project=...) around your existing entry point — and everything is instrumented automatically. No changes to agent code.',
         ],
       },
@@ -386,7 +425,7 @@ sequenceDiagram
           'Recording: temporarily monkeypatches CompiledStateGraph.invoke at the class level (scoped by a ContextVar), installs wrap_tool_call on every ToolNode, and logs interleaved tool calls and state snapshots to Postgres with a thread-safe step counter.',
           'Pure replay is a plain SQL read — no LangGraph object is ever touched, so there is no code path by which it can call a real tool. A sandbox-guarantee test proves it by poisoning the real tools and asserting they are never invoked.',
           'Fork/override replay resumes the graph live from LangGraph\'s own checkpoint history: steps before the fork never re-run, the fork step gets your corrected value instead of the real tool, and everything after runs for real — does the fix actually change the outcome?',
-          'The whole find-bug → fix → verify loop runs in under 2 seconds end-to-end.',
+          'Recorded-trace replay and live fork replay are separate modes: later steps in a fork can call models and tools, while reading a stored trace does not.',
         ],
       },
     ],

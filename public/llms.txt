@@ -1,23 +1,40 @@
 # Shubham Kumar Gupta
 
-> AI engineer building agentic systems and the reliability infrastructure around them — eval harnesses, LLM gateways, guardrails middleware. Currently AI Engineering Intern at Winniio / LifeAtlas (Sweden, remote). Founded and ran Stakrid Logistics solo before that. Based in Noida, India; open to relocation, SF preferred.
+> Software engineer building AI systems and full-stack products. Current work includes HUNT, Staffly, Chakra47, agent evaluation and inference infrastructure. Based in Noida, India. B.Tech in Computer Science, AI & ML, at Amity University Noida; expected July 2027.
+
+Updated: 8 October 2026. Project status and verification dates below distinguish current products, development work and research.
 
 Contact: kshubham04907@gmail.com · https://linkedin.com/in/shubhamgupta04907 · https://github.com/kshubham090 · https://x.com/skg_curious
 
+## Products and applications
+
+- [HUNT](https://www.shubham.cv/projects/hunt) — Early-access B2B accounts-receivable product. TypeScript/React, Node.js/Fastify, PostgreSQL and Azure OpenAI. Invoice creation, editing and issuance, reviewed CSV/XLSX/PDF imports, payment allocations, scoped access and human approval controls. Site: https://www.gogethunt.com. The public demo at https://demo.gogethunt.com uses fictional records and scripted conversations. Accepted into Microsoft for Startups, NVIDIA Inception and Sarvam's Startup Program.
+- [Staffly](https://www.shubham.cv/projects/staffly) — Live staffing and workforce-management MVP with public onboarding and an isolated demo. AI-assisted, human-led requests, reviewed offers, shifts, reported hours and approval documents. Next.js/React/TypeScript, Supabase/PostgreSQL and Azure OpenAI. Payroll processing and legally issued invoices are outside the current MVP scope. Site: https://staffly-navy-psi.vercel.app.
+- [Chakra47](https://www.shubham.cv/projects/chakra47) — Apps for the physical world. An application and management layer in development above Linux, RTOS environments and robot controllers. Current product and architecture work does not establish a shipped operating system or hardware deployment. Site: https://chakra47.com.
+- [FlexFit Studio](https://www.shubham.cv/projects/flexfit-studio) — Full-stack gym-management prototype: TypeScript, React, Next.js, Node.js, tRPC, Drizzle and SQLite. Bookings, memberships, transactional cancellations, credit refunds and waitlists; 14 related tables and 76 Vitest tests across 12 files in the inspected repository.
+- [Stakrid Logistics](https://www.shubham.cv/projects/stakrid) — Built and operated January 2025–January 2026. 40+ Spring Boot REST endpoints and GCP infrastructure. Workflow automation reduced manual processing by 80%; query optimization and connection pooling reduced API latency from 800 ms to under 200 ms.
+
+## Agent systems
+
+- [Lowq X1 — Agent Eval Harness](https://www.shubham.cv/projects/lowq-x1-agent-eval-harness) — Output and tool-trajectory scoring, Codex/Claude Code/Python/CLI/HTTP adapters, dataset and scoring-protocol regression gates, and repeated-run statistics. Verification snapshot, 4 October 2026: 407 tests passed on Linux, with CI across Linux, macOS and Windows. Offline adapter protocol tests do not establish authenticated live Codex or Claude Code benchmark results. Repository: https://github.com/kshubham090/Agent-Eval-Harness.
+- [Lowq X2 — Contextual LLM Gateway](https://www.shubham.cv/projects/lowq-x2-contextual-llm-gateway) — FastAPI, scoped PostgreSQL/Neo4j context, exact caching, transactional outbox delivery, circuit breakers and Prometheus metrics. Verification snapshot, 4 October 2026: 158 tests including nine service integration tests. Optional CPU/CUDA/MPS inference backends. A three-trial MiniLM experiment measured 8.36x higher warm embedding throughput on Apple MPS at batch size 32 versus 1; this is not an end-to-end or CUDA speedup. Repository: https://github.com/kshubham090/contextual-llm-gateway.
+- [Relogged](https://www.shubham.cv/projects/relogged) — Recorded tool-call replay and checkpoint-based debugging for LangGraph. Reading stored traces does not invoke live models or tools; fork replay resumes later steps live. Repository: https://github.com/kshubham090/relogged.
+
 ## Research
 
-- [Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning](https://www.shubham.cv/research/f1-lap-time-pitstop-prediction): A leakage audit of lap-time and pit-stop prediction on 2023 F1 telemetry. A naive random split inflates lap-time R² to 0.994; a leakage-free, race/driver-grouped protocol restores an honest R²=0.991. Full text, tables, and figures on the page; PDF at https://www.shubham.cv/research/f1-lap-time-pitstop-prediction.pdf; code at https://github.com/kshubham090/f1-lap-time-pitstop-prediction.
+- [Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning](https://doi.org/10.5281/zenodo.21862868) — Zenodo preprint, August 2026. XGBoost experiments on 20,447 laps across 22 races, grouped validation, baseline comparisons and a 6,133-lap next-season holdout. The audit examines split design and target-derived inputs; a reported R² alone does not establish leakage-free predictive performance. Historical article: https://www.shubham.cv/research/f1-lap-time-pitstop-prediction. Historical PDF: https://www.shubham.cv/research/f1-lap-time-pitstop-prediction.pdf.
+- [VAYAS: Age-Stratified Audit of Hindi Speech Recognition](https://doi.org/10.5281/zenodo.22176362) — Co-authored Zenodo preprint, August 2026. Four ASR systems, 50 older speakers and matched controls, WER/CER analysis, bootstrap uncertainty and multiple-testing correction. Observed age effects did not remain significant after correction.
+- Vyaskosh — Model training and benchmarking continue in the broader research project; a second manuscript is in progress.
+- [AgenticSwarm](https://www.shubham.cv/projects/chakra47-agentic-swarm) — Earlier governed multi-agent research using LangGraph, policy checks and a SHA-256 audit chain. Presented as Symbiote-X at the India AI Impact Summit 2026. This prototype is separate from the newer Chakra47 application-layer direction. Repository: https://github.com/kshubham090/Chakra47-AgenticSwarm.
 
-## Projects
+## Experience and learning
 
-- [Lowq X2 — Contextual LLM Gateway](https://www.shubham.cv/projects/lowq-x2-contextual-llm-gateway): LLM gateway with a Neo4j memory graph — cost attribution, semantic caching, model routing with fallback.
-- [Lowq X1 — Agent Eval Harness](https://www.shubham.cv/projects/lowq-x1-agent-eval-harness): CI-based behavioral regression testing for AI agents, built from scratch — no eval frameworks.
-- [Chakra47](https://www.shubham.cv/projects/chakra47): Open-source governed multi-agent framework — LangGraph swarm, SHA-256 audit chain, code decides / LLM advises.
-- [Military Deployment Decision System](https://www.shubham.cv/projects/military-deployment-decision-system): 4-layer deployment pipeline — perception, deterministic planning, blocking Rules-of-Engagement verification, on-chain audit trail. Presented at the AI Impact Summit 2026, Government of India.
-- [Real-Time Posture Analysis](https://www.shubham.cv/projects/real-time-posture-analysis): Real-time identity and posture detection running 25+ FPS on CPU via MediaPipe and model quantization.
-- [Stakrid Logistics](https://www.shubham.cv/projects/stakrid): Solo-founded logistics platform — 40+ REST endpoints, GCP infra, cut manual processing 80% and latency 4x.
+- AI Engineering Intern, Winniio / LifeAtlas, Sweden (remote): May–July 2026. Led a six-person team rebuilding a voice-interview pipeline in-house with an approximately 20-fold reduction in per-call cost.
+- Current tools include GCP and Azure, TypeScript/React/Next.js, Node.js/Fastify, Python, Java/Spring Boot, PostgreSQL, model evaluation, TensorFlow/Keras training and PyTorch inference.
+- Completed: Machine Learning Specialization (Stanford/Coursera); Java Spring Framework 6 with Spring Boot 3 (Udemy); Build and Secure Networks in Google Cloud (Google Cloud Skills Boost).
+- In progress: NVIDIA DLI Fundamentals of Accelerated Computing with CUDA Python, one of three modules completed; NVIDIA NCA-AIIO, AI Infrastructure & Operations Associate.
 
 ## Other
 
-- [Resume (PDF)](https://www.shubham.cv/resume.pdf)
-- [Full site](https://www.shubham.cv/) — About, Skills, Journey, and current writing.
+- [Resume](https://www.shubham.cv/resume)
+- [Full site](https://www.shubham.cv/) — About, projects, research, skills and experience.

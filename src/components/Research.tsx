@@ -19,17 +19,31 @@ interface OwnPaper {
 
 const OWN_PAPERS: OwnPaper[] = [
   {
-    status: 'Published',
+    status: 'Published · Zenodo · Aug 2026',
     title: 'Auditing Evaluation Leakage in Formula 1 Race-Strategy Machine Learning',
-    note: 'A leakage audit of lap-time and pit-stop prediction on 2023 F1 telemetry — a naive random split inflates lap-time R² to 0.994; a leakage-free, race/driver-grouped protocol restores an honest R²=0.991, with a full decomposition of what the original result was actually measuring.',
+    note: 'A research preprint auditing model evaluation across 20,447 laps and 22 races. XGBoost experiments, grouped validation, baseline comparisons and a 6,133-lap next-season holdout examine how data splits and target-derived inputs affect reported performance.',
     tag: 'F1',
-    href: '/research/f1-lap-time-pitstop-prediction',
+    href: 'https://doi.org/10.5281/zenodo.21862868',
+  },
+  {
+    status: 'Published · Zenodo · Aug 2026',
+    title: 'VAYAS: Age-Stratified Audit of Hindi Speech Recognition',
+    note: 'A co-authored preprint comparing four ASR systems with 50 older speakers and matched controls. WER/CER analysis, bootstrap uncertainty and multiple-testing correction put the observed age effects in context; none remained significant after correction.',
+    tag: 'Vyaskosh / ASR',
+    href: 'https://doi.org/10.5281/zenodo.22176362',
   },
   {
     status: 'In progress',
-    title: 'Age-Stratified Evaluation of Speech Recognition',
-    note: 'Establishes how to measure whether speech recognition works for older speakers in any language — a portable auditing protocol, demonstrated on Indian languages, showing that it largely doesn’t.',
-    tag: 'Vyashkosh',
+    title: 'Vyaskosh — Second Manuscript',
+    note: 'Continuing model training and benchmarking in the broader Vyaskosh project. The second manuscript is in progress, alongside the published VAYAS zero-shot evaluation.',
+    tag: 'Ongoing research',
+  },
+  {
+    status: 'Research prototype · 2026',
+    title: 'AgenticSwarm — Governed Multi-Agent Systems',
+    note: 'Earlier Chakra47 research combining LangGraph orchestration, policy checks and a SHA-256 audit chain. Presented as Symbiote-X at the India AI Impact Summit 2026; the newer Chakra47 application layer is a separate development direction.',
+    tag: 'Systems research',
+    href: '/projects/chakra47-agentic-swarm',
   },
 ];
 
@@ -51,46 +65,46 @@ const PAPERS: Paper[] = [
   {
     title: 'Robust Speech Recognition via Large-Scale Weak Supervision (Whisper)',
     meta: 'Radford et al. · 2022',
-    note: '680k hours of weakly supervised audio give zero-shot multilingual ASR — the primary system under audit in Vyashkosh.',
-    tag: 'Vyashkosh',
+    note: '680k hours of weakly supervised audio support zero-shot multilingual ASR — background for the speech-recognition work in Vyaskosh.',
+    tag: 'Vyaskosh',
     url: 'https://arxiv.org/abs/2212.04356',
   },
   {
     title: 'Omnilingual ASR: Open-Source Multilingual Speech Recognition for 1600+ Languages',
     meta: 'Meta AI · 2025',
-    note: 'The widest language coverage in open-source ASR — another system under audit in Vyashkosh.',
-    tag: 'Vyashkosh',
+    note: 'Broad multilingual coverage in open-source ASR — background for comparing systems and evaluation protocols.',
+    tag: 'Vyaskosh',
   },
   {
     title: 'Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification',
     meta: 'Buolamwini & Gebru · FAccT 2018',
     note: 'The structural blueprint — build a benchmark, train nothing, audit commercial systems, change industry practice.',
-    tag: 'Vyashkosh',
+    tag: 'Vyaskosh',
     url: 'https://proceedings.mlr.press/v81/buolamwini18a.html',
   },
   {
     title: 'Advocating Character Error Rate for Multilingual ASR Evaluation',
     meta: 'Thennal D K et al. · NAACL Findings 2025',
     note: 'Grounds the WER–CER decomposition — why word error rate alone misleads on Indic scripts.',
-    tag: 'Vyashkosh',
+    tag: 'Vyaskosh',
   },
   {
     title: 'SRUTI: an ASR benchmark of rural Bhojpuri women',
     meta: 'Joshi et al. · Interspeech 2025',
     note: 'The scale template for a self-collected Indic benchmark — 444 utterances, 51 speakers, ~72 transcribed minutes.',
-    tag: 'Vyashkosh',
+    tag: 'Vyaskosh',
   },
   {
     title: 'A Study of Speech Recognition for Children and the Elderly',
     meta: 'Wilpon & Jacobsen · ICASSP 1996',
     note: 'The foundational age-stratified ASR result — error rates climb at both ends of the age range.',
-    tag: 'Vyashkosh',
+    tag: 'Vyaskosh',
   },
   {
     title: 'Longitudinal Study of ASR Performance on Ageing Voices',
     meta: 'Vipperla, Renals & Frankel · Interspeech 2008',
     note: 'SCOTUS corpus — WER rises gradually with speaker age. Degradation is continuous, not a cliff.',
-    tag: 'Vyashkosh',
+    tag: 'Vyaskosh',
   },
 ];
 
@@ -111,7 +125,11 @@ export default function Research() {
             <span className="research-tag">{p.tag}</span>
           </>
         );
-        return p.href ? (
+        return p.href?.startsWith('https://') ? (
+          <a key={p.title} href={p.href} target="_blank" rel="noreferrer" className="research-featured research-featured-link">
+            {inner}
+          </a>
+        ) : p.href ? (
           <Link key={p.title} to={p.href} className="research-featured research-featured-link">
             {inner}
           </Link>

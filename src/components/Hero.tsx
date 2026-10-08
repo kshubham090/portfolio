@@ -10,7 +10,7 @@ export default function Hero() {
         <div className="hero-text">
           <h1 className="hero-title">Shubham Kumar Gupta</h1>
           <p className="hero-sub">
-            AI engineer building the reliability infra underneath agentic systems — eval harnesses, LLM gateways, guardrails middleware.
+            Software engineer building AI systems and full-stack products — from everyday workflows to agent evaluation and inference infrastructure.
           </p>
           <div className="hero-cta-row">
             <button className="pill-btn" onClick={() => setConnectOpen(true)}>Let's connect →</button>
@@ -24,15 +24,15 @@ export default function Hero() {
       <div className="hero-stats" id="tour-stats">
         <div className="hero-stat">
           <span className="stat-label">Looking For</span>
-          <span className="stat-val">AI Engineer Role</span>
+          <span className="stat-val">Software &amp; AI Roles</span>
         </div>
         <div className="hero-stat">
           <span className="stat-label">Last Role</span>
-          <span className="stat-val">Winniio · LifeAtlas · Sweden</span>
+          <span className="stat-val">LifeAtlas · Sweden (Remote)</span>
         </div>
         <div className="hero-stat">
           <span className="stat-label">Focus</span>
-          <span className="stat-val">Agentic AI + Reliability Infra</span>
+          <span className="stat-val">Products + Reliable AI Systems</span>
         </div>
         <div className="hero-stat">
           <span className="stat-label">Status</span>
