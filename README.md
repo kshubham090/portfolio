@@ -50,6 +50,14 @@ npm run lint
 
 The project data distinguishes Products, Agent systems, Research and Applications. The current Chakra47 product direction and earlier AgenticSwarm research have separate entries.
 
+## VAYAS research paper
+
+Read the [VAYAS HTML article](https://www.shubham.cv/research/vayas-age-stratified-asr), [download the PDF](https://www.shubham.cv/research/vayas-age-stratified-asr.pdf), or visit the [Zenodo record](https://doi.org/10.5281/zenodo.22176362).
+
+`public/paper-vayas.html` is the standalone article and contains its scholarly metadata. The PDF is served from `public/research/vayas-age-stratified-asr.pdf`. The Research card uses document navigation to `/research/vayas-age-stratified-asr`; Vercel rewrites that URL to the HTML file before the SPA fallback. Vite applies the same mapping during development and `npm run preview`, including an optional trailing slash and query parameters. The article is maintained in one HTML file, without a duplicate React page.
+
+When updating the paper, keep its canonical URL, citation metadata, PDF link, sitemap and `llms.txt` entry consistent. Check direct loads and the Research card, internal section links, figures and PDF access, plus narrow-screen and print layouts.
+
 ## Interactive project explorer
 
 `ProductBrowser` provides live frames for HUNT and Chakra47, with product/view selection, restart, a narrow preview width and a persistent link to the original site. Only the active live view is mounted. Frame content stays on its original origin; the displayed address identifies the selected starting page rather than tracking cross-origin navigation. The HUNT demo currently asks for an email and subscribes entrants to its early-access list, which the preview caption makes explicit.
