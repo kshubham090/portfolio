@@ -180,7 +180,7 @@ export const projects: Project[] = [
     "status": "Research prototype",
     "category": "Research",
     "tags": [
-      "LangGraph",
+      "Python orchestration",
       "Policy checks",
       "SHA-256 audit chain",
       "Multi-agent research"
@@ -195,13 +195,13 @@ export const projects: Project[] = [
       {
         "heading": "What it explores",
         "body": [
-          "A four-layer approach to multi-agent systems: structured input, a symbolic rule engine, a SHA-256 audit chain and LangGraph-based orchestration. Deterministic checks handle defined conditions, with uncertain cases routed for model assistance or human review."
+          "A four-layer approach to multi-agent systems: structured input, a symbolic rule engine, a SHA-256 audit chain and a custom Python orchestrator. Deterministic checks handle defined conditions, with uncertain cases routed for model assistance or human review."
         ]
       },
       {
         "heading": "Research history",
         "body": [
-          "The earlier Chakra47 research was presented as Symbiote-X at the India AI Impact Summit 2026. This public prototype is distinct from the newer Chakra47 application and management layer now in development.",
+          "Related Chakra47 research was presented as Symbiote-X at the India AI Impact Summit 2026. This public prototype is distinct from the newer Chakra47 application and management layer now in development.",
           "The repository provides an implementation to inspect and experiment with; it does not establish deployment of an operating system or physical-device control platform."
         ]
       }
