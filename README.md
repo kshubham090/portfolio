@@ -23,7 +23,7 @@ Project descriptions separate product availability, local verification and resea
 | Styling | Global CSS and CSS custom properties |
 | Diagrams | Mermaid |
 | Server endpoints | Vercel functions in `api/` |
-| Fonts | IBM Plex Mono and IBM Plex Sans |
+| Fonts | IBM Plex Mono with the existing Georgia/Cambria serif display stack |
 
 ## Local development
 
@@ -49,6 +49,16 @@ npm run lint
 - `public/uploads/` — existing project artwork.
 
 The project data distinguishes Products, Agent systems, Research and Applications. The current Chakra47 product direction and earlier AgenticSwarm research have separate entries.
+
+## Interactive project explorer
+
+`ProductBrowser` provides live frames for HUNT and Chakra47, with product/view selection, restart, a narrow preview width and a persistent link to the original site. Only the active live view is mounted. Frame content stays on its original origin; the displayed address identifies the selected starting page rather than tracking cross-origin navigation. The HUNT demo currently asks for an email and subscribes entrants to its early-access list, which the preview caption makes explicit.
+
+Staffly disallows framing. Its preview uses three labelled, dated demo images with fit/detail zoom and a keyboard-scrollable region. See `public/previews/staffly/README.md` for image provenance. No framing headers or application authentication are changed.
+
+Configure products and views in `src/data/previews.ts`. The same browser appears on each of the three product detail pages. `ProjectIndex` filters the selected projects by category and name/technology, announces the result count, and offers a reset when nothing matches.
+
+When changing this UI, check product/view switching, frame restart, desktop/narrow mode, screenshot zoom and keyboard scrolling, combined search/category filters, empty-result reset, and navigation to each product page. Check at a phone width as well as desktop, and keep external-site availability separate from local UI correctness.
 
 ## Deployment
 
