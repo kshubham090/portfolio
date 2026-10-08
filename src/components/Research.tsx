@@ -41,7 +41,7 @@ const OWN_PAPERS: OwnPaper[] = [
   {
     status: 'Research prototype · 2026',
     title: 'AgenticSwarm — Governed Multi-Agent Systems',
-    note: 'Earlier Chakra47 research combining LangGraph orchestration, policy checks and a SHA-256 audit chain. Presented as Symbiote-X at the India AI Impact Summit 2026; the newer Chakra47 application layer is a separate development direction.',
+    note: 'Earlier Chakra47 research combining custom Python orchestration, policy checks and a SHA-256 audit chain. Related research was presented as Symbiote-X at the India AI Impact Summit 2026; the newer Chakra47 application layer is a separate development direction.',
     tag: 'Systems research',
     href: '/projects/chakra47-agentic-swarm',
   },
