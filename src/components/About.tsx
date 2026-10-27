@@ -19,7 +19,7 @@ export default function About() {
           </div>
         </div>
         <p className="about-text">
-          I build software products and tools for understanding how AI systems behave. Current work includes HUNT, Staffly and the next direction for Chakra47, alongside agent evaluation, context gateways and replay tooling. At LifeAtlas, I led a six-person team rebuilding a voice-interview pipeline in-house, reducing per-call cost approximately 20-fold. Earlier, I built and operated Stakrid Logistics: 40+ REST APIs, GCP infrastructure and faster operational workflows. I work with GCP and Azure, and have two research papers on Zenodo with a second Vyaskosh manuscript in progress. Based in Noida; completing a B.Tech in Computer Science, AI &amp; ML, at Amity University, expected July 2027.
+          My work starts with backend development and software engineering, extending into AI platform development and agentic AI. Current work includes HUNT, Staffly and the next direction for Chakra47, alongside agent evaluation, context gateways and replay tooling. At LifeAtlas, I led a six-person team rebuilding a voice-interview pipeline in-house, reducing per-call cost approximately 20-fold. Earlier, I built and operated Stakrid Logistics: 40+ REST APIs, GCP infrastructure and faster operational workflows. I work with GCP and Azure, and have two research papers on Zenodo with a second Vyaskosh manuscript in progress. Based in Noida; completing a B.Tech in Computer Science, AI &amp; ML, at Amity University, expected July 2027.
         </p>
       </div>
     </section>

@@ -1,11 +1,10 @@
 import { useFadeIn } from '../hooks/useFadeIn';
 
 const skills = [
-  { label: 'AI / Agent Systems', cls: 'hl' },
-  { label: 'Full-Stack Applications', cls: '' },
-  { label: 'Data / Backend Systems', cls: '' },
-  { label: 'Cloud / Engineering Quality', cls: '' },
-  { label: 'Accelerated Computing · Learning', cls: 'dim' },
+  { label: 'Backend Development', cls: 'hl' },
+  { label: 'Software Development', cls: '' },
+  { label: 'AI Platform Development', cls: '' },
+  { label: 'Agentic AI', cls: '' },
 ];
 
 export default function Skills() {
@@ -19,10 +18,15 @@ export default function Skills() {
       <div className="skills-wrap" id="tour-skills">
         <div className="skills-left">
           <p className="skills-desc-text">
-            TypeScript, React and Next.js for product interfaces; Node.js, Fastify, Python and Spring Boot for APIs and services. PostgreSQL, transactional workflows, LangGraph, model evaluation, TensorFlow/Keras training and PyTorch inference. GCP and Azure, with automated tests, CI/CD and monitoring around the work.
+            Backend development is my main focus, grounded in software development: APIs, services, data systems and reliable architecture. I also build AI platforms and agentic AI systems, working on inference infrastructure, model evaluation, agent orchestration and tooling.
           </p>
+          <h3 className="skills-subheading">Vibe-coding stack</h3>
           <p className="skills-desc-text">
-            Currently learning CUDA Python and Numba through NVIDIA DLI. One of three modules is complete; further study includes profiling and accelerated computing.
+            I use the MERN stack (MongoDB, Express, React and Node.js), alongside TypeScript, Next.js and frontend tools, to build interfaces and full-stack prototypes with AI assistance.
+          </p>
+          <h3 className="skills-subheading">Currently learning</h3>
+          <p className="skills-desc-text">
+            CUDA Python and Numba through NVIDIA DLI. One of three modules is complete; further study includes profiling and accelerated computing.
           </p>
           <div className="skills-cta">
             <a href="#contact" className="pill-btn">Let's Work →</a>
