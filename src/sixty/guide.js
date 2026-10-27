@@ -22,15 +22,17 @@ const pad=n=>String(n).padStart(2,'0');
 const phase=id=>PHASES.find(p=>p.id===id);
 const byDay=n=>DAYS.find(d=>d.day===Number(n));
 let storageFailed=false;
-function defaults(){return {version:2,app:'sixty-java-dsa',theme:'dark',startDate:'',lastDay:1,days:{},interview:{},timer:null};}
+function defaults(){return {version:2,app:'sixty-java-dsa',generation:'initial',theme:'dark',startDate:'',lastDay:1,days:{},interview:{},timer:null};}
+function emptyDay(d){return {problemUrls:d.problems.map(p=>p.url),solved:d.problems.map(()=>false),checks:d.checklist.map(()=>false),confidence:'',flagged:false,complete:false,notes:'',hints:d.problems.map(()=>0),step:0,completedAt:null};}
 function normalize(raw){
  const out=defaults();
- if(!raw||typeof raw!=='object')return out;
+ if(!raw||typeof raw!=='object')raw={};
+ out.generation=typeof raw.generation==='string'?raw.generation.slice(0,100):'initial';
  out.theme=raw.theme==='light'?'light':'dark';
  out.startDate=typeof raw.startDate==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(raw.startDate)&&!Number.isNaN(new Date(raw.startDate+'T12:00:00').valueOf())?raw.startDate:'';
  out.lastDay=Number.isInteger(raw.lastDay)&&raw.lastDay>=1&&raw.lastDay<=60?raw.lastDay:1;
  for(const d of DAYS){
-  const v=raw.days?.[d.day];if(!v||typeof v!=='object')continue;
+  const v=raw.days?.[d.day];if(!v||typeof v!=='object'){out.days[d.day]=emptyDay(d);continue;}
   const oldIndex=p=>raw.version===2&&Array.isArray(v.problemUrls)?v.problemUrls.indexOf(p.url):-1;
   const solved=d.problems.map(p=>oldIndex(p)>=0&&v.solved?.[oldIndex(p)]===true),checks=d.checklist.map((_,i)=>v.checks?.[i]===true);
   out.days[d.day]={problemUrls:d.problems.map(p=>p.url),solved,checks,confidence:['review','building','confident'].includes(v.confidence)?v.confidence:'',flagged:v.flagged===true,complete:v.complete===true&&solved.every(Boolean)&&checks.every(Boolean),notes:typeof v.notes==='string'?v.notes.slice(0,10000):'',hints:d.problems.map(p=>Math.max(0,Math.min(3,Math.trunc(Number(v.hints?.[oldIndex(p)]))||0))),step:Math.max(0,Math.min(d.dryRun.steps.length-1,Math.trunc(Number(v.step))||0)),completedAt:typeof v.completedAt==='string'?v.completedAt:null};
@@ -43,14 +45,44 @@ function normalize(raw){
  return out;
 }
 let state;
-try{state=normalize(JSON.parse(localStorage.getItem(STORE)||localStorage.getItem('sixty-java-dsa-v1')||'null'));}catch{state=defaults();storageFailed=true;}
+try{state=normalize(JSON.parse(localStorage.getItem(STORE)||localStorage.getItem('sixty-java-dsa-v1')||'null'));}catch{state=normalize(null);storageFailed=true;}
+let savedState=JSON.parse(JSON.stringify(state));
 let route={view:'overview',day:1,tab:'learn'},toastHandle,notesHandle;
 let filters={query:'',phase:'all',platform:'all',difficulty:'all',status:'all'};
 function ds(day){
- if(!state.days[day])state.days[day]={problemUrls:byDay(day).problems.map(p=>p.url),solved:byDay(day).problems.map(()=>false),checks:byDay(day).checklist.map(()=>false),confidence:'',flagged:false,complete:false,notes:'',hints:byDay(day).problems.map(()=>0),step:0,completedAt:null};
+ if(!state.days[day])state.days[day]=emptyDay(byDay(day));
  return state.days[day];
 }
-function save(){try{localStorage.setItem(STORE,JSON.stringify(state));storageFailed=false;}catch{storageFailed=true;}updateStorage();}
+// Apply only this tab's edits to the latest record; arrays merge by checkpoint.
+function mergeChanges(before,current,latest){
+ if(JSON.stringify(before)===JSON.stringify(current))return latest;
+ if(current===null||typeof current!=='object')return current;
+ if(Array.isArray(current))return current.map((value,i)=>mergeChanges(before?.[i],value,latest?.[i]));
+ return Object.fromEntries(Object.keys(current).map(key=>[key,key==='timer'?(JSON.stringify(before?.[key])===JSON.stringify(current[key])?latest?.[key]:current[key]):mergeChanges(before?.[key],current[key],latest?.[key])]));
+}
+function save({replace=false}={}){
+ try{
+  const stored=localStorage.getItem(STORE);
+  // With no v2 record, retain the imported v1 baseline until the first save.
+  let latest=savedState;
+  if(stored){try{latest=normalize(JSON.parse(stored));}catch(error){if(!(error instanceof SyntaxError))throw error;}}
+  if(replace){state=normalize(state);state.generation=`${Date.now()}-${Math.random().toString(36).slice(2)}`;}
+  else state=latest.generation!==savedState.generation?latest:normalize(mergeChanges(savedState,state,latest));
+  const serialized=JSON.stringify(state);
+  if(serialized!==stored)localStorage.setItem(STORE,serialized);
+  savedState=JSON.parse(serialized);storageFailed=false;
+ }catch{storageFailed=true;}
+ updateStorage();
+}
+function flushNotes(){clearTimeout(notesHandle);notesHandle=undefined;save();}
+function syncProgress(ev){
+ if(ev.key!==STORE)return;
+ const notes=document.getElementById('day-notes');
+ const selection=notes&&document.activeElement===notes?[notes.selectionStart,notes.selectionEnd]:null;
+ flushNotes();render({persistRoute:false});
+ const nextNotes=document.getElementById('day-notes');
+ if(selection&&nextNotes){nextNotes.focus({preventScroll:true});nextNotes.setSelectionRange(...selection);}
+}
 function updateStorage(){const el=document.getElementById('save-status');el.textContent=storageFailed?'Use a backup: browser saving is unavailable':'Progress stays in this browser';el.classList.toggle('storage-warning',storageFailed);}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('visible');clearTimeout(toastHandle);toastHandle=setTimeout(()=>t.classList.remove('visible'),3200);}
 function stats(){return {done:DAYS.filter(d=>ds(d.day).complete).length,solved:DAYS.reduce((n,d)=>n+ds(d.day).solved.filter(Boolean).length,0),review:DAYS.filter(d=>needsReview(d.day)).length};}
@@ -62,13 +94,13 @@ function dayLink(n,tab='learn'){return `#day/${n}/${tab}`;}
 function tags(d){return `<span class="tag tag-green">${E(phase(d.phase).name)}</span><span class="tag">${E(d.level)}</span><span class="tag">~${d.minutes} min · flexible</span>${planned(d.day)?`<span class="planned-date">${E(planned(d.day))}</span>`:''}`;}
 function renderNavigation(){const s=stats();document.getElementById('navigation').innerHTML=NAV.map(([id,icon,label])=>`<a class="nav-link ${route.view===id?'active':''}" ${route.view===id?'aria-current="page"':''} href="${id==='day'?dayLink(state.lastDay):'#'+id}"><span class="nav-icon" aria-hidden="true">${icon}</span>${label}${id==='review'&&s.review?`<span class="nav-number">${s.review}</span>`:''}</a>`).join('');document.getElementById('side-count').textContent=`${s.done} / 60`;document.getElementById('side-bar').style.width=`${s.done/60*100}%`;document.getElementById('side-message').textContent=s.done===60?'All 60 days complete. Keep revisiting your weak patterns.':s.done?`${60-s.done} days ahead. Keep building on what you know.`:'One well-understood pattern at a time.';updateStorage();}
 function parseRoute(){const parts=location.hash.slice(1).split('/');const v=parts[0]||'overview';if(v==='day'){const n=Number(parts[1]);return {view:'day',day:byDay(n)?n:state.lastDay,tab:['learn','practice','reflect'].includes(parts[2])?parts[2]:'learn'};}return {view:NAV.some(x=>x[0]===v)?v:'overview',day:state.lastDay,tab:'learn'};}
-function render(){
+function render({persistRoute=true}={}){
  const focused=document.activeElement;let focusSelector='';
  if(focused?.dataset?.check)focusSelector=`[data-check="${focused.dataset.check}"][data-index="${focused.dataset.index}"]`;
  else if(focused?.dataset?.interview)focusSelector=`[data-interview="${focused.dataset.interview}"][data-index="${focused.dataset.index}"]`;
  else if(focused?.dataset?.action&&['step','hint','confidence','flag'].includes(focused.dataset.action)){focusSelector=`[data-action="${focused.dataset.action}"]`;for(const k of ['delta','problem','value'])if(focused.dataset[k]!==undefined)focusSelector+=`[data-${k}="${focused.dataset[k]}"]`;}
  const old=route;route=parseRoute();document.documentElement.dataset.theme=state.theme;updateThemeControl();
- if(route.view==='day'){state.lastDay=route.day;save();}
+ if(route.view==='day'&&persistRoute){state.lastDay=route.day;save();}
  renderNavigation();const label=NAV.find(x=>x[0]===route.view)?.[2]||'Overview';document.getElementById('breadcrumb').innerHTML=`Sixty <span>/</span> <strong>${E(label)}</strong>`;
  const views={overview:overview,day:daily,library:library,review:review,interview:interview,toolbox:toolbox,sources:sources};document.getElementById('main').innerHTML=views[route.view]();
  document.title=route.view==='day'?`Day ${route.day} · ${byDay(route.day).title} | Sixty`:`${label} · Sixty Java DSA`;
@@ -123,7 +155,7 @@ document.addEventListener('click',async ev=>{
  else if(action==='clear-date'){state.startDate='';save();document.getElementById('settings-dialog').close();render();toast('Using day numbers only.');}
  else if(action==='confirm-reset'){const dialog=document.getElementById('settings-dialog');dialog.innerHTML=`<h2 id="settings-title">Clear this browser’s progress?</h2><p>This removes all checks, notes, and review flags here. It cannot be undone without a backup. The lessons will stay available.</p><div class="row"><button class="button" data-action="settings-back">Keep my progress</button><button class="button button-danger" data-action="reset">Clear progress</button></div>`;}
  else if(action==='settings-back'){document.getElementById('settings-dialog').close();settings();}
- else if(action==='reset'){clearTimeout(notesHandle);const theme=state.theme;state=defaults();state.theme=theme;save();document.getElementById('settings-dialog').close();location.hash='#overview';render();toast('Progress cleared. All lessons are still here.');}
+ else if(action==='reset'){clearTimeout(notesHandle);const theme=state.theme;state=defaults();state.theme=theme;save({replace:true});document.getElementById('settings-dialog').close();location.hash='#overview';render();toast('Progress cleared. All lessons are still here.');}
  else if(action==='flag'){if(needsReview(d.day)){s.flagged=false;if(s.confidence==='review')s.confidence='building';}else s.flagged=true;save();render();toast(needsReview(d.day)?'Added to your review queue.':'Removed from your review queue.');}
  else if(action==='step'){s.step=Math.max(0,Math.min(d.dryRun.steps.length-1,s.step+Number(el.dataset.delta)));save();render();}
  else if(action==='hint'){const i=Number(el.dataset.problem);s.hints[i]=Math.min(d.problems[i].hints.length,s.hints[i]+1);save();render();}
@@ -144,7 +176,9 @@ document.addEventListener('change',ev=>{
  else if(['phase-filter','platform-filter','difficulty-filter','status-filter'].includes(el.id)){filters[{'phase-filter':'phase','platform-filter':'platform','difficulty-filter':'difficulty','status-filter':'status'}[el.id]]=el.value;renderLibraryResults();}
 });
 document.addEventListener('input',ev=>{const el=ev.target;if(el.id==='problem-search'){filters.query=el.value;renderLibraryResults();}else if(el.id==='day-notes'){ds(route.day).notes=el.value;document.getElementById('notes-status').textContent='Saving your notes…';clearTimeout(notesHandle);notesHandle=setTimeout(()=>{save();const n=document.getElementById('notes-status');if(n)n.textContent=storageFailed?'Browser saving unavailable. Back up progress to keep these notes.':'Notes saved in this browser.';},350);}});
-document.getElementById('import-file').addEventListener('change',async ev=>{const file=ev.target.files[0];if(!file)return;try{if(file.size>2000000)throw new Error('This backup is too large.');const raw=JSON.parse(await file.text());if(![1,2].includes(raw.version)||raw.app!=='sixty-java-dsa'||!raw.days||typeof raw.days!=='object')throw new Error('Choose a Sixty progress backup.');if(!window.confirm('Restore this backup? It will replace the progress and notes currently saved in this browser.'))return;state=normalize(raw);clearTimeout(notesHandle);save();document.getElementById('settings-dialog').close();render();toast(raw.version===1?'Notes and checkpoints restored. The new problem set starts unsolved.':'Your progress backup has been restored.');}catch(err){toast(err instanceof SyntaxError?'That file is not valid JSON. Choose a progress backup.':err.message);}finally{ev.target.value='';}});
+document.getElementById('import-file').addEventListener('change',async ev=>{const file=ev.target.files[0];if(!file)return;try{if(file.size>2000000)throw new Error('This backup is too large.');const raw=JSON.parse(await file.text());if(![1,2].includes(raw.version)||raw.app!=='sixty-java-dsa'||!raw.days||typeof raw.days!=='object')throw new Error('Choose a Sixty progress backup.');if(!window.confirm('Restore this backup? It will replace the progress and notes currently saved in this browser.'))return;state=normalize(raw);clearTimeout(notesHandle);save({replace:true});document.getElementById('settings-dialog').close();render();toast(raw.version===1?'Notes and checkpoints restored. The new problem set starts unsolved.':'Your progress backup has been restored.');}catch(err){toast(err instanceof SyntaxError?'That file is not valid JSON. Choose a progress backup.':err.message);}finally{ev.target.value='';}});
 document.addEventListener('keydown',ev=>{if(ev.key==='Escape'){document.getElementById('sidebar').classList.remove('open');document.querySelector('[data-action="menu"]')?.setAttribute('aria-expanded','false');}});
 document.addEventListener('click',ev=>{if(window.innerWidth<=640&&!ev.target.closest('.sidebar')&&!ev.target.closest('[data-action="menu"]')){document.getElementById('sidebar').classList.remove('open');document.querySelector('[data-action="menu"]')?.setAttribute('aria-expanded','false');}});
-window.addEventListener('hashchange',render);window.addEventListener('beforeunload',()=>{clearTimeout(notesHandle);save();});setInterval(updateTimer,1000);render();
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flushNotes();});
+window.addEventListener('pagehide',flushNotes);window.addEventListener('beforeunload',flushNotes);
+window.addEventListener('storage',syncProgress);window.addEventListener('hashchange',render);setInterval(updateTimer,1000);render();

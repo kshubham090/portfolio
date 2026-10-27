@@ -91,3 +91,5 @@ npm run build
 Vite development/preview and Vercel both map the route before the SPA fallback and apply the indexing headers. Check all three aliases with and without a query string. Existing `/prep` authentication and other public pages are unchanged.
 
 Progress is stored in localStorage on the current origin and can be exported/imported as JSON. No study progress or notes are sent to a backend. Version 2 backups match solved state by problem URL so later reordering cannot transfer credit to another problem. Version 1 backups from the earlier two-problem guide preserve notes, review flags, and learning checks, but reset practice completion because the assignments changed. All three problems and three learning checks are required to complete a day. Backups from localhost must be explicitly imported on the deployed domain.
+
+Open tabs synchronize progress and merge their changed fields with the latest saved record. A reset or backup restore starts a new progress generation so stale tabs cannot restore the previous record. Pending notes are saved when the page becomes hidden or is left, as well as after the typing delay.

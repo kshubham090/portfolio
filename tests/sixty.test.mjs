@@ -72,7 +72,7 @@ function stateFunctions() {
     document:{getElementById:id=>({textContent:JSON.stringify(id==='curriculum-data'?days:id==='support-data'?support:resources)})},
     localStorage:{getItem:()=>null},Date,Set,Map,Number,Array,Math,JSON,console,
   });
-  const stop=source.indexOf('function save()');
+  const stop=source.indexOf('function save(');
   vm.runInContext(source.slice(0,stop)+'\nthis.normalize=normalize;this.defaults=defaults;this.ds=ds;',context);
   return context;
 }
@@ -102,4 +102,100 @@ test('third problem is required for completion; malformed hints and steps are bo
   assert.equal(saved.days[1].complete,false);
   assert.deepEqual(Array.from(saved.days[1].hints),[0,3,1]);
   assert.equal(saved.days[1].step,days[0].dryRun.steps.length-1);
+});
+
+// Run the actual event handlers with independent page state and shared storage.
+function openGuide(storage=new Map(),hash='#day/1/reflect') {
+  const elements=new Map(),events={document:new Map(),window:new Map()},timers=new Map();
+  let nextTimer=0,writes=0;
+  const element=id=>{
+    if(!elements.has(id))elements.set(id,{
+      textContent:JSON.stringify(id==='curriculum-data'?days:id==='support-data'?support:resources),
+      innerHTML:'',dataset:{},style:{},classList:{toggle(){},add(){},remove(){}},
+      setAttribute(){},close(){},addEventListener(type,fn){events.document.set(id+':'+type,[fn]);},
+    });
+    return elements.get(id);
+  };
+  const on=(scope)=>(type,fn)=>scope.set(type,[...(scope.get(type)||[]),fn]);
+  const document={getElementById:element,documentElement:{dataset:{}},activeElement:null,
+    querySelector:()=>null,visibilityState:'visible',addEventListener:on(events.document)};
+  const context=vm.createContext({document,location:{hash},console,
+    localStorage:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>{writes++;storage.set(key,value);}},
+    window:{addEventListener:on(events.window),scrollTo(){},confirm:()=>true,innerWidth:1200},
+    setTimeout:fn=>{const id=++nextTimer;timers.set(id,fn);return id;},
+    clearTimeout:id=>timers.delete(id),setInterval(){},
+  });
+  vm.runInContext(read('src/sixty/guide.js'),context);
+  return {storage,document,element,timers,get writes(){return writes;},
+    state:()=>JSON.parse(vm.runInContext('JSON.stringify(state)',context)),
+    dispatch:async(scope,type,ev={})=>{for(const fn of events[scope].get(type)||[])await fn(ev);},
+    check:async(index,checked=true)=>{for(const fn of events.document.get('change')||[])await fn({target:{dataset:{check:'solved',index:String(index)},checked}});},
+    note:async value=>{for(const fn of events.document.get('input')||[])await fn({target:{id:'day-notes',value}});},
+    action:async action=>{for(const fn of events.document.get('click')||[])await fn({target:{closest:selector=>selector==='[data-action]'?{dataset:{action}}:null}});},
+  };
+}
+const storedState=storage=>JSON.parse(storage.get('sixty-java-dsa-v2'));
+
+test('an unchanged stale tab cannot erase newer notes or solved checks on unload', async()=>{
+  const first=openGuide(),stale=openGuide(first.storage);
+  await first.note('Keep this reasoning');await first.check(0);
+  await stale.dispatch('window','beforeunload');
+  assert.equal(storedState(first.storage).days[1].notes,'Keep this reasoning');
+  assert.equal(storedState(first.storage).days[1].solved[0],true);
+});
+
+test('independent edits in stale tabs merge at individual checkpoint level', async()=>{
+  const first=openGuide(),second=openGuide(first.storage);
+  await first.check(0);await second.check(1);await first.check(2);
+  await second.check(1,false);
+  assert.deepEqual(storedState(first.storage).days[1].solved,[true,false,true]);
+});
+
+test('storage notifications synchronize pages without bouncing last-day writes', async()=>{
+  const first=openGuide(),second=openGuide(first.storage,'#day/2/learn');
+  await first.note('Shared note');await first.check(0);
+  const writes=second.writes;
+  await second.dispatch('window','storage',{key:'sixty-java-dsa-v2'});
+  assert.equal(second.state().days[1].notes,'Shared note');
+  assert.equal(second.state().days[1].solved[0],true);
+  assert.equal(second.writes,writes);
+});
+
+test('reset replaces progress and stale pending notes cannot resurrect it', async()=>{
+  const first=openGuide(),second=openGuide(first.storage);
+  await first.check(0);await second.note('Pending in the older tab');
+  await first.action('reset');await second.dispatch('window','pagehide');
+  assert.deepEqual(storedState(first.storage).days[1].solved,[false,false,false]);
+  assert.equal(storedState(first.storage).days[1].notes,'');
+});
+
+test('backup restore replaces saved progress even when another tab has older edits', async()=>{
+  const first=openGuide(),second=openGuide(first.storage);
+  await first.check(0);await second.note('Old pending note');
+  const backup={version:2,app:'sixty-java-dsa',days:{1:{problemUrls:days[0].problems.map(p=>p.url),solved:[false,true,false],notes:'Restored note'}}};
+  await first.dispatch('document','import-file:change',{target:{files:[{size:1000,text:async()=>JSON.stringify(backup)}],value:'backup.json'}});
+  await second.dispatch('window','beforeunload');
+  assert.deepEqual(storedState(first.storage).days[1].solved,[false,true,false]);
+  assert.equal(storedState(first.storage).days[1].notes,'Restored note');
+});
+
+test('hiding a page or navigating away flushes notes before the debounce timer', async()=>{
+  for(const event of ['visibilitychange','pagehide']){
+    const guide=openGuide();await guide.note('Typed just before leaving');
+    assert.equal(storedState(guide.storage).days[1].notes,'');
+    guide.document.visibilityState='hidden';
+    await guide.dispatch(event==='pagehide'?'window':'document',event);
+    assert.equal(storedState(guide.storage).days[1].notes,'Typed just before leaving');
+    assert.equal(guide.timers.size,0);
+  }
+});
+
+test('first save preserves legacy notes and recovers from malformed stored JSON', async()=>{
+  const legacy=new Map([['sixty-java-dsa-v1',JSON.stringify({version:1,days:{1:{notes:'Legacy reasoning',solved:[true,true]}}})]]);
+  const migrated=openGuide(legacy);await migrated.check(2);
+  assert.equal(storedState(legacy).days[1].notes,'Legacy reasoning');
+  assert.deepEqual(storedState(legacy).days[1].solved,[false,false,true]);
+  const broken=new Map([['sixty-java-dsa-v2','{broken']]);
+  const recovered=openGuide(broken);await recovered.check(0);
+  assert.equal(storedState(broken).days[1].solved[0],true);
 });
