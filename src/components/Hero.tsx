@@ -10,7 +10,7 @@ export default function Hero() {
         <div className="hero-text">
           <h1 className="hero-title">Shubham Kumar Gupta</h1>
           <p className="hero-sub">
-            Software engineer building AI systems and full-stack products — from everyday workflows to agent evaluation and inference infrastructure.
+            Backend development is my main focus. I build software, AI platforms and agentic AI systems, from APIs and data services to inference infrastructure and agent tooling.
           </p>
           <div className="hero-cta-row">
             <button className="pill-btn" onClick={() => setConnectOpen(true)}>Let's connect →</button>
@@ -24,7 +24,7 @@ export default function Hero() {
       <div className="hero-stats" id="tour-stats">
         <div className="hero-stat">
           <span className="stat-label">Looking For</span>
-          <span className="stat-val">Software &amp; AI Roles</span>
+          <span className="stat-val">Backend, Software &amp; AI Roles</span>
         </div>
         <div className="hero-stat">
           <span className="stat-label">Last Role</span>
@@ -32,7 +32,7 @@ export default function Hero() {
         </div>
         <div className="hero-stat">
           <span className="stat-label">Focus</span>
-          <span className="stat-val">Products + Reliable AI Systems</span>
+          <span className="stat-val">Backend + AI Platforms</span>
         </div>
         <div className="hero-stat">
           <span className="stat-label">Status</span>

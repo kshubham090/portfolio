@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <div className="footer-brand">Shubham Gupta</div>
-          <p className="footer-tagline">Software engineer. AI systems and full-stack products. Noida. Open to engineering opportunities.</p>
+          <p className="footer-tagline">Backend and software development. AI platforms and agentic AI. Noida. Open to engineering opportunities.</p>
           <div className="newsletter">
             <input
               type="email"

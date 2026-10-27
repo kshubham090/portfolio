@@ -1,8 +1,8 @@
 # Shubham Kumar Gupta
 
-> Software engineer building AI systems and full-stack products. Current work includes HUNT, Staffly, Chakra47, agent evaluation and inference infrastructure. Based in Noida, India. B.Tech in Computer Science, AI & ML, at Amity University Noida; expected July 2027.
+> Backend development is the primary focus, followed by software development, AI platform development and agentic AI. Current work includes HUNT, Staffly, Chakra47, agent evaluation and inference infrastructure. Based in Noida, India. B.Tech in Computer Science, AI & ML, at Amity University Noida; expected July 2027.
 
-Updated: 8 October 2026. Project status and verification dates below distinguish current products, development work and research.
+Profile positioning updated: 27 October 2026. Project status and verification dates below retain their original scope.
 
 Contact: kshubham04907@gmail.com · https://linkedin.com/in/shubhamgupta04907 · https://github.com/kshubham090 · https://x.com/skg_curious
 
@@ -30,7 +30,8 @@ Contact: kshubham04907@gmail.com · https://linkedin.com/in/shubhamgupta04907 ·
 ## Experience and learning
 
 - AI Engineering Intern, Winniio / LifeAtlas, Sweden (remote): May–July 2026. Led a six-person team rebuilding a voice-interview pipeline in-house with an approximately 20-fold reduction in per-call cost.
-- Current tools include GCP and Azure, TypeScript/React/Next.js, Node.js/Fastify, Python, Java/Spring Boot, PostgreSQL, model evaluation, TensorFlow/Keras training and PyTorch inference.
+- Core expertise, in order: backend development, software development, AI platform development and agentic AI. Work includes APIs, services, data systems, inference infrastructure, model evaluation and agent orchestration.
+- Vibe-coding stack: MERN (MongoDB, Express, React and Node.js), TypeScript, Next.js and frontend tools for AI-assisted interfaces and full-stack prototypes.
 - Completed: Machine Learning Specialization (Stanford/Coursera); Java Spring Framework 6 with Spring Boot 3 (Udemy); Build and Secure Networks in Google Cloud (Google Cloud Skills Boost).
 - In progress: NVIDIA DLI Fundamentals of Accelerated Computing with CUDA Python, one of three modules completed; NVIDIA NCA-AIIO, AI Infrastructure & Operations Associate.
 

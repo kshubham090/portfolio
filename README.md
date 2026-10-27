@@ -1,6 +1,6 @@
 # shubham.cv
 
-Personal portfolio of **Shubham Kumar Gupta**, a software engineer building AI systems and full-stack products.
+Personal portfolio of **Shubham Kumar Gupta**, focused on backend development, software development, AI platform development and agentic AI. MERN, TypeScript, Next.js and frontend tools are presented as a vibe-coding stack for AI-assisted interfaces and full-stack prototypes.
 
 Live: [www.shubham.cv](https://www.shubham.cv)
 

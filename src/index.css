@@ -437,6 +437,7 @@ li:has(> .timeline-card):hover .timeline-card {
 /* ── SKILLS ── */
 .skills-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
 .skills-desc-text { font-size: 14px; line-height: 1.9; color: #999; max-width: 380px; }
+.skills-subheading { margin: 24px 0 8px; font-family: var(--body); font-size: 12px; font-weight: 400; color: var(--fg); }
 .skills-cta { margin-top: 24px; }
 .skills-list { list-style: none; border-top: 1px solid var(--border); }
 .skills-list li {
