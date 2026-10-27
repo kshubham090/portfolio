@@ -1,0 +1,165 @@
+{
+  "interview": [
+    {
+      "id": "java-oop",
+      "title": "Java & object-oriented design",
+      "summary": "Turn familiar Java syntax into explanations you can defend. This interview track is separate from the 60 DSA days.",
+      "topics": [
+        "Interfaces, abstract classes, polymorphism, and composition versus inheritance",
+        "Collections: HashMap, TreeMap, HashSet, ArrayList, and their complexity guarantees",
+        "equals/hashCode contracts, immutable objects, and mutable map-key pitfalls",
+        "Checked versus unchecked exceptions, generics, and resource handling"
+      ],
+      "exercise": "Design a notification service with an interface and two implementations. Explain where you would use a factory, how failures propagate, and which objects should be immutable.",
+      "doneWhen": "You can explain your design without memorized definitions and predict the behavior of a HashMap when a key's equality-relevant fields change."
+    },
+    {
+      "id": "sql-dbms",
+      "title": "SQL & database fundamentals",
+      "summary": "Practice writing queries and explaining the consistency guarantees behind them.",
+      "topics": [
+        "INNER/LEFT joins, grouping, HAVING, subqueries, and NULL behavior",
+        "ROW_NUMBER, RANK, and DENSE_RANK; top-N results with and without ties",
+        "Primary/foreign keys, normalization, indexes, and query access patterns",
+        "ACID, transaction isolation, lost updates, and conditional writes"
+      ],
+      "exercise": "Return the top three distinct salary levels in each department, including ties. Then explain how a transaction can reserve inventory without overselling.",
+      "doneWhen": "Your query handles ties deliberately, and you can explain why a separate stock read followed by an unconditional write is unsafe."
+    },
+    {
+      "id": "os-networking",
+      "title": "Operating systems & networks",
+      "summary": "Build short, causal explanations of what happens beneath your application.",
+      "topics": [
+        "Processes, threads, context switches, and scheduling tradeoffs",
+        "Deadlock conditions, lock ordering, and prevention strategies",
+        "Virtual memory, paging, stack frames, and heap allocation",
+        "DNS, TCP versus UDP, HTTP/HTTPS, and the lifecycle of a web request"
+      ],
+      "exercise": "Trace what happens after a user enters an HTTPS URL. Separately, draw two threads acquiring two locks in opposite order and explain how you would prevent the deadlock.",
+      "doneWhen": "You can explain the sequence in your own words and distinguish network latency, CPU work, and waiting on locks."
+    },
+    {
+      "id": "concurrency-memory",
+      "title": "Concurrency & Java memory",
+      "summary": "Reason about shared state, visibility, and resource limits before choosing a concurrency API.",
+      "topics": [
+        "Atomicity versus visibility; synchronized, volatile, and happens-before",
+        "Atomic variables, explicit locks, safe publication, and lock scope",
+        "ExecutorService, bounded BlockingQueue, cancellation, and interruption",
+        "GC reachability, retained references, and memory leaks in long-lived collections"
+      ],
+      "exercise": "Implement a bounded producer-consumer pipeline. Add a clean shutdown path, preserve interruption, and explain why a volatile counter still loses increments.",
+      "doneWhen": "You can identify each shared variable, its synchronization mechanism, and the behavior when the queue is full or a worker is interrupted."
+    },
+    {
+      "id": "system-design",
+      "title": "Low-level & system design",
+      "summary": "Prepare these design examples for deeper technical discussions; they are not verified requirements for every Infosys interview.",
+      "topics": [
+        "Thread-safe Singleton, Factory, interfaces, and separation of responsibilities",
+        "Token-bucket rate limiter: refill rules, atomic updates, and per-user state",
+        "URL shortener: identifiers, uniqueness, expiry, persistence, and caching",
+        "Flash-sale reservations: idempotency, transactions, payment failure, and retries"
+      ],
+      "exercise": "Design a rate limiter or URL shortener. Begin with requirements and one-instance correctness, then add multiple instances and discuss coordination and failures.",
+      "doneWhen": "You can defend the API, data model, concurrency behavior, one bottleneck, and one failure scenario without adding unnecessary infrastructure."
+    },
+    {
+      "id": "projects",
+      "title": "Projects & technical storytelling",
+      "summary": "Make every project on your resume a conversation you can lead with evidence.",
+      "topics": [
+        "A two-minute explanation of the problem, users, architecture, and your contribution",
+        "Technology and database choices with alternatives you considered",
+        "A specific bug or performance issue: observation, diagnosis, fix, and verification",
+        "Testing, error handling, deployment, and tradeoffs or limitations"
+      ],
+      "exercise": "Draw one project's architecture from memory. Walk through one request and then explain a difficult bug, including how you confirmed the fix.",
+      "doneWhen": "You can sustain a ten-minute follow-up discussion and clearly separate your own work from the team's work."
+    },
+    {
+      "id": "resume-hr",
+      "title": "Resume, HR & drive readiness",
+      "summary": "Prepare truthful, concise answers and follow the instructions for your particular recruitment route.",
+      "topics": [
+        "A relevant introduction and a clear reason for your role and technology interests",
+        "Concrete examples of teamwork, disagreement, setbacks, and learning",
+        "Accurate resume claims, dates, qualifications, and required documents",
+        "Location/shift preferences, assessment instructions, and route-specific requirements"
+      ],
+      "exercise": "Rehearse your introduction and one teamwork example. Check the actual invitation for allowed languages, duration, required identification, and any additional aptitude round.",
+      "doneWhen": "Your answers are consistent with your resume, and you can distinguish confirmed drive instructions from advice found online."
+    }
+  ],
+  "java": [
+    {
+      "title": "Fast input with safe EOF handling",
+      "why": "Standalone Main program. It reads a nonnegative n followed by n integer values and prints their sum, assuming the sum fits in signed long. Blank lines are skipped; missing required input raises EOFException.",
+      "code": "import java.io.*;\nimport java.util.*;\n\npublic class Main {\n    static class FastReader {\n        private final BufferedReader br =\n            new BufferedReader(new InputStreamReader(System.in));\n        private StringTokenizer tokens;\n\n        String next() throws IOException {\n            while (tokens == null || !tokens.hasMoreTokens()) {\n                String line = br.readLine();\n                if (line == null) return null;\n                tokens = new StringTokenizer(line);\n            }\n            return tokens.nextToken();\n        }\n\n        long nextLong() throws IOException {\n            String token = next();\n            if (token == null) throw new EOFException(\"Missing input\");\n            return Long.parseLong(token);\n        }\n    }\n\n    public static void main(String[] args) throws Exception {\n        FastReader in = new FastReader();\n        String first = in.next();\n        if (first == null) return;\n\n        int n = Integer.parseInt(first);\n        long sum = 0;\n        for (int i = 0; i < n; i++) sum += in.nextLong();\n\n        StringBuilder out = new StringBuilder();\n        out.append(sum).append('\\n');\n        System.out.print(out);\n    }\n}",
+      "trap": "Do not loop forever at EOF or assume all values are on one line. long is finite, so respect the stated sum bounds. Use readLine directly when a problem needs full lines including spaces."
+    },
+    {
+      "title": "Prefix frequencies with long arithmetic",
+      "why": "Reusable class, not a standalone program. count returns the number of contiguous subarrays whose sum equals target, including when values are negative.",
+      "code": "import java.util.*;\n\nclass PrefixCounts {\n    static long count(int[] values, long target) {\n        Map<Long, Long> seen = new HashMap<>();\n        seen.put(0L, 1L);\n        long prefix = 0;\n        long answer = 0;\n\n        for (int value : values) {\n            prefix += value;\n            answer += seen.getOrDefault(prefix - target, 0L);\n            seen.merge(prefix, 1L, Long::sum);\n        }\n        return answer;\n    }\n}",
+      "trap": "Count matching earlier prefixes before inserting the current prefix. Reversing that order incorrectly counts an empty subarray when target is zero."
+    },
+    {
+      "title": "PriorityQueue without comparator overflow",
+      "why": "Reusable class. newQueue returns a min-heap of immutable distance states, suitable for a shortest-path implementation.",
+      "code": "import java.util.*;\n\nclass DistanceQueue {\n    static final class State {\n        final int node;\n        final long distance;\n\n        State(int node, long distance) {\n            this.node = node;\n            this.distance = distance;\n        }\n    }\n\n    static PriorityQueue<State> newQueue() {\n        return new PriorityQueue<>(\n            (a, b) -> Long.compare(a.distance, b.distance)\n        );\n    }\n}",
+      "trap": "Do not compare distances by subtracting and casting to int. In Dijkstra, skip a polled state if its distance no longer matches the best known distance."
+    },
+    {
+      "title": "Iterative DFS for deep graphs",
+      "why": "Reusable class. Assumes start is a valid vertex and graph is an adjacency list. Mark vertices on push so each enters the stack at most once.",
+      "code": "import java.util.*;\n\nclass IterativeTraversal {\n    static List<Integer> dfs(List<List<Integer>> graph, int start) {\n        boolean[] seen = new boolean[graph.size()];\n        List<Integer> order = new ArrayList<>();\n        Deque<Integer> stack = new ArrayDeque<>();\n        seen[start] = true;\n        stack.push(start);\n\n        while (!stack.isEmpty()) {\n            int u = stack.pop();\n            order.add(u);\n            for (int v : graph.get(u)) {\n                if (!seen[v]) {\n                    seen[v] = true;\n                    stack.push(v);\n                }\n            }\n        }\n        return order;\n    }\n}",
+      "trap": "This is a reachability traversal, not a postorder or directed-cycle detector. Tree DP needs an explicit processing order; cycle detection needs additional state."
+    },
+    {
+      "title": "Promote before modular multiplication",
+      "why": "Reusable class for the common modulus 1,000,000,007. Normalize int inputs, multiply as long, and then reduce. The product of two normalized values fits in long.",
+      "code": "class ModularMath {\n    static final long MOD = 1_000_000_007L;\n\n    static long normalize(long value) {\n        return Math.floorMod(value, MOD);\n    }\n\n    static long multiply(int a, int b) {\n        long x = normalize(a);\n        long y = normalize(b);\n        return (x * y) % MOD;\n    }\n\n    static long subtract(long a, long b) {\n        return normalize(normalize(a) - normalize(b));\n    }\n}",
+      "trap": "Assigning an int product to a long does not undo overflow. Promote operands before multiplication. This approach is not safe for every possible long-sized modulus."
+    }
+  ],
+  "sources": [
+    {
+      "title": "SP/DSE candidate account · May 2026",
+      "url": "https://www.geeksforgeeks.org/interview-experiences/infosys-interview-experience-specialist-programmer-sp-digital-specialist-engineer-dse-2026/",
+      "type": "Candidate account",
+      "note": "The account reports arrays/two pointers, LCS/knapsack-style DP, constrained graph problems, CS fundamentals, projects, and paper dry-running. It is a self-reported experience, not an official syllabus."
+    },
+    {
+      "title": "HackWithInfy/SP interview account",
+      "url": "https://www.geeksforgeeks.org/interview-experiences/infosys-interview-experience-for-specialist-programmer/",
+      "type": "Candidate account",
+      "note": "Reports a DP-heavy assessment and a travelling-salesperson interview problem. The page was updated in July 2025; that does not establish the interview date. The curriculum uses the standard exponential subset-DP complexity."
+    },
+    {
+      "title": "Reddit · Subarrays with distinct prime factors",
+      "url": "https://www.reddit.com/r/developersIndia/comments/qeygjd/are_the_coding_round_questions_becoming_insanely/",
+      "type": "Indexed Reddit excerpt",
+      "note": "An indexed excerpt describes a 2020–21 SP/DS assessment question about the smallest subarray whose product has at least K distinct prime factors. Full Reddit pages were blocked during research, so only the visible excerpt was used."
+    }
+  ],
+  "method": [
+    {
+      "title": "Learn → practice → explain",
+      "body": "Read the day's reasoning, solve two LeetCode problems and one Codeforces problem in Java, and reveal hints one at a time only after a real attempt. Test edge cases, dry-run aloud, and use the completion checkpoints to judge what you can reproduce."
+    },
+    {
+      "title": "Use reports to choose priorities",
+      "body": "Candidate accounts guide topic coverage; the selected exercises are practice equivalents, not guaranteed repeat questions. On Reddit, check the role, hiring route, date, and OA-versus-interview context. A solve count does not guarantee a particular offer level."
+    },
+    {
+      "title": "Keep a progress backup",
+      "body": "Progress stays in this browser when local storage is available. Export a backup before switching browsers or moving the file, then import it to restore your record. Write down the missing insight when you flag a day for review."
+    },
+    {
+      "title": "Study offline; follow links online",
+      "body": "The guide and its explanations are available inside this HTML file. External practice problems and source links need an internet connection. Custom exercises include their prompt here. The interview track is separate from the 60 DSA days."
+    }
+  ]
+}

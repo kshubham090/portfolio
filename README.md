@@ -71,3 +71,23 @@ When changing this UI, check product/view switching, frame restart, desktop/narr
 ## Deployment
 
 The repository is configured for Vercel. Review a preview deployment before merging website changes into the production branch. API credentials belong in deployment configuration and must not be committed.
+
+## Sixty: unlisted Java DSA study guide
+
+`/sixty` is a directly accessible study page with no password or login. It is intentionally absent from the portfolio navigation and sitemap. The page and its `/sixty/` and `/sixty.html` aliases send `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet`; the HTML repeats the directive for robots and Googlebot. This is search-indexing guidance, not access control. Known search crawlers can fetch the page and see the directive; adding a robots.txt crawl block would prevent that.
+
+The 60-day curriculum assigns **two LeetCode problems and one Codeforces problem each day**, with 180 distinct links, staged hints, worked examples, a review queue, notes, and mock clocks. The separate interview track does not affect DSA completion. Topic resources link to free study material and clearly distinguish read sources, Reddit search excerpts, and discovery searches. Some theory references use C++ or Python; the guide explicitly directs the learner to implement in Java.
+
+Sources are maintained in `src/sixty/`. `scripts/build-sixty.mjs` validates the daily platform split and URL uniqueness, then creates the ignored `public/sixty.html`. It runs before `npm run dev` and `npm run build`. The generator reuses the current portfolio design tokens from `src/index.css` and font links from `index.html`; it does not import the homepage's analytics or SEO metadata. `portfolio.css` applies the same monochrome surfaces, Georgia display text, IBM Plex Mono body, navigation, borders, and controls to the study workspace.
+
+The study page defaults to the portfolio's dark appearance. Its Light mode / Dark mode control remembers the choice in the guide's local progress storage. The theme styles and control are included only on `/sixty`; navigating to the homepage does not apply the study-page preference there.
+
+```sh
+npm run sixty:build
+npm run test:sixty
+npm run build
+```
+
+Vite development/preview and Vercel both map the route before the SPA fallback and apply the indexing headers. Check all three aliases with and without a query string. Existing `/prep` authentication and other public pages are unchanged.
+
+Progress is stored in localStorage on the current origin and can be exported/imported as JSON. No study progress or notes are sent to a backend. Version 2 backups match solved state by problem URL so later reordering cannot transfer credit to another problem. Version 1 backups from the earlier two-problem guide preserve notes, review flags, and learning checks, but reset practice completion because the assignments changed. All three problems and three learning checks are required to complete a day. Backups from localhost must be explicitly imported on the deployed domain.

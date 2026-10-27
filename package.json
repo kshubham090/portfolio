@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sixty:build": "node scripts/build-sixty.mjs",
+    "predev": "npm run sixty:build",
+    "prebuild": "npm run sixty:build",
+    "test:sixty": "node --test tests/sixty.test.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
