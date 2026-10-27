@@ -1,0 +1,276 @@
+[
+  {
+    "phase": "arrays",
+    "resources": [
+      {
+        "title": "USACO Guide · Prefix sums",
+        "url": "https://usaco.guide/silver/prefix-sums",
+        "kind": "Guide",
+        "why": "Build the boundary equation before moving to sum, balance, XOR, and remainder variants. The page includes Java code; select Java in its language control.",
+        "verified": "read"
+      },
+      {
+        "title": "USACO Guide · Two pointers",
+        "url": "https://usaco.guide/silver/two-pointers",
+        "kind": "Guide",
+        "why": "Learn why pointer movement is safe and how a sliding window differs from opposite-end pointers. Use the Java examples and derive the invariant before solving the linked problems.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit · An Infosys subarray problem with prime factors",
+        "url": "https://www.reddit.com/r/developersIndia/comments/qeygjd/are_the_coding_round_questions_becoming_insanely/",
+        "kind": "Community",
+        "why": "An indexed excerpt of a 2020–21 SP/DS report describes finding the shortest subarray whose product has at least K distinct prime factors. Use it as a transfer exercise; the full post was not read and it is not current official guidance.",
+        "verified": "search-excerpt"
+      }
+    ]
+  },
+  {
+    "phase": "strings",
+    "resources": [
+      {
+        "title": "GeeksforGeeks · A sliding window with no repeated characters",
+        "url": "https://www.geeksforgeeks.org/dsa/length-of-the-longest-substring-without-repeating-characters/",
+        "kind": "Guide",
+        "why": "Read the sliding-window and last-index approaches, then select Java. The examples assume lowercase English letters; expand the character representation when the input alphabet changes.",
+        "verified": "read"
+      },
+      {
+        "title": "Princeton Algorithms · Substring search in Java",
+        "url": "https://algs4.cs.princeton.edu/53substring/",
+        "kind": "Reference",
+        "why": "Focus on Rabin–Karp, verified character comparisons, and repeated-string exercises. Java implementations are linked. KMP and Boyer–Moore are optional context, not extra mandatory days.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit search · Minimum-window invariants",
+        "url": "https://www.reddit.com/r/leetcode/search/?q=%22minimum%20window%22%20invariant&restrict_sr=1&sort=relevance",
+        "kind": "Community",
+        "why": "Discovery link for discussions about required counts, shrinking, and repeated target letters. Individual answers have not been reviewed; test claims against small Java examples.",
+        "verified": "search-link"
+      }
+    ]
+  },
+  {
+    "phase": "search",
+    "resources": [
+      {
+        "title": "USACO Guide · Binary search on monotone functions",
+        "url": "https://usaco.guide/silver/binary-search",
+        "kind": "Guide",
+        "why": "Study first-true versus last-true boundaries, answer-space search, and the documented off-by-one and overflow mistakes. Java implementations are included.",
+        "verified": "read"
+      },
+      {
+        "title": "USACO Guide · Greedy algorithms with sorting",
+        "url": "https://usaco.guide/silver/greedy-sorting",
+        "kind": "Guide",
+        "why": "Compare the failing earliest-start schedule with the correct earliest-finish choice. Read the counterexamples for coin change and knapsack; select Java for implementation practice.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit search · Binary-search boundary mistakes",
+        "url": "https://www.reddit.com/r/leetcode/search/?q=%22binary%20search%22%20%22off%20by%20one%22&restrict_sr=1&sort=relevance",
+        "kind": "Community",
+        "why": "Discovery link for competing interval conventions and debugging examples. These are community explanations, not checked solutions or Infosys reports.",
+        "verified": "search-link"
+      }
+    ]
+  },
+  {
+    "phase": "structures",
+    "resources": [
+      {
+        "title": "Princeton Algorithms · Stacks, queues, and linked lists",
+        "url": "https://algs4.cs.princeton.edu/13stacks/",
+        "kind": "Guide",
+        "why": "Study linked-node operations, array resizing, iteration, and generics through Java examples. For assessment code, use Java Collections where the problem does not ask you to build the structure.",
+        "verified": "read"
+      },
+      {
+        "title": "Princeton Algorithms · Priority queues",
+        "url": "https://algs4.cs.princeton.edu/24pq/",
+        "kind": "Reference",
+        "why": "Use heap order, swim/sink, and top-M selection to understand what PriorityQueue guarantees. The linked implementations are Java; distinguish the book's custom MinPQ/MaxPQ from java.util.PriorityQueue.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit search · Monotonic-stack intuition",
+        "url": "https://www.reddit.com/r/leetcode/search/?q=%22monotonic%20stack%22%20intuition&restrict_sr=1&sort=relevance",
+        "kind": "Community",
+        "why": "Discovery link for explanations of unresolved boundaries and dominated candidates. Verify why every pop is safe rather than copying a template without its strict/equal comparison rule.",
+        "verified": "search-link"
+      }
+    ]
+  },
+  {
+    "phase": "recursion",
+    "resources": [
+      {
+        "title": "Princeton · Recursion in Java",
+        "url": "https://introcs.cs.princeton.edu/java/23recursion/",
+        "kind": "Guide",
+        "why": "Review recursive contracts, base cases, reduction steps, and memoization exercises. Skip elementary syntax you already know and trace the Java call stack on one nontrivial example.",
+        "verified": "read"
+      },
+      {
+        "title": "USACO Guide · Complete search with recursion",
+        "url": "https://usaco.guide/bronze/complete-rec",
+        "kind": "Guide",
+        "why": "Work through subsets, permutations, Apple Division, and Chessboard and Queens. Java sections are included; focus on state restoration, duplicate choices, and pruning before looking at a full solution.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit · Visualizing backtracking choices",
+        "url": "https://www.reddit.com/r/leetcode/comments/15z66yx/help_with_backtracking/",
+        "kind": "Community",
+        "why": "The visible excerpt recommends drawing decision trees to expose choices and backtracking branches. Use it alongside the Java guides, tracing state restoration yourself. The full discussion and its recommendations were not reviewed.",
+        "verified": "search-excerpt"
+      }
+    ]
+  },
+  {
+    "phase": "dp",
+    "resources": [
+      {
+        "title": "USACO Guide · Introduction to dynamic programming",
+        "url": "https://usaco.guide/gold/intro-dp",
+        "kind": "Guide",
+        "why": "Use Frog 1 to connect recursion to a table, then compare push and pull transitions. Java code is available. Write each state's meaning and base case before compressing space.",
+        "verified": "read"
+      },
+      {
+        "title": "MIT 6.006 · Dynamic programming lectures 15–18",
+        "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/video_galleries/lecture-videos/",
+        "kind": "Course",
+        "why": "The lecture index includes SRTBOT, LCS/LIS, interval-style problems, subset sum, and pseudopolynomial analysis. Use the explanations as theory and implement your own solutions in Java.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit · A DP roadmap grouped by transitions",
+        "url": "https://www.reddit.com/r/leetcode/comments/14o10jd/the_ultimate_dynamic_programming_roadmap/",
+        "kind": "Community",
+        "why": "The visible search excerpt describes a progression from simpler to more complex patterns grouped by state transition. The full roadmap and comments were not read; compare suggestions with the two guides rather than treating them as authoritative.",
+        "verified": "search-excerpt"
+      }
+    ]
+  },
+  {
+    "phase": "advanced-dp",
+    "resources": [
+      {
+        "title": "USACO Guide · Bitmask DP",
+        "url": "https://usaco.guide/gold/dp-bitmasks",
+        "kind": "Guide",
+        "why": "Follow subset-and-endpoint states for Hamiltonian routes and the O(3^N) subset-merging argument. This page's available examples are C++/Python: use it for theory and write Java primitive-array implementations.",
+        "verified": "read"
+      },
+      {
+        "title": "cp-algorithms · Knapsack variants",
+        "url": "https://cp-algorithms.com/dynamic_programming/knapsack.html",
+        "kind": "Reference",
+        "why": "Compare 0/1, complete, multiple, and mixed knapsack, especially why update direction changes item reuse. The snippets are C++; read the recurrence and implement it in Java.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit · A learner's bitmask-DP explanation",
+        "url": "https://www.reddit.com/r/leetcode/comments/11pr0co/i_finally_got_around_to_learning_bitmask_dp/",
+        "kind": "Community",
+        "why": "The indexed excerpt describes replacing an expensive subset representation with a bitmask. It references Python; use the conceptual discussion, not its syntax. The full post and comments were not read.",
+        "verified": "search-excerpt"
+      }
+    ]
+  },
+  {
+    "phase": "trees",
+    "resources": [
+      {
+        "title": "Princeton Algorithms · Binary search trees",
+        "url": "https://algs4.cs.princeton.edu/32bst/",
+        "kind": "Reference",
+        "why": "Study the global BST ordering rule, recursive operations, rank/select, and height. Java code and exercises support your BST and traversal days; adapt the book's helper classes as needed.",
+        "verified": "read"
+      },
+      {
+        "title": "USACO Guide · DP on trees",
+        "url": "https://usaco.guide/gold/dp-trees",
+        "kind": "Guide",
+        "why": "Tree Matching shows how a small state distinguishes taking no child edge from taking one. Java implementations are included. Use the explanation to practice defining exactly what each parent receives.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit search · Tree-DP state definitions",
+        "url": "https://www.reddit.com/r/leetcode/search/?q=%22tree%20dp%22%20state&restrict_sr=1&sort=relevance",
+        "kind": "Community",
+        "why": "Discovery link for parent-child state discussions and common recursion mistakes. Check the meaning of returned states and the empty-subtree base case yourself; these are not verified Infosys questions.",
+        "verified": "search-link"
+      }
+    ]
+  },
+  {
+    "phase": "graphs",
+    "resources": [
+      {
+        "title": "Princeton Algorithms · Graph traversal",
+        "url": "https://algs4.cs.princeton.edu/41graph/",
+        "kind": "Guide",
+        "why": "Use the Java DFS, BFS, and connected-components explanations to distinguish reachability from shortest unweighted paths. Pay attention to marking on discovery and queue behavior.",
+        "verified": "read"
+      },
+      {
+        "title": "Princeton Algorithms · Shortest paths",
+        "url": "https://algs4.cs.princeton.edu/44sp/",
+        "kind": "Reference",
+        "why": "Study relaxation, Dijkstra's nonnegative-weight requirement, and the difference between a standard priority queue and an indexed heap. Linked examples are Java; the book's support classes are not Java Collections.",
+        "verified": "read"
+      },
+      {
+        "title": "cp-algorithms · Disjoint Set Union",
+        "url": "https://cp-algorithms.com/data_structures/disjoint_set_union.html",
+        "kind": "Reference",
+        "why": "Read path compression, union by size/rank, and amortized complexity before the online-islands exercise. C++ snippets are theory references here; implement parent and size arrays in Java.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit · When should Dijkstra mark a node visited?",
+        "url": "https://www.reddit.com/r/leetcode/comments/1amk9gr/question_on_dijkstraprim/",
+        "kind": "Community",
+        "why": "The visible excerpt asks why some solutions mark a node when inserting it rather than when popping it. Use this as a debugging question and verify the assumptions against the shortest-path reference. The full post and answers were not read.",
+        "verified": "search-excerpt"
+      }
+    ]
+  },
+  {
+    "phase": "mastery",
+    "resources": [
+      {
+        "title": "CSES · Mixed problem set",
+        "url": "https://cses.fi/problemset/",
+        "kind": "Reference",
+        "why": "Choose unseen tasks from Sorting and Searching, Dynamic Programming, Graph Algorithms, and Tree Algorithms for timed sets. Solve in Java; this is a general training bank, not an Infosys past-paper collection.",
+        "verified": "read"
+      },
+      {
+        "title": "AtCoder · Educational DP Contest",
+        "url": "https://atcoder.jp/contests/dp/tasks",
+        "kind": "Guide",
+        "why": "Use F–LCS, O–Matching, and P–Independent Set to test transfer, then select an unfamiliar task. Statements are language-neutral; keep your solutions in Java. The original contest duration is not an Infosys assessment rule.",
+        "verified": "read"
+      },
+      {
+        "title": "Reddit search · Recent Infosys SP interview experiences",
+        "url": "https://www.reddit.com/r/infosys/search/?q=%22specialist%20programmer%22%20interview%20experience&restrict_sr=1&sort=new",
+        "kind": "Community",
+        "why": "Discovery link, not a verified report. Check the post's interview date, hiring route, role, and OA-versus-interview context before adjusting a practice variant.",
+        "verified": "search-link"
+      },
+      {
+        "title": "Reddit search · Infosys SP assessments in developersIndia",
+        "url": "https://www.reddit.com/r/developersIndia/search/?q=%22Infosys%22%20%22SP%22%20assessment&restrict_sr=1&sort=new",
+        "kind": "Community",
+        "why": "Discovery link for candidate accounts across hiring routes. Compare independent firsthand reports; do not turn a solved-question count or a comment into an official role cutoff.",
+        "verified": "search-link"
+      }
+    ]
+  }
+]

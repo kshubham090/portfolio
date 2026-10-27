@@ -4,12 +4,40 @@
   "redirects": [
     { "source": "/resume", "destination": "/resume.pdf", "permanent": false }
   ],
+  "headers": [
+    {
+      "source": "/sixty",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/sixty/",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/sixty.html",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/research/f1-lap-time-pitstop-prediction", "destination": "/paper-f1.html" },
     { "source": "/research/vayas-age-stratified-asr", "destination": "/paper-vayas.html" },
     { "source": "/research/vayas-age-stratified-asr/", "destination": "/paper-vayas.html" },
     { "source": "/prep", "destination": "/api/prep" },
+    { "source": "/sixty", "destination": "/sixty.html" },
+    { "source": "/sixty/", "destination": "/sixty.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
