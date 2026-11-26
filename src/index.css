@@ -458,6 +458,7 @@ li:has(> .timeline-card):hover .timeline-card {
 .skills-list li:hover .skill-arrow { opacity: 1; transform: translateX(4px); }
 
 /* ── JOURNEY ── */
+#education { scroll-margin-top: 56px; }
 .journey-list { list-style: none; }
 .j-row {
   display: grid;
