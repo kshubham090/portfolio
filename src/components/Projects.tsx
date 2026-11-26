@@ -4,7 +4,7 @@ import ProductBrowser from './ProductBrowser';
 import ProjectIndex from './ProjectIndex';
 
 const selectedSlugs = [
-  'hunt', 'staffly', 'chakra47', 'lowq-x1-agent-eval-harness',
+  'triptalkiez', 'hunt', 'staffly', 'chakra47', 'lowq-x1-agent-eval-harness',
   'lowq-x2-contextual-llm-gateway', 'relogged', 'flexfit-studio', 'stakrid',
   'chakra47-agentic-swarm',
 ];

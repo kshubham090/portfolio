@@ -1,23 +1,25 @@
 # Shubham Kumar Gupta
 
-> Backend development is the primary focus, followed by software development, AI platform development and agentic AI. Current work includes HUNT, Staffly, Chakra47, agent evaluation and inference infrastructure. Based in Noida, India. B.Tech in Computer Science, AI & ML, at Amity University Noida; expected July 2027.
+> AI engineering, backend software and reliable systems. Current work includes TripTalkiez (Plaanzy), HUNT, Staffly, Chakra47, RAG pipelines, agent evaluation and inference infrastructure. Based in Noida, India. B.Tech in Computer Science, AI & ML, at Amity University Noida; expected July 2027.
 
-Profile positioning updated: 27 October 2026. Project status and verification dates below retain their original scope.
+Profile updated: 26 November 2026. Project status and verification dates below retain their original scope.
 
 Contact: kshubham04907@gmail.com · https://linkedin.com/in/shubhamgupta04907 · https://github.com/kshubham090 · https://x.com/skg_curious
 
 ## Products and applications
 
+- [TripTalkiez (Plaanzy)](https://www.shubham.cv/projects/triptalkiez) — Vehicle discovery and owner rental workflows. Next.js/Express, PostgreSQL durable workers, Redis rate limits and replay protection. Bicep, Azure Container Apps, private PostgreSQL and Azure Managed Redis, Blob Storage, Key Vault and managed identities; Azure DevOps staging CI and protected releases. Historical isolated Azure API benchmark, 7 November 2026: synthetic, approximately five-minute paced workload, three replicas, 12.4K useful API requests/minute, 58 ms p95, zero failures. Excludes real provider calls, media, frontend rendering and edge throughput; not a production SLA. Site: https://triptalkiez.com/.
+
 - [HUNT](https://www.shubham.cv/projects/hunt) — Early-access B2B accounts-receivable product. TypeScript/React, Node.js/Fastify, PostgreSQL and Azure OpenAI. Invoice creation, editing and issuance, reviewed CSV/XLSX/PDF imports, payment allocations, scoped access and human approval controls. Site: https://www.gogethunt.com. The public demo at https://demo.gogethunt.com uses fictional records and scripted conversations. Accepted into Microsoft for Startups, NVIDIA Inception and Sarvam's Startup Program.
 - [Staffly](https://www.shubham.cv/projects/staffly) — Live staffing and workforce-management MVP with public onboarding and an isolated demo. AI-assisted, human-led requests, reviewed offers, shifts, reported hours and approval documents. Next.js/React/TypeScript, Supabase/PostgreSQL and Azure OpenAI. Payroll processing and legally issued invoices are outside the current MVP scope. Site: https://staffly-navy-psi.vercel.app.
-- [Chakra47](https://www.shubham.cv/projects/chakra47) — Apps for the physical world. An application and management layer in development above Linux, RTOS environments and robot controllers. Current product and architecture work does not establish a shipped operating system or hardware deployment. Site: https://chakra47.com.
+- [Chakra47](https://www.shubham.cv/projects/chakra47) — Apps for the physical world. An application and management platform for physical AI in development above Linux, RTOS environments and robot controllers. Compatible apps and fleet management are planned; local controllers retain physical authority. Current product and architecture work does not establish a shipped operating system or hardware deployment. Site: https://www.chakra47.com/.
 - [FlexFit Studio](https://www.shubham.cv/projects/flexfit-studio) — Full-stack gym-management prototype: TypeScript, React, Next.js, Node.js, tRPC, Drizzle and SQLite. Bookings, memberships, transactional cancellations, credit refunds and waitlists; 14 related tables and 76 Vitest tests across 12 files in the inspected repository.
 - [Stakrid Logistics](https://www.shubham.cv/projects/stakrid) — Built and operated January 2025–January 2026. 40+ Spring Boot REST endpoints and GCP infrastructure. Workflow automation reduced manual processing by 80%; query optimization and connection pooling reduced API latency from 800 ms to under 200 ms.
 
 ## Agent systems
 
 - [Lowq X1 — Agent Eval Harness](https://www.shubham.cv/projects/lowq-x1-agent-eval-harness) — Output and tool-trajectory scoring, Codex/Claude Code/Python/CLI/HTTP adapters, dataset and scoring-protocol regression gates, and repeated-run statistics. Verification snapshot, 4 October 2026: 407 tests passed on Linux, with CI across Linux, macOS and Windows. Offline adapter protocol tests do not establish authenticated live Codex or Claude Code benchmark results. Repository: https://github.com/kshubham090/Agent-Eval-Harness.
-- [Lowq X2 — Contextual LLM Gateway](https://www.shubham.cv/projects/lowq-x2-contextual-llm-gateway) — FastAPI, scoped PostgreSQL/Neo4j context, exact caching, transactional outbox delivery, circuit breakers and Prometheus metrics. Verification snapshot, 4 October 2026: 158 tests including nine service integration tests. Optional CPU/CUDA/MPS inference backends. A three-trial MiniLM experiment measured 8.36x higher warm embedding throughput on Apple MPS at batch size 32 versus 1; this is not an end-to-end or CUDA speedup. Repository: https://github.com/kshubham090/contextual-llm-gateway.
+- [Lowq X2 — Contextual LLM Gateway](https://www.shubham.cv/projects/lowq-x2-contextual-llm-gateway) — FastAPI, scoped PostgreSQL/Neo4j context, PostgreSQL response caching, atomic Redis rate limits, bounded queues, transactional outbox delivery, circuit breakers and Prometheus metrics. Verification snapshot, 4 October 2026: 158 tests including nine service integration tests. Optional CPU/CUDA/MPS inference backends. A three-trial MiniLM experiment measured 8.36x higher warm embedding throughput on Apple MPS at batch size 32 versus 1; this is not an end-to-end or CUDA speedup. Repository: https://github.com/kshubham090/contextual-llm-gateway.
 - [Relogged](https://www.shubham.cv/projects/relogged) — Recorded tool-call replay and checkpoint-based debugging for LangGraph. Reading stored traces does not invoke live models or tools; fork replay resumes later steps live. Repository: https://github.com/kshubham090/relogged.
 
 ## Research
@@ -30,12 +32,20 @@ Contact: kshubham04907@gmail.com · https://linkedin.com/in/shubhamgupta04907 ·
 ## Experience and learning
 
 - AI Engineering Intern, Winniio / LifeAtlas, Sweden (remote): May–July 2026. Led a six-person team rebuilding a voice-interview pipeline in-house with an approximately 20-fold reduction in per-call cost.
-- Core expertise, in order: backend development, software development, AI platform development and agentic AI. Work includes APIs, services, data systems, inference infrastructure, model evaluation and agent orchestration.
-- Vibe-coding stack: MERN (MongoDB, Express, React and Node.js), TypeScript, Next.js and frontend tools for AI-assisted interfaces and full-stack prototypes.
-- Completed: Machine Learning Specialization (Stanford/Coursera); Java Spring Framework 6 with Spring Boot 3 (Udemy); Build and Secure Networks in Google Cloud (Google Cloud Skills Boost).
-- In progress: NVIDIA DLI Fundamentals of Accelerated Computing with CUDA Python, one of three modules completed; NVIDIA NCA-AIIO, AI Infrastructure & Operations Associate.
+- Core expertise: AI engineering, backend software, systems design and cloud reliability. Python, Java, TypeScript, SQL; FastAPI, Spring Boot, Node.js; PostgreSQL, Redis, caching, multi-tenancy, idempotency and durable queues; PyTorch, LangGraph, RAG, agent evaluation, CUDA Python and Numba.
+- Cloud and delivery: Azure Container Apps, Managed Redis, PostgreSQL Flexible Server, Blob Storage, Key Vault, Bicep, managed identities, Azure DevOps staging CI and protected release controls; GCP, Docker, CI/CD and monitoring.
+- Education: B.Tech CSE (AI & ML), Amity University Noida, expected July 2027.
+- Completed: NVIDIA DLI Fundamentals of Accelerated Computing with CUDA Python (8 hours); Introduction to Deploying RAG Pipelines for Production at Scale (4 hours); Machine Learning Specialization (Stanford/Coursera); Java Spring Framework 6 with Spring Boot 3 (Udemy); Build and Secure Networks in Google Cloud (Google Cloud Skills Boost); Korea Business Culture Training (KOSME–Amity University, 16 hours, August 2026).
+- Enrolled / in progress: NVIDIA DLI The Art of Compressing LLMs: Pruning, Distillation, and Quantization Demystified.
+
+## Azure Foundry deployment usage
+
+Monitoring window: 25 October–25 November 2026. These are deployment usage totals, not evidence of model training or performance.
+
+- gpt-6-astra: 5.47B total tokens, 49.2K requests, 111,188 average tokens/request.
+- gpt-6.1-sol: 3.81B total tokens, 31.1K requests, 122,462 average tokens/request.
 
 ## Other
 
-- [Resume](https://www.shubham.cv/resume)
+- [Latest one-page résumé](https://www.shubham.cv/Shubham_Gupta_AI_Software_Engineer_Resume.pdf)
 - [Full site](https://www.shubham.cv/) — About, projects, research, skills and experience.

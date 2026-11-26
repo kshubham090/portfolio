@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <div className="footer-brand">Shubham Gupta</div>
-          <p className="footer-tagline">Backend and software development. AI platforms and agentic AI. Noida. Open to engineering opportunities.</p>
+          <p className="footer-tagline">AI engineering, backend software and reliable systems. Azure &amp; GCP. Noida. Open to engineering opportunities.</p>
           <div className="newsletter">
             <input
               type="email"
@@ -56,6 +56,7 @@ export default function Footer() {
             <li><a href="/#about">About</a></li>
             <li><a href="/#projects">Projects</a></li>
             <li><a href="/#skills">Skills</a></li>
+            <li><a href="/#education">Education</a></li>
             <li><a href="/#journey">Journey</a></li>
             <li><a href="/#contact">Contact</a></li>
           </ul>
@@ -63,6 +64,7 @@ export default function Footer() {
         <div>
           <p className="footer-col-title">Projects</p>
           <ul className="footer-links">
+            <li><Link to="/projects/triptalkiez">TripTalkiez / Plaanzy</Link></li>
             <li><Link to="/projects/hunt">HUNT</Link></li>
             <li><Link to="/projects/staffly">Staffly</Link></li>
             <li><Link to="/projects/chakra47">Chakra47</Link></li>
@@ -76,7 +78,7 @@ export default function Footer() {
             <li><a href="https://linkedin.com/in/shubhamgupta04907" target="_blank" rel="noreferrer">LinkedIn</a></li>
             <li><a href="https://github.com/kshubham090" target="_blank" rel="noreferrer">GitHub</a></li>
             <li><a href="https://x.com/skg_curious" target="_blank" rel="noreferrer">X / Twitter</a></li>
-            <li><a href="/resume">Resume PDF</a></li>
+            <li><a href="/Shubham_Gupta_AI_Software_Engineer_Resume.pdf" download>Resume PDF</a></li>
           </ul>
         </div>
       </div>

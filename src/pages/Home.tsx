@@ -4,6 +4,7 @@ import Testimonial from '../components/Testimonial';
 import About from '../components/About';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
+import Education from '../components/Education';
 import Journey from '../components/Journey';
 import Research from '../components/Research';
 import Thoughts from '../components/Thoughts';
@@ -19,6 +20,7 @@ export default function Home() {
       <Projects />
       <Testimonial />
       <Skills />
+      <Education />
       <Suspense fallback={null}>
         <GitHubActivity />
       </Suspense>
