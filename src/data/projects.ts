@@ -31,6 +31,38 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: 'triptalkiez',
+    name: 'TripTalkiez (Plaanzy) — Vehicle Rental Platform',
+    shortName: 'TripTalkiez',
+    tagline: 'Vehicle discovery and owner rental workflows, backed by durable PostgreSQL workers and private Azure infrastructure.',
+    status: 'In development · 2026–Present',
+    category: 'Products',
+    tags: ['Next.js / Express', 'PostgreSQL / Redis', 'Azure / Bicep', 'Azure DevOps'],
+    links: [{ label: 'Visit Trip Talkiez', url: 'https://triptalkiez.com/' }],
+    sections: [
+      {
+        heading: 'What it is',
+        body: [
+          'A vehicle rental platform where travellers discover vehicles and connect with owners. Owner workflows cover listings, enquiries, drivers, booking assignments and rental operations. Plaanzy is the underlying platform; the public site is branded Trip Talkiez.',
+        ],
+      },
+      {
+        heading: 'What I built',
+        body: [
+          'Next.js and TypeScript interfaces backed by Express APIs and PostgreSQL. Separate workers consume durable email, invoice, reconciliation and media jobs; database leases and idempotent retries recover interrupted work. Redis handles shared rate limits and replay protection.',
+          'Bicep infrastructure for Azure Container Apps, private PostgreSQL Flexible Server and Azure Managed Redis, Blob Storage and Key Vault. Managed identities scope runtime access; Azure DevOps runs staging CI with protected release controls.',
+        ],
+      },
+      {
+        heading: 'Isolated Azure API benchmark — 7 November 2026',
+        body: [
+          'A synthetic, approximately five-minute run with three API replicas achieved 12.4K useful API requests/minute, 58 ms p95 and zero failures. The paced workload used fictional owners, listings and bookings; 65,088 useful responses were recorded over 314.853 seconds.',
+          'This measures the tested API workload and configuration, not a production SLA. It excludes real provider calls, media transfer and encoding, frontend rendering and Front Door/WAF throughput.',
+        ],
+      },
+    ],
+  },
+  {
     "slug": "hunt",
     "name": "HUNT — Accounts Receivable",
     "shortName": "HUNT",
@@ -130,7 +162,7 @@ export const projects: Project[] = [
     "slug": "chakra47",
     "name": "Chakra47 — Apps for the Physical World",
     "shortName": "Chakra47",
-    "tagline": "An application and management layer above Linux, RTOS environments and robot controllers.",
+    "tagline": "An application and management platform for physical AI, built above Linux, RTOS environments and robot controllers.",
     "status": "In development",
     "category": "Products",
     "img": "/uploads/47 (3).png",
@@ -143,7 +175,7 @@ export const projects: Project[] = [
     "links": [
       {
         "label": "Visit Chakra47",
-        "url": "https://chakra47.com"
+        "url": "https://www.chakra47.com/"
       },
       {
         "label": "Earlier AgenticSwarm research",
@@ -154,7 +186,8 @@ export const projects: Project[] = [
       {
         "heading": "Apps for the physical world",
         "body": [
-          "Chakra47 is being developed as an application and management layer for physical systems. The direction is to help teams work with applications above the Linux, RTOS and robot-controller software already running on their devices."
+          "Chakra47 is an application and management platform for physical AI in development. The direction includes discovering machine capabilities, installing compatible apps and managing fleets above existing Linux, RTOS and robot-controller software.",
+          "Apps and optional AI models propose bounded tasks; local controllers retain physical authority and interlocks. Compatibility depends on capabilities, permissions, resources and hardware-specific validation."
         ]
       },
       {
@@ -291,7 +324,7 @@ export const projects: Project[] = [
         "heading": "Durability and isolation",
         "body": [
           "PostgreSQL records durable state and graph-update outbox work together. An outbox worker delivers changes to Neo4j, so derived graph updates can recover from interruption rather than depending on an untracked background task.",
-          "Tenant scoping, circuit breakers and Prometheus metrics address access boundaries and service failures. Context retrieval and caching respect request scope; generated-answer quality still needs evaluation for the application using the gateway."
+          "Tenant scoping, atomic Redis rate limits, bounded queues, circuit breakers and Prometheus metrics address access boundaries and service failures. Context retrieval and PostgreSQL response caching respect request scope; generated-answer quality still needs evaluation for the application using the gateway."
         ]
       },
       {

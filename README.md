@@ -1,10 +1,12 @@
 # shubham.cv
 
-Personal portfolio of **Shubham Kumar Gupta**, focused on backend development, software development, AI platform development and agentic AI. MERN, TypeScript, Next.js and frontend tools are presented as a vibe-coding stack for AI-assisted interfaces and full-stack prototypes.
+Personal portfolio of **Shubham Kumar Gupta**, focused on AI engineering, backend software, systems design and reliable cloud services on Azure and GCP.
 
 Live: [www.shubham.cv](https://www.shubham.cv)
 
 ## Current work
+
+- **TripTalkiez (Plaanzy)** — vehicle discovery and owner rental workflows, with PostgreSQL durable workers, Redis and private Azure infrastructure. The dated synthetic API benchmark is scoped to its tested workload.
 
 - **HUNT** — early-access accounts-receivable product. The public demo uses fictional records and scripted conversations.
 - **Staffly** — live staffing MVP with public onboarding and an isolated demo; AI-assisted workflows with human review.
@@ -42,13 +44,21 @@ npm run lint
 ## Content structure
 
 - `src/data/projects.ts` — shared project descriptions, categories, status, links and diagrams.
-- `src/components/` — homepage sections and reusable UI.
+- `src/components/` — homepage sections and reusable UI, including visible education and certifications.
 - `public/llms.txt` — a concise, dated description of current work.
 - `public/sitemap.xml` — public routes, including historical research artifacts.
 - `index.html` — page metadata and structured profile data.
 - `public/uploads/` — existing project artwork.
 
 The project data distinguishes Products, Agent systems, Research and Applications. The current Chakra47 product direction and earlier AgenticSwarm research have separate entries.
+
+## Profile evidence and résumé
+
+Profile copy was refreshed on 26 November 2026 from the latest one-page résumé and current project docs. Education is B.Tech CSE (AI & ML), Amity University Noida, expected July 2027. Completed NVIDIA DLI CUDA Python (8 hours) and production RAG (4 hours) are separate from the enrolled LLM compression course; other completed credentials remain visible.
+
+Azure Foundry figures cover 25 October–25 November 2026 and measure deployment usage only. TripTalkiez's 7 November synthetic API benchmark used three replicas for approximately five minutes: 12.4K useful requests/minute, 58 ms p95, zero failures. It excludes provider calls, media, frontend and edge throughput and is not a production SLA.
+
+The hero and footer download `public/Shubham_Gupta_AI_Software_Engineer_Resume.pdf`. `/resume` redirects to that named PDF; `public/resume.pdf` retains identical bytes for existing direct links. Replace both PDF files together when updating the résumé.
 
 ## VAYAS research paper
 

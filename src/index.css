@@ -458,6 +458,7 @@ li:has(> .timeline-card):hover .timeline-card {
 .skills-list li:hover .skill-arrow { opacity: 1; transform: translateX(4px); }
 
 /* ── JOURNEY ── */
+#education { scroll-margin-top: 56px; }
 .journey-list { list-style: none; }
 .j-row {
   display: grid;
@@ -477,6 +478,11 @@ li:has(> .timeline-card):hover .timeline-card {
 .j-num { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .j-name { font-size: 14px; font-weight: 400; font-family: var(--disp); }
 .j-date { font-size: 12px; color: var(--muted); white-space: nowrap; font-family: var(--body); }
+
+@media (max-width: 600px) {
+  .j-row { grid-template-columns: 22px minmax(0, 1fr); gap: 8px 12px; }
+  .j-date { grid-column: 2; white-space: normal; }
+}
 
 /* ── TESTIMONIAL ── */
 .testimonial-section { padding: 40px var(--gutter); border-top: 1px solid var(--border); }

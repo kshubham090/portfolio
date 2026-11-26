@@ -10,10 +10,11 @@ export default function Hero() {
         <div className="hero-text">
           <h1 className="hero-title">Shubham Kumar Gupta</h1>
           <p className="hero-sub">
-            Backend development is my main focus. I build software, AI platforms and agentic AI systems, from APIs and data services to inference infrastructure and agent tooling.
+            I build AI and backend software, from reliable APIs and data systems to RAG pipelines, inference infrastructure and agent evaluation. My work spans Azure, GCP and systems designed to recover from failure.
           </p>
           <div className="hero-cta-row">
             <button className="pill-btn" onClick={() => setConnectOpen(true)}>Let's connect →</button>
+            <a className="pill-btn" href="/Shubham_Gupta_AI_Software_Engineer_Resume.pdf" download>Download résumé →</a>
           </div>
         </div>
         <div className="hero-photo">
